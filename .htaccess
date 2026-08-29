@@ -1,0 +1,10 @@
+# 마이코어12(MYCORE12) SPA fallback (Apache / cPanel 계열 호스팅)
+# /result/:id 같은 딥링크를 새로고침해도 index.html 이 서빙되도록 한다.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
