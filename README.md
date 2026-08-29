@@ -59,25 +59,31 @@ location / {
 브라우저가 `/assets/...` 를 찾다가 404가 나고 **화면이 비어 보입니다.**
 
 ```bash
-npm run build:gh
-```
-
-저장소 이름을 지정할 필요가 없습니다. 이 스크립트가 GitHub Pages 의 두 가지
+npm run build:gh                  # base = /mycore12/
+REPO=저장소이름 npm run build:gh   # 저장소 이름이 다를 때
+``` 이 스크립트가 GitHub Pages 의 두 가지
 제약을 함께 우회합니다.
 
 | 제약 | 대응 |
 |---|---|
-| 저장소 이름이 하위 경로가 됨 | 에셋을 `./assets/...` 상대경로로 빌드 — 어느 폴더에 올려도 동작 |
-| `_redirects` 등 rewrite 미지원 | HashRouter 사용 (`/mycore12/#/result/…`) + `404.html` 생성 |
+| 저장소 이름이 하위 경로가 됨 | base 를 `/mycore12/` **절대경로**로 빌드 |
+| `_redirects` 등 rewrite 미지원 | HashRouter 사용 (`/mycore12/#/result/…`) |
+| 예전 주소로 들어오는 경우 | `404.html` 을 base 로 보내는 리다이렉트 페이지로 생성 |
 | `_` 로 시작하는 파일 무시 | `.nojekyll` 생성 |
+
+> **상대경로(`./`)를 쓰면 안 됩니다.** 진입 URL 깊이에 따라 에셋 위치가 달라져
+> 흰 화면이 됩니다.
+> `/mycore12/` → `/mycore12/assets/…` (정상) ·
+> `/mycore12` → `/assets/…` (404) ·
+> `/mycore12/result/abc` → `/mycore12/result/assets/…` (404)
 
 빌드 후 **`dist/` 폴더의 내용물**(폴더 자체가 아니라 그 안의
 `index.html`, `assets/`, `404.html`, `.nojekyll` 등)을 `gh-pages` 브랜치 또는
 Pages 소스 폴더에 올리면 됩니다.
 
-배포가 반영됐는지 확인하는 방법: 페이지 소스에서 `<script src="./assets/...">`
-처럼 **`./` 로 시작**하면 새 빌드입니다. `/assets/` 로 시작하면 아직 예전
-빌드가 올라가 있는 것입니다.
+배포가 반영됐는지 확인하는 방법: 페이지 소스의 스크립트 경로가
+`<script src="/mycore12/assets/...">` 처럼 **저장소 이름을 포함한 절대경로**여야
+합니다. `./assets/` 나 `/assets/` 로 시작하면 잘못된 빌드입니다.
 
 권장 서버 헤더: `assets/*` 는 장기 캐시(immutable), `index.html` 은 `no-cache`.
 
