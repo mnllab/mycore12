@@ -46,7 +46,7 @@ export default function How() {
 
       <div style={{ marginTop: 40 }}>
         <button className="btn btn-primary" onClick={() => navigate("/assessment")}>
-          마이코어12 시작하기
+          검사시작
         </button>
       </div>
 
