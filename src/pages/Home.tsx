@@ -33,7 +33,7 @@ export default function Home() {
                 className="btn btn-primary"
                 onClick={() => navigate("/assessment")}
               >
-                {activeSession ? "이어서 진행하기" : `${BRAND.nameKo} 시작하기`}
+                {activeSession ? "이어서 진행하기" : `검사시작`}
               </button>
               <Link className="btn btn-secondary" to="/how">
                 검사 방식 알아보기
