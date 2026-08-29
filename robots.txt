@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mycore12.com/sitemap.xml
