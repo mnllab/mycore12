@@ -61,7 +61,7 @@ export default function Result() {
             : "이 기기에 저장된 해당 결과가 없습니다. 새 검사를 시작해 보세요."}
         </p>
         <Link className="btn btn-primary" to="/assessment">
-          마이코어12 시작하기
+          검사시작
         </Link>
       </main>
     );
