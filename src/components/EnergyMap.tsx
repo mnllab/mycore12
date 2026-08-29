@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { AXES, ENERGY_RING_ORDER, ENERGY_TO_AXIS } from "../lib/mycore12";
 import { useI18n } from "../i18n/useI18n";
+import { chartScale, labelPlacement, nodeScale, viewBoxPad } from "./energyRingLabels";
 
 /**
  * 마이코어12(MYCORE12) 12 Energy Map.
@@ -25,12 +26,16 @@ export default function EnergyMap({
   energyScores: Record<string, number>;
   animate?: boolean;
 }) {
-  const { t, fill, energy: energyLabel, axis: axisLabel } = useI18n();
+  const { locale, t, fill, energy: energyLabel, axis: axisLabel } = useI18n();
   const size = 468;
   const c = size / 2;
-  const rOuter = 166;
-  const rLabel = 200;
-  const rMin = 28; // 0점도 중앙에 뭉치지 않게 하는 시각적 최소 반경
+  // 영어는 라벨이 길어 본체(외곽 12각형·데이터 다각형)를 줄이고
+  // 그만큼 확보된 바깥 여백을 라벨 안전 영역으로 쓴다
+  const scale = chartScale(locale);
+  const rOuter = 166 * scale;
+  const rMin = 28 * scale; // 0점도 중앙에 뭉치지 않게 하는 시각적 최소 반경
+  const nodeR = nodeScale(locale);
+  const pad = viewBoxPad(locale);
   const [active, setActive] = useState<string | null>(null);
 
   const nodes = useMemo(
@@ -40,19 +45,22 @@ export default function EnergyMap({
         const score = energyScores[energy] ?? 0;
         const r = rMin + ((rOuter - rMin) * score) / 100;
         const axis = ENERGY_TO_AXIS[energy];
+        const place = labelPlacement(i, energy, locale);
+        const rLabel = rOuter * place.radiusRatio;
         return {
           energy,
           score,
           axis,
+          place,
           x: c + r * Math.cos(angle),
           y: c + r * Math.sin(angle),
           ox: c + rOuter * Math.cos(angle),
           oy: c + rOuter * Math.sin(angle),
-          lx: c + rLabel * Math.cos(angle),
-          ly: c + rLabel * Math.sin(angle)
+          lx: c + rLabel * Math.cos(angle) + place.dx,
+          ly: c + rLabel * Math.sin(angle) + place.dy
         };
       }),
-    [energyScores]
+    [energyScores, locale, rOuter, rMin]
   );
 
   const r50 = rMin + (rOuter - rMin) * 0.5;
@@ -61,7 +69,7 @@ export default function EnergyMap({
   return (
     <figure style={{ margin: 0, width: "100%" }}>
       <svg
-        viewBox={`0 0 ${size} ${size}`}
+        viewBox={`${-pad} ${-pad} ${size + pad * 2} ${size + pad * 2}`}
         role="img"
         aria-labelledby="emap-title emap-desc"
         onMouseLeave={() => setActive(null)}
@@ -148,12 +156,12 @@ export default function EnergyMap({
             <circle
               cx={n.x}
               cy={n.y}
-              r={active === n.energy ? 11 : 9}
+              r={(active === n.energy ? 11 : 9) * nodeR}
               fill="var(--color-surface)"
               stroke={energyColor(n.energy)}
               strokeWidth={2}
             />
-            <circle cx={n.x} cy={n.y} r={3.4} fill={energyColor(n.energy)} />
+            <circle cx={n.x} cy={n.y} r={3.4 * nodeR} fill={energyColor(n.energy)} />
           </g>
         ))}
 
@@ -163,7 +171,7 @@ export default function EnergyMap({
             key={`m-${n.energy}`}
             cx={n.ox}
             cy={n.oy}
-            r={3}
+            r={3 * nodeR}
             fill={energyColor(n.energy)}
             opacity={0.85}
           />
@@ -175,9 +183,9 @@ export default function EnergyMap({
             key={`l-${n.energy}`}
             x={n.lx}
             y={n.ly}
-            textAnchor="middle"
+            textAnchor={n.place.anchor}
             dominantBaseline="middle"
-            fontSize={18}
+            fontSize={locale === "en" ? 16 : 18}
             fontWeight={active === n.energy ? 600 : 500}
             letterSpacing={-0.3}
             fill={active === n.energy ? energyColor(n.energy) : "var(--color-text-secondary)"}

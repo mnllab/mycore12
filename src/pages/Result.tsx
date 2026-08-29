@@ -15,6 +15,7 @@ import {
   Briefcase, Clock, Compass, FileText, Layers, ListChecks, MessageCircle,
   RefreshCw, Scale, Sparkles, TrendingUp, Users
 } from "../components/icons";
+import ResultDownload from "../components/ResultDownload";
 import { useI18n } from "../i18n/useI18n";
 import { localizeType } from "../i18n/content";
 import { dropSentences, sentenceSet, splitOverview } from "../i18n/display";
@@ -418,6 +419,7 @@ export default function Result() {
             <Link className="btn btn-secondary" to="/history">
               {t.result.history}
             </Link>
+            <ResultDownload stored={stored} />
             <button className="btn-text" onClick={removeThis}>
               {t.result.delete}
             </button>

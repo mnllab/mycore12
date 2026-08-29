@@ -180,7 +180,13 @@
     "typeData": "Type data v{version}",
     "validationNote": "This result describes relative preferences and is intended for self-understanding. Medical and psychological diagnosis should be based on professional assessment and consultation. The item content has been reviewed, and sample-based psychometric validation is planned.",
     "balancedAria": "{axis} axis: balanced point, {pair} are used at about the same level (50 to 50)",
-    "axisAria": "{axis} axis: {pole1} {score1}, {pole0} {score0}"
+    "axisAria": "{axis} axis: {pole1} {score1}, {pole0} {score0}",
+    "download": "Download Result",
+    "downloadAria": "Choose a download format",
+    "downloadKo": "Korean",
+    "downloadEn": "English",
+    "downloadMd": "Markdown (.md)",
+    "downloadTxt": "Text (.txt)"
   },
   "history": {
     "title": "My Assessment History",

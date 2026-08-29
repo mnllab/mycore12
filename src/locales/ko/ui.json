@@ -180,7 +180,13 @@
     "typeData": "유형 데이터 v{version}",
     "validationNote": "이 결과는 능력의 총량이나 사람 사이의 순서를 뜻하지 않으며, 임상적 판단 도구가 아닌 자기이해를 돕는 성향 프로파일입니다. 문항은 내용 감수를 마쳤고 실제 표본 기반 심리측정 검증은 진행 예정입니다.",
     "balancedAria": "{axis}축: {pair}를 비슷하게 쓰는 균형 지점 (50 대 50)",
-    "axisAria": "{axis}축: {pole1} {score1}, {pole0} {score0}"
+    "axisAria": "{axis}축: {pole1} {score1}, {pole0} {score0}",
+    "download": "결과 다운로드",
+    "downloadAria": "결과 다운로드 형식 선택",
+    "downloadKo": "한국어",
+    "downloadEn": "English",
+    "downloadMd": "Markdown (.md)",
+    "downloadTxt": "텍스트 (.txt)"
   },
   "history": {
     "title": "내 검사 기록",
