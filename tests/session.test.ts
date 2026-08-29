@@ -97,9 +97,9 @@ describe("21·22·23. 결과 저장·조회·삭제", () => {
     expect(r.typePersonaName.length).toBeGreaterThan(0);
     expect(Object.keys(r.energyScores).length).toBe(12);
     expect(Object.values(r.energyScores).reduce((a, b) => a + b, 0)).toBeCloseTo(600, 6);
-    expect(r.bankVersion).toBe("3.1-operational-final");
+    expect(r.bankVersion).toBe("3.2.1-blind-review");
     expect(r.engineVersion).toBe("FINAL_v3.1");
-    expect(r.typeDatasetVersion).toBe("2.1");
+    expect(r.typeDatasetVersion).toBe("3.0");
     expect(r.questionIds.length).toBe(36);
     expect(mod.getActiveSession()).toBeNull(); // 완료 후 세션 종료
   });
@@ -161,6 +161,21 @@ describe("24. 손상 데이터 처리", () => {
 
     const oldBank = { ...base, bankVersion: "0.9-legacy" };
     store.set(K_SESSION, JSON.stringify(oldBank));
+    expect(mod.getActiveSession()).toBeNull();
+  });
+
+  it("데이터 버전이 다른 세션은 복원하지 않고 새 검사로 시작한다", () => {
+    const s = mod.startNewSession();
+    // 이전 빌드에서 저장된 세션 상황을 재현
+    store.set(K_SESSION, JSON.stringify({ ...s, bankVersion: "3.1-operational-final" }));
+
+    expect(mod.getActiveSession()).toBeNull();
+    expect(mod.startNewSession().questionIds).toHaveLength(36);
+  });
+
+  it("문항 구성이 다른 알 수 없는 버전 세션은 복원하지 않는다", () => {
+    const s = mod.startNewSession();
+    store.set(K_SESSION, JSON.stringify({ ...s, bankVersion: "0.9-legacy" }));
     expect(mod.getActiveSession()).toBeNull();
   });
 

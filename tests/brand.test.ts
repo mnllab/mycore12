@@ -22,18 +22,6 @@ const { BRAND } = await import("../src/lib/mycore12");
 const ROOT = join(__dirname, "..");
 const read = (p: string) => readFileSync(join(ROOT, p), "utf8");
 
-/** LEGACY ONLY — 구 브랜드 시절 key (migration 검증 전용) */
-const LEGACY_CORE12_KEYS = {
-  session: "core12.activeSession.v1",
-  recent: "core12.recentQuestionIds.v1",
-  results: "core12.results.v1"
-};
-const NEXT = {
-  session: "mycore12.activeSession.v1",
-  recent: "mycore12.recentQuestionIds.v1",
-  results: "mycore12.results.v1"
-};
-
 describe("브랜드 상수", () => {
   it("공식 표기가 한 곳에서 정의된다", () => {
     expect(BRAND.nameKo).toBe("마이코어12");
@@ -43,7 +31,7 @@ describe("브랜드 상수", () => {
     expect(BRAND.tagline).toBe("나를 이루는 12가지 에너지");
     expect(BRAND.descriptor).toBe("6축 기반 성향 프로파일");
     expect(BRAND.copyright).toBe("© Janggil Kim. All Rights Reserved.");
-    expect(BRAND.copyrightKo).toBe("무단 복제 및 재배포를 금지합니다.");
+    expect(BRAND.copyrightKo).toBe("저작권자의 허락 없이 무단 복제 및 재배포를 금지합니다.");
   });
 
   it("비공식 영문 표기를 사용하지 않는다", () => {
@@ -77,7 +65,7 @@ describe("브랜드 상수", () => {
     }
   });
 
-  it("앱 소스에 기존 브랜드가 남아 있지 않다 (legacy migration 코드 제외)", () => {
+  it("앱 소스에 기존 브랜드가 남아 있지 않다 (정리 대상 key 정의 제외)", () => {
     const collect = (dir: string): string[] =>
       readdirSync(join(ROOT, dir)).flatMap(n => {
         const rel = `${dir}/${n}`;
@@ -96,154 +84,92 @@ describe("브랜드 상수", () => {
     for (const line of storageSrc.split("\n")) {
       if (!/core12/i.test(line)) continue;
       if (/MYCORE12|mycore12/.test(line)) continue;
-      expect(/LEGACY|legacy|이전 버전|브랜드 변경/.test(line), `legacy 표시 없음: ${line.trim()}`).toBe(true);
+      expect(/정리 대상|구 브랜드|legacy/i.test(line), `용도 표시 없음: ${line.trim()}`).toBe(true);
     }
   });
 });
 
-describe("storage key 마이그레이션", () => {
+describe("로컬 데이터 초기화 (테스트 단계 정책)", () => {
   beforeEach(() => store.clear());
 
-  it("기존 core12.* 데이터를 값 변형 없이 mycore12.* 로 이전한다", () => {
-    const legacyResults = JSON.stringify([
-      {
-        sessionId: "legacy-1",
-        completedAt: "2026-01-02T03:04:05.000Z",
-        questionIds: ["AS-D01"],
-        answers: { "AS-D01": 2 },
-        code: "1-0-1-0-1-0",
-        preferredEnergies: ["추진", "자율", "창의", "통합", "공감", "유연"],
-        energyScores: { 추진: 68, 숙고: 32 },
-        typePersonaName: "기존 결과",
-        bankVersion: "3.1-operational-final",
-        engineVersion: "FINAL_v3.1",
-        typeDatasetVersion: "2.1"
-      }
-    ]);
-    store.set(LEGACY_CORE12_KEYS.results, legacyResults);
-    store.set(LEGACY_CORE12_KEYS.recent, JSON.stringify([["AS-D01"]]));
-
-    const report = storage.migrateLegacyStorage();
-
-    expect(report.migrated).toContain(LEGACY_CORE12_KEYS.results);
-    expect(report.migrated).toContain(LEGACY_CORE12_KEYS.recent);
-    // 값이 그대로 보존된다
-    expect(store.get(NEXT.results)).toBe(legacyResults);
-    // 기존 key는 정리된다
-    expect(store.has(LEGACY_CORE12_KEYS.results)).toBe(false);
-    expect(store.has(LEGACY_CORE12_KEYS.recent)).toBe(false);
-
-    // 과거 결과의 응답·점수·유형코드가 그대로 열린다
-    const loaded = storage.getResult("legacy-1")!;
-    expect(loaded.code).toBe("1-0-1-0-1-0");
-    expect(loaded.answers["AS-D01"]).toBe(2);
-    expect(loaded.energyScores["추진"]).toBe(68);
-    expect(loaded.typePersonaName).toBe("기존 결과");
-    expect(loaded.typeDatasetVersion).toBe("2.1");
-    expect(storage.getRecentQuestionIds()).toEqual(["AS-D01"]);
-  });
-
-  it("신규 key가 이미 있으면 덮어쓰지 않는다", () => {
-    store.set(NEXT.results, JSON.stringify([{ sessionId: "new" }]));
-    store.set(LEGACY_CORE12_KEYS.results, JSON.stringify([{ sessionId: "old" }]));
-
-    const report = storage.migrateLegacyStorage();
-
-    expect(report.skipped).toContain(LEGACY_CORE12_KEYS.results);
-    expect(JSON.parse(store.get(NEXT.results)!)[0].sessionId).toBe("new");
-    expect(store.has(LEGACY_CORE12_KEYS.results)).toBe(false);
-  });
-
-  it("진행 중이던 세션도 이전되어 같은 36문항으로 이어진다", () => {
-    const session = storage.startNewSession();
-    const ids = [...session.questionIds];
-    session.currentIndex = 7;
-    session.answers[ids[0]] = 5;
-    storage.saveSession(session);
-    // 신규 저장을 legacy 상태로 되돌려 이전 버전 사용자 상황을 재현한다
-    store.set(LEGACY_CORE12_KEYS.session, store.get(NEXT.session)!);
-    store.delete(NEXT.session);
-
-    storage.migrateLegacyStorage();
-
-    const restored = storage.getActiveSession()!;
-    expect(restored.questionIds).toEqual(ids);
-    expect(restored.currentIndex).toBe(7);
-    expect(restored.answers[ids[0]]).toBe(5);
-  });
-
-  it("신규 데이터만 있는 사용자는 영향을 받지 않는다", () => {
-    const s = storage.startNewSession();
-    const ids = [...s.questionIds];
-    for (const q of storage.questionsOf(s)) s.answers[q.id] = 4;
-    const r = storage.completeSession(s);
-    const before = new Map(store);
-
-    const report = storage.migrateLegacyStorage();
-
-    expect(report.migrated).toEqual([]);
-    expect(report.skipped).toEqual([]);
-    expect([...store.entries()]).toEqual([...before.entries()]);
-    expect(storage.getResult(r.sessionId)!.code).toBe(r.code);
-    expect(storage.getResult(r.sessionId)!.questionIds).toEqual(ids);
-  });
-
-  it("legacy 데이터가 손상돼 있어도 앱이 죽지 않는다", () => {
-    store.set(LEGACY_CORE12_KEYS.results, "{깨진 JSON");
-    store.set(LEGACY_CORE12_KEYS.session, "null");
-
-    expect(() => storage.migrateLegacyStorage()).not.toThrow();
-
-    // 손상 값은 그대로 옮겨지되, 읽기 계층이 안전하게 방어한다
-    expect(storage.getResults()).toEqual([]);
-    expect(storage.getActiveSession()).toBeNull();
-    expect(storage.getLatestResult()).toBeNull();
-    // 이후 새 검사는 정상 동작한다
-    const fresh = storage.startNewSession();
-    expect(fresh.questionIds).toHaveLength(36);
-  });
-
-  it("legacy 세션의 문항 ID가 유효하지 않으면 새 검사로 시작한다", () => {
-    const s = storage.startNewSession();
-    s.questionIds[3] = "NOT-A-REAL-ID";
-    store.set(LEGACY_CORE12_KEYS.session, JSON.stringify(s));
-    store.delete("mycore12.activeSession.v1");
-
-    storage.migrateLegacyStorage();
-
-    expect(storage.getActiveSession()).toBeNull();
-    expect(storage.startNewSession().questionIds).toHaveLength(36);
-  });
-
-  it("빈 상태에서 migration 후 정상 동작한다", () => {
-    storage.migrateLegacyStorage();
-    expect(storage.getResults()).toEqual([]);
-    expect(storage.getActiveSession()).toBeNull();
-    expect(storage.getRecentQuestionIds()).toEqual([]);
-    const s = storage.startNewSession();
-    expect(s.questionIds).toHaveLength(36);
-  });
-
-  it("legacy 데이터가 없으면 아무 것도 하지 않는다", () => {
-    const report = storage.migrateLegacyStorage();
-    expect(report.migrated).toEqual([]);
-    expect(report.skipped).toEqual([]);
-  });
-
   it("신규 저장은 항상 mycore12 key를 사용한다", () => {
+    storage.resetStaleLocalData();
     const s = storage.startNewSession();
     for (const q of storage.questionsOf(s)) s.answers[q.id] = 3;
     storage.completeSession(s);
-    expect(store.has(NEXT.results)).toBe(true);
-    expect(store.has(NEXT.recent)).toBe(true);
     expect([...store.keys()].every(k => k.startsWith("mycore12."))).toBe(true);
   });
 
-  it("내 결과 삭제가 legacy key까지 정리한다", () => {
-    store.set(LEGACY_CORE12_KEYS.results, "[]");
-    store.set(NEXT.results, "[]");
+  it("첫 실행이면 버전 지문을 기록한다", () => {
+    const r = storage.resetStaleLocalData();
+    expect(r.reset).toBe(true);
+    expect(r.from).toBeNull();
+    expect(store.get("mycore12.dataVersion")).toContain("3.2.1-blind-review");
+  });
+
+  it("같은 버전에서는 데이터를 건드리지 않는다", () => {
+    storage.resetStaleLocalData();
+    const s = storage.startNewSession();
+    for (const q of storage.questionsOf(s)) s.answers[q.id] = 2;
+    const result = storage.completeSession(s);
+    const before = new Map(store);
+
+    const r = storage.resetStaleLocalData();
+
+    expect(r.reset).toBe(false);
+    expect([...store.entries()]).toEqual([...before.entries()]);
+    expect(storage.getResult(result.sessionId)!.code).toBe(result.code);
+  });
+
+  it("데이터 버전이 바뀌면 세션·이력만 정리하고 완료 결과는 보존한다", () => {
+    storage.resetStaleLocalData();
+    const s = storage.startNewSession();
+    for (const q of storage.questionsOf(s)) s.answers[q.id] = 5;
+    storage.completeSession(s);
+    expect(storage.getResults()).toHaveLength(1);
+
+    // 이전 빌드에서 저장된 상태를 재현
+    store.set("mycore12.dataVersion", "3.1-operational-final|FINAL_v3.1|2.1");
+
+    const r = storage.resetStaleLocalData();
+
+    expect(r.reset).toBe(true);
+    expect(r.from).toBe("3.1-operational-final|FINAL_v3.1|2.1");
+    // 완료 결과는 자기 버전을 가진 독립 스냅숏이므로 보존한다
+    expect(storage.getResults()).toHaveLength(1);
+    expect(storage.getActiveSession()).toBeNull();
+    expect(storage.getRecentQuestionIds()).toEqual([]);
+    // 초기화 후 바로 정상 동작한다
+    expect(storage.startNewSession().questionIds).toHaveLength(36);
+  });
+
+  it("구 브랜드 시절 잔여 key도 함께 정리한다 (값을 옮기지 않는다)", () => {
+    store.set("core12.results.v1", JSON.stringify([{ sessionId: "old" }]));
+    store.set("core12.activeSession.v1", "{}");
+    store.set("core12.recentQuestionIds.v1", "[]");
+
+    storage.resetStaleLocalData();
+
+    expect(store.has("core12.results.v1")).toBe(false);
+    expect(store.has("core12.activeSession.v1")).toBe(false);
+    expect(store.has("core12.recentQuestionIds.v1")).toBe(false);
+    expect(storage.getResults()).toEqual([]);
+  });
+
+  it("내 결과 삭제는 검사 데이터만 지우고 버전 지문은 남긴다", () => {
+    storage.resetStaleLocalData();
+    const s = storage.startNewSession();
+    for (const q of storage.questionsOf(s)) s.answers[q.id] = 3;
+    storage.completeSession(s);
+
     storage.deleteAllLocalData();
-    expect([...store.keys()]).toEqual([]);
+
+    expect(storage.getResults()).toEqual([]);
+    expect(storage.getActiveSession()).toBeNull();
+    expect(storage.getRecentQuestionIds()).toEqual([]);
+    // 지문이 남아 있어 다음 실행에서 불필요한 초기화가 일어나지 않는다
+    expect(store.has("mycore12.dataVersion")).toBe(true);
+    expect(storage.resetStaleLocalData().reset).toBe(false);
   });
 });
 

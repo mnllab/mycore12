@@ -4,7 +4,7 @@
 웹앱 · React + TypeScript + Vite (SPA)
 
 © Janggil Kim. All Rights Reserved.
-무단 복제 및 재배포를 금지합니다.
+저작권자의 허락 없이 무단 복제 및 재배포를 금지합니다.
 
 ---
 
@@ -25,6 +25,29 @@ npm run preview   # 빌드 결과 로컬 확인 → http://localhost:4173
 
 > `dist/index.html` 을 파일 탐색기에서 직접 열면(`file://`) 빈 화면이 나옵니다.
 > 반드시 `npm run dev`, `npm run preview` 또는 웹 서버로 접속하세요.
+
+## 배포 방식 (고정)
+
+**기본 배포는 단일 파일이다.** 버전업 때마다 아래 두 파일만 만들어 전달한다.
+
+```
+dist-single/index.html   ← 앱 전체가 인라인된 자기완결형 파일
+dist-single/404.html     ← 같은 내용의 복사본
+```
+
+```bash
+npm run build:single
+```
+
+- 외부 에셋 요청 0건 → 폴더 위치·저장소 이름·슬래시 유무와 무관하게 동작
+- HashRouter 사용 → 서버 rewrite 설정 불필요
+- `file://` 로 더블클릭해도 동작하므로 업로드 전 사전 확인 가능
+
+전달할 때는 **index.html 과 404.html 만** 준다. assets 폴더나 zip 구조를 만들지
+않는다. 사용자는 GitHub 웹 UI 의 Upload files 로 덮어쓰기만 한다.
+
+> `npm run build:gh`(분할 빌드)는 보관용이며, 명시적으로 요청될 때만 사용한다.
+> 분할 빌드는 에셋 경로가 배포 위치에 의존해 흰 화면을 유발한 이력이 있다.
 
 ## 배포 시 환경 설정
 

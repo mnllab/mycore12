@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { BRAND } from "../lib/mycore12";
 import { deleteAllLocalData } from "../lib/storage";
+import { FileText, Shield, Trash } from "./icons";
 
 export function SiteHeader() {
   return (
@@ -16,6 +17,23 @@ export function SiteHeader() {
         </nav>
       </div>
     </header>
+  );
+}
+
+/**
+ * 검사 화면처럼 네비게이션을 최소화해야 하는 화면용 저작권 표기.
+ * 링크 없이 저작권 문구만 조용히 노출한다.
+ */
+export function MiniFooter() {
+  return (
+    <footer className="mini-footer">
+      <div className="shell">
+        <span>{BRAND.lockup}</span>
+        <span>
+          {BRAND.copyright} {BRAND.copyrightKo}
+        </span>
+      </div>
+    </footer>
   );
 }
 
@@ -37,7 +55,7 @@ export function SiteFooter() {
       <div className="shell grid">
         <div>
           <div className="brandline">{BRAND.lockup}</div>
-          <div className="tag">{BRAND.tagline}</div>
+          <div className="tag-line">{BRAND.tagline}</div>
           <div className="legal">
             {BRAND.copyright}
             <br />
@@ -45,9 +63,16 @@ export function SiteFooter() {
           </div>
         </div>
         <nav className="links" aria-label="안내 메뉴">
-          <Link to="/how">검사 원리</Link>
-          <Link to="/privacy">개인정보 · 로컬저장 안내</Link>
+          <Link to="/how">
+            <FileText />
+            검사 원리
+          </Link>
+          <Link to="/privacy">
+            <Shield />
+            개인정보 · 로컬저장 안내
+          </Link>
           <button type="button" onClick={onDeleteAll}>
+            <Trash />
             내 결과 삭제
           </button>
         </nav>

@@ -10,7 +10,7 @@ import {
   scoreAssessment
 } from "../src/vendor/positive_assessment_engine_FINAL_v3.1.js";
 import { POSITIVE_QUESTION_BANK } from "../src/vendor/positive_144_situational_question_bank_FINAL_v3.1.js";
-import typeDataset from "../src/data/positive_64_type_dataset_bundle_v2.1.json";
+import typeDataset from "../src/data/MYCORE12_64_type_dataset_v3.0.json";
 import bankJson from "../src/data/positive_144_situational_question_bank_FINAL_v3.1.json";
 import { spreadByAxis, countAdjacentSameAxis } from "../src/lib/ordering";
 import { publicInterpretationNote } from "../src/lib/mycore12";
@@ -44,7 +44,7 @@ describe("1. 144문항 원본 로드", () => {
 describe("2. 64유형 원본 로드", () => {
   it("원본 JSON을 import하며 64유형·고유 code·전체 코드공간을 커버한다", () => {
     expect(src("src/lib/mycore12.ts")).toContain(
-      "../data/positive_64_type_dataset_bundle_v2.1.json"
+      "../data/MYCORE12_64_type_dataset_v3.0.json"
     );
     expect(TYPES.length).toBe(64);
     const codes = new Set(TYPES.map(t => t.code));
@@ -284,7 +284,13 @@ describe("원본 Source of Truth 무결성", () => {
     "src/data/positive_64_type_dataset_bundle_v2.1.json":
       "2a5a8e43c670c28bc6476c3d0d57249476a167a6b7dd29ba18398f7678eac756",
     "src/data/positive_144_situational_question_bank_FINAL_v3.1.json":
-      "b3101002d20750771e935a48a866b22a451e7bfa848152de1f43075f727b69e0"
+      "b3101002d20750771e935a48a866b22a451e7bfa848152de1f43075f727b69e0",
+    // v3.0 = 정식 운영 결과 콘텐츠 (2026-08-29 전수 개편, 앱이 import하는 파일)
+    "src/data/MYCORE12_64_type_dataset_v3.0.json":
+      "2c311cbf8c17522e9c4b480535ac9561e77277ec7ac6ab6e84c27035d574135e",
+    // v2.2 = v2.1에서 personaName(및 본문 내 이름 표기)만 확정 개편한 파생본 — 2026-08-29
+    "src/data/positive_64_type_dataset_bundle_v2.2.json":
+      "a26be6a44c602e5934020f5b74e5d1cda48f9e4cd2b2da9770dad4bfea065f62"
   };
 
   it("엔진·문항은행·유형 데이터가 원본과 바이트 단위로 동일하다", () => {

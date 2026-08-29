@@ -23,13 +23,13 @@ export default class ErrorBoundary extends Component<
   render() {
     if (!this.state.error) return this.props.children;
     return (
-      <main className="shell how">
+      <main className="shell static-page">
         <h2>화면을 불러오지 못했어요</h2>
-        <p style={{ color: "var(--ink-2)", maxWidth: 620 }}>
+        <p style={{ color: "var(--color-text-secondary)", maxWidth: 620 }}>
           진행 중인 검사 데이터를 읽는 중 문제가 발생했습니다. 아래 버튼으로
           검사를 새로 시작하면 정상적으로 이용할 수 있어요.
         </p>
-        <p style={{ color: "var(--ink-2)", fontSize: 13 }}>
+        <p style={{ color: "var(--color-text-secondary)", fontSize: 13 }}>
           {this.state.error.message}
         </p>
         <button
@@ -41,7 +41,7 @@ export default class ErrorBoundary extends Component<
         >
           처음 화면으로 이동
         </button>
-        <p style={{ color: "var(--ink-2)", fontSize: 13, marginTop: 28 }}>
+        <p style={{ color: "var(--color-text-secondary)", fontSize: 13, marginTop: 28 }}>
           {BRAND.copyright} {BRAND.copyrightKo}
         </p>
       </main>

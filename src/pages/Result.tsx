@@ -5,19 +5,28 @@ import PairBars from "../components/PairBars";
 import {
   AXES,
   BRAND,
-  PAIR_FAMILY,
   matchType,
   publicInterpretationNote,
   type ProfileType,
   type ScoreResult
 } from "../lib/mycore12";
 import { clearActiveSession, deleteResult, getResult } from "../lib/storage";
+import {
+  Briefcase, Clock, Compass, FileText, Layers, ListChecks, MessageCircle,
+  RefreshCw, Scale, Sparkles, TrendingUp, Users
+} from "../components/icons";
 
-/** 섹션 라벨 — 반복 카드 대신 번호와 규칙선으로 리듬을 만든다 */
-function Eyebrow({ idx, children }: { idx: string; children: React.ReactNode }) {
+/** 섹션 라벨 — 단일 라인 아이콘 + 짧은 라벨 */
+function Eyebrow({
+  icon: Icon,
+  children
+}: {
+  icon: (p: { size?: number }) => JSX.Element;
+  children: React.ReactNode;
+}) {
   return (
     <p className="eyebrow">
-      <span className="idx">{idx}</span>
+      <Icon />
       <span>{children}</span>
     </p>
   );
@@ -66,7 +75,45 @@ export default function Result() {
     axisResults: stored.axisResults
   };
 
-  const overviewExcerpt = matched.overview.split(". ").slice(0, 3).join(". ") + ".";
+  // overview를 두 문단으로 분할: [행동·강점 서술] / [에너지 조합 설명과 성장 방향]
+  const sigIdx = matched.overview.indexOf("이런 모습을 만드는");
+  const overviewLead = sigIdx > 0 ? matched.overview.slice(0, sigIdx).trim() : matched.overview;
+  const overviewRest = sigIdx > 0 ? matched.overview.slice(sigIdx).trim() : "";
+  // 강점 항목: 첫 문장을 핵심 문장(lead)으로, 나머지를 설명으로 분리 표시
+  const splitLead = (s: string): [string, string] => {
+    const parts = s.split(/(?<=\.)\s+/);
+    return [parts[0], parts.slice(1).join(" ")];
+  };
+
+  /**
+   * 표시 단계 중복 정리.
+   *
+   * 데이터셋은 필드마다 완결된 설명을 담고 있어(Source of Truth) 같은 문장이
+   * 여러 필드에 들어간다. 한 페이지에서 이어 읽으면 같은 문장을 두세 번 만나므로,
+   * 데이터는 그대로 두고 화면에서만 앞서 나온 문장을 생략한다.
+   */
+  const toSentences = (s: string) =>
+    s.split(/(?<=[.?])\s+/).map(x => x.trim()).filter(Boolean);
+  const strengthSentences = new Set(matched.strengths.flatMap(toSentences));
+  const dropSeen = (text: string) =>
+    toSentences(text).filter(s => !strengthSentences.has(s)).join(" ");
+
+  // 강점 섹션에 이미 나온 문장은 개요·팀 문단에서 생략한다
+  const overviewLeadShown = dropSeen(overviewLead);
+  const teamContributionShown = dropSeen(matched.teamContribution);
+  // "함께 살펴볼 장면"에 이미 나온 항목은 "강점이 너무 앞설 때"에서 생략한다
+  const struggleShown = new Set(matched.collaborationGuide.mayStruggleWhen);
+  // 마지막 항목은 목록이 아니라 섹션 안내문이라 도입부로 올린다
+  const cautionItems = matched.cautions.filter(c => !struggleShown.has(c));
+  const cautionNote = cautionItems[cautionItems.length - 1] ?? "";
+  const cautionList = cautionItems.slice(0, -1);
+  // 성장 로드맵(앞 섹션)에 이미 나온 실천 문장은 회복 방법에서 생략한다
+  const roadmapSentences = new Set(
+    Object.values(matched.developmentRoadmap).flatMap(v => toSentences(v as string))
+  );
+  const recoveryShown = matched.recoveryStrategies.map(s =>
+    toSentences(s).filter(x => !roadmapSentences.has(x)).join(" ")
+  );
 
   const startRetest = () => {
     clearActiveSession();
@@ -82,109 +129,106 @@ export default function Result() {
 
   return (
     <main className="page-enter">
-      {/* ── Result Hero ───────────────────────────────── */}
+      {/* ── 01 Result Hero — 이름·핵심 특징·에너지 서명 (5초 안에 파악) ── */}
       <section className="result-hero">
-        <div className="shell inner">
+        <div className="shell shell-wide inner">
           <div className="hero-copy">
-            <p className="label">내가 발견한 {BRAND.nameKo} 패턴</p>
+            <p className="label">
+              <Compass size={17} />
+              {BRAND.nameKo} 결과
+            </p>
             <h1>{matched.personaName}</h1>
             <p className="headline">{matched.headline}</p>
 
             {/* energySignature — 축 라벨과 함께 읽는 6칸 서명 */}
-            <div className="signature" aria-label={`에너지 서명: ${matched.energySignature}`}>
-              {matched.axisPreferences.map((ap, i) => {
-                const axis = AXES[i];
-                const family = PAIR_FAMILY[axis.axis];
-                return (
-                  <div className="sig" key={ap.axisLabel}>
-                    <span className="axis">{axis.label}</span>
-                    <span className="energy">{ap.preferredEnergy}</span>
-                    <span
-                      className="stripe"
-                      aria-hidden="true"
-                      style={{ background: family.strong, opacity: 0.55 }}
-                    />
-                  </div>
-                );
-              })}
+            <div className="signature">
+              {matched.axisPreferences.map((ap, i) => (
+                <div className="sig" key={ap.axisLabel}>
+                  <span className="axis">{AXES[i].label}</span>
+                  <span className="energy">{ap.preferredEnergy}</span>
+                </div>
+              ))}
             </div>
-
-            <p className="overview-x">{overviewExcerpt}</p>
-          </div>
-
-          <div className="map-panel">
-            <EnergyMap energyScores={stored.energyScores} animate={fresh} />
+            <p className="sig-string num">{matched.energySignature}</p>
           </div>
         </div>
       </section>
 
       {/* 결과 목차 (데스크톱) */}
-      <div className="shell">
+      <div className="shell shell-wide">
         <nav className="result-index" aria-label="결과 목차">
-          <a href="#balance">에너지 균형</a>
-          <a href="#strengths">자연스럽게 쓰는 힘</a>
+          <a href="#core">핵심 특징</a>
+          <a href="#energy">12가지 에너지</a>
+          <a href="#strengths">잘하는 것</a>
           <a href="#work">일할 때</a>
+          <a href="#judgment">판단할 때</a>
           <a href="#people">사람들과 함께할 때</a>
-          <a href="#signals">강점을 더 잘 쓰기 위한 신호</a>
+          <a href="#signals">강점이 너무 앞설 때</a>
           <a href="#wider">나를 더 넓게 쓰는 방법</a>
           <a href="#roadmap">성장 로드맵</a>
-          <a href="#pressure">압박과 회복</a>
-          <a href="#questions">나에게 던져볼 질문</a>
+          <a href="#pressure">스트레스와 회복</a>
+          <a href="#questions">질문</a>
         </nav>
       </div>
 
-      {/* ── 01 여섯 쌍의 균형 ─────────────────────────── */}
-      <section className="section" id="balance">
-        <div className="shell">
-          <Eyebrow idx="01">에너지 균형</Eyebrow>
+      {/* ── 02 나의 핵심 특징 — overview 전문 (editorial prose) ── */}
+      <section className="section" id="core">
+        <div className="shell shell-wide">
+          <Eyebrow icon={FileText}>나의 핵심 특징</Eyebrow>
+          <p className="prose">{overviewLeadShown}</p>
+          {overviewRest && <p className="prose">{overviewRest}</p>}
+        </div>
+      </section>
+
+      {/* ── 03 나의 12가지 에너지 — 지도 + 여섯 쌍 균형 bar ── */}
+      <section className="section band" id="energy">
+        <div className="shell shell-wide">
+          <Eyebrow icon={Compass}>나의 12가지 에너지</Eyebrow>
           <h2>여섯 쌍의 에너지가 어디에 놓여 있는지</h2>
           <p className="sub">
             각 축에서 두 에너지의 합은 언제나 100입니다. 어느 쪽도 우열이 아니라,
             평소 더 자연스럽게 선택하는 방향을 보여줍니다.
           </p>
-          <PairBars result={scoreView} />
-        </div>
-      </section>
-
-      {/* ── 02 강점 (번호 매긴 에디토리얼 리스트) ─────── */}
-      <section className="section band" id="strengths">
-        <div className="shell">
-          <Eyebrow idx="02">내가 자연스럽게 쓰는 힘</Eyebrow>
-          <h2>{matched.energySignature}</h2>
-          <p className="sub">
-            아래는 여섯 축의 선호가 실제 장면에서 어떻게 나타나는지를 정리한
-            것입니다.
-          </p>
-          <div className="enum-list">
-            {matched.strengths.map((s, i) => (
-              <div className="enum-item" key={s}>
-                <span className="n">{String(i + 1).padStart(2, "0")}</span>
-                <p>{s}</p>
-              </div>
-            ))}
+          <div className="map-grid">
+            <div className="map-panel">
+              <EnergyMap energyScores={stored.energyScores} animate={fresh} />
+            </div>
+            <PairBars result={scoreView} />
           </div>
         </div>
       </section>
 
-      {/* ── 03 일할 때 (split editorial) ───────────────── */}
-      <section className="section" id="work">
-        <div className="shell">
-          <Eyebrow idx="03">일할 때의 나</Eyebrow>
+      {/* ── 04 내가 자연스럽게 잘하는 것 (핵심 문장 + 설명 블록) ── */}
+      <section className="section" id="strengths">
+        <div className="shell shell-wide">
+          <Eyebrow icon={Sparkles}>내가 자연스럽게 잘하는 것</Eyebrow>
+          <div className="enum-list">
+            {matched.strengths.map(s => {
+              const [lead, more] = splitLead(s);
+              return (
+                <div className="enum-item" key={s}>
+                  <p className="s-lead">
+                    {lead}
+                    {more && <>{" "}<span className="s-more">{more}</span></>}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 05 일할 때의 나 ───────────────────────────── */}
+      <section className="section band" id="work">
+        <div className="shell shell-wide">
+          <Eyebrow icon={Briefcase}>일할 때의 나</Eyebrow>
           <div className="split-edit">
             <div className="col">
               <h3>일하는 방식</h3>
               <p>{matched.workStyle}</p>
             </div>
             <div className="col">
-              <h3>판단하는 방식</h3>
-              <p>{matched.decisionStyle}</p>
-            </div>
-            <div className="col">
-              <h3>팀에 더하는 기여</h3>
-              <p>{matched.teamContribution}</p>
-            </div>
-            <div className="col">
-              <h3>잘 맞는 상황</h3>
+              <h3>강점이 잘 살아나는 상황</h3>
               <ul>
                 {matched.goodFitSituations.map(s => (
                   <li key={s}>{s}</li>
@@ -195,20 +239,19 @@ export default function Result() {
         </div>
       </section>
 
-      {/* ── 04 관계 ───────────────────────────────────── */}
+      {/* ── 06 판단할 때의 나 ─────────────────────────── */}
+      <section className="section" id="judgment">
+        <div className="shell shell-wide">
+          <Eyebrow icon={Scale}>판단할 때의 나</Eyebrow>
+          <p className="prose">{matched.decisionStyle}</p>
+        </div>
+      </section>
+
+      {/* ── 07 사람들과 함께할 때 ─────────────────────── */}
       <section className="section band" id="people">
-        <div className="shell">
-          <Eyebrow idx="04">사람들과 함께할 때의 나</Eyebrow>
-          <p
-            style={{
-              fontSize: 17,
-              lineHeight: 1.85,
-              maxWidth: "34em",
-              marginBottom: 30
-            }}
-          >
-            {matched.relationshipStyle}
-          </p>
+        <div className="shell shell-wide">
+          <Eyebrow icon={Users}>사람들과 함께할 때</Eyebrow>
+          <p className="prose" style={{ marginBottom: 34 }}>{matched.relationshipStyle}</p>
           <div className="split-edit">
             <div className="col">
               <h3>이럴 때 잘 작동합니다</h3>
@@ -229,21 +272,21 @@ export default function Result() {
               <p>{matched.collaborationGuide.bestFeedbackStyle}</p>
             </div>
           </div>
+          <div className="team-highlight">
+            <h3>함께할 때 더해지는 힘</h3>
+            <p>{teamContributionShown}</p>
+          </div>
         </div>
       </section>
 
-      {/* ── 05 신호 ───────────────────────────────────── */}
+      {/* ── 08 강점이 너무 앞설 때 (경고가 아닌 신호) ─── */}
       <section className="section" id="signals">
-        <div className="shell">
-          <Eyebrow idx="05">강점을 더 잘 쓰기 위한 신호</Eyebrow>
-          <p className="sub">
-            아래 내용은 고쳐야 할 문제가 아니라, 자연스러운 강점의 사용 강도를
-            조정할 시점을 알려주는 신호입니다.
-          </p>
-          <div className="enum-list">
-            {matched.cautions.map((cItem, i) => (
+        <div className="shell shell-wide">
+          <Eyebrow icon={ListChecks}>강점이 너무 앞설 때</Eyebrow>
+          <p className="sub">{cautionNote}</p>
+          <div className="signal-list">
+            {cautionList.map(cItem => (
               <div className="enum-item" key={cItem}>
-                <span className="n">{String(i + 1).padStart(2, "0")}</span>
                 <p>{cItem}</p>
               </div>
             ))}
@@ -251,10 +294,10 @@ export default function Result() {
         </div>
       </section>
 
-      {/* ── 06 확장 (아코디언) ────────────────────────── */}
+      {/* ── 09 나를 더 넓게 쓰는 방법 (아코디언 + 단계 흐름) ── */}
       <section className="section band" id="wider">
-        <div className="shell">
-          <Eyebrow idx="06">나를 더 넓게 쓰는 방법</Eyebrow>
+        <div className="shell shell-wide">
+          <Eyebrow icon={Layers}>나를 더 넓게 쓰는 방법</Eyebrow>
           <h2>여섯 쌍을 함께 쓰는 연습</h2>
           <p className="sub">
             보완 에너지는 부족한 점이 아니라 현재의 강점을 받쳐주는 확장
@@ -271,24 +314,24 @@ export default function Result() {
                     </span>
                     <span>{g.supportEnergy}</span>
                   </span>
-                  <span className="why">{g.whyItHelps}</span>
+                  <span className="why">{g.matureStrength}</span>
                 </summary>
-                <div className="acc-body">
-                  <div className="cell">
-                    <b>왜 도움이 되나요</b>
-                    {g.whyItHelps}
+                <div className="step-flow">
+                  <div className="step">
+                    <b>{g.supportEnergy} 에너지를 더하면</b>
+                    <p>{g.whyItHelps}</p>
                   </div>
-                  <div className="cell">
+                  <div className="step">
                     <b>살펴볼 신호</b>
-                    {g.overuseSignal}
+                    <p>{g.overuseSignal}</p>
                   </div>
-                  <div className="cell">
-                    <b>작은 연습</b>
-                    {g.practice}
+                  <div className="step">
+                    <b>실제로 할 수 있는 행동</b>
+                    <p>{g.practice}</p>
                   </div>
-                  <div className="cell">
+                  <div className="step">
                     <b>성숙한 모습</b>
-                    {g.matureStrength}
+                    <p>{g.matureStrength}</p>
                   </div>
                 </div>
               </details>
@@ -297,31 +340,31 @@ export default function Result() {
         </div>
       </section>
 
-      {/* ── 07 로드맵 (타임라인) ──────────────────────── */}
+      {/* ── 10 성장 로드맵 (3단계 timeline) ───────────── */}
       <section className="section" id="roadmap">
-        <div className="shell">
-          <Eyebrow idx="07">나의 성장 로드맵</Eyebrow>
+        <div className="shell shell-wide">
+          <Eyebrow icon={TrendingUp}>나의 성장 로드맵</Eyebrow>
           <div className="roadmap" style={{ marginTop: 8 }}>
             <div className="roadmap-step">
-              <b>지금 바로</b>
+              <b>지금 시작할 것</b>
               <p>{matched.developmentRoadmap.startNow}</p>
             </div>
             <div className="roadmap-step">
-              <b>앞으로 30일</b>
+              <b>한 달 동안 연습할 것</b>
               <p>{matched.developmentRoadmap.next30Days}</p>
             </div>
             <div className="roadmap-step">
-              <b>길게 보며</b>
+              <b>조금 더 길게 가져갈 방향</b>
               <p>{matched.developmentRoadmap.longTerm}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 08 압박과 회복 ────────────────────────────── */}
+      {/* ── 11 스트레스를 받을 때 · 다시 균형을 찾는 방법 ── */}
       <section className="section band" id="pressure">
-        <div className="shell">
-          <Eyebrow idx="08">압박이 커질 때, 다시 균형을 찾는 방법</Eyebrow>
+        <div className="shell shell-wide">
+          <Eyebrow icon={RefreshCw}>스트레스를 받을 때</Eyebrow>
           <div className="split-edit">
             <div className="col">
               <h3>나타날 수 있는 신호</h3>
@@ -332,9 +375,9 @@ export default function Result() {
               </ul>
             </div>
             <div className="col">
-              <h3>균형을 되찾는 방법</h3>
+              <h3>다시 균형을 찾는 방법</h3>
               <ul>
-                {matched.recoveryStrategies.map(s => (
+                {recoveryShown.map(s => (
                   <li key={s}>{s}</li>
                 ))}
               </ul>
@@ -343,10 +386,10 @@ export default function Result() {
         </div>
       </section>
 
-      {/* ── 09 자기 코칭 질문 ─────────────────────────── */}
+      {/* ── 12 나에게 던져볼 질문 (조용한 editorial) ──── */}
       <section className="section" id="questions">
-        <div className="shell">
-          <Eyebrow idx="09">나에게 던져볼 질문</Eyebrow>
+        <div className="shell shell-wide">
+          <Eyebrow icon={MessageCircle}>나에게 던져볼 질문</Eyebrow>
           <div className="quotes">
             {matched.selfCoachingQuestions.map(qz => (
               <p className="quote" key={qz}>
@@ -357,10 +400,10 @@ export default function Result() {
         </div>
       </section>
 
-      {/* ── 마무리 ────────────────────────────────────── */}
-      <section className="section">
-        <div className="shell">
-          <Eyebrow idx="10">마무리</Eyebrow>
+      {/* ── 13 마무리 ─────────────────────────────────── */}
+      <section className="section band">
+        <div className="shell shell-wide">
+          <Eyebrow icon={Clock}>마무리</Eyebrow>
           <p className="encourage">{matched.encouragement}</p>
 
           <p className="note" style={{ marginTop: 34 }}>
@@ -376,10 +419,10 @@ export default function Result() {
             <button className="btn btn-primary" onClick={startRetest}>
               다시 검사하기
             </button>
-            <Link className="btn btn-ghost" to="/history">
+            <Link className="btn btn-secondary" to="/history">
               내 기록 보기
             </Link>
-            <button className="btn-quiet" onClick={removeThis}>
+            <button className="btn-text" onClick={removeThis}>
               이 결과 삭제
             </button>
           </div>

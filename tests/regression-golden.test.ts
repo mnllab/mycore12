@@ -4,6 +4,7 @@
  * 고정된 36문항 ID + 고정된 응답을 넣었을 때 나오는 진단 결과를 상수로 잠근다.
  * 브랜드 마이그레이션(CORE12 → 마이코어12 / MYCORE12) 때문에 12에너지 점수,
  * 6축 점수, 64유형 code, personaName, 결과 설명 데이터가 달라지면 즉시 실패한다.
+ * 결과 설명 문구 기준값은 2026-08-29 확정된 v3.0 콘텐츠다 (점수·code는 변경 없음).
  */
 import { describe, expect, it } from "vitest";
 import { scoreAssessment } from "../src/vendor/positive_assessment_engine_FINAL_v3.1.js";
@@ -48,7 +49,7 @@ const GOLDEN = {
     operation: [66.7, 33.3]
   } as Record<string, number[]>,
   strengthsFirst: "결정 가능한 시점을 잡고 첫 행동을 만들어 정체된 상황",
-  developmentFirstPractice: "중요한 결정 전 목적, 영향, 되돌릴 수 있는지 세 항"
+  developmentFirstPractice: "중요한 결정 앞에서는 목적, 영향, 되돌릴 수 있는지"
 };
 
 const items = FIXED_IDS.map(id => {

@@ -42,10 +42,10 @@ export default function History() {
                 </div>
               </div>
               <div className="acts">
-                <Link className="btn btn-ghost" to={`/result/${r.sessionId}`}>
+                <Link className="btn btn-secondary" to={`/result/${r.sessionId}`}>
                   결과 보기
                 </Link>
-                <button className="btn-quiet" onClick={() => remove(r.sessionId)}>
+                <button className="btn-text" onClick={() => remove(r.sessionId)}>
                   삭제
                 </button>
               </div>

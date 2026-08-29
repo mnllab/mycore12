@@ -1,4 +1,4 @@
-import { ENERGY_RING_ORDER, ENERGY_TO_AXIS, PAIR_FAMILY } from "../lib/mycore12";
+import { ENERGY_RING_ORDER } from "../lib/mycore12";
 
 /**
  * 시작 화면용 고정 12-node orbit.
@@ -14,10 +14,8 @@ export default function OrbitGraphic() {
 
   const nodes = ENERGY_RING_ORDER.map((energy, i) => {
     const angle = (Math.PI * 2 * i) / 12 - Math.PI / 2;
-    const family = PAIR_FAMILY[ENERGY_TO_AXIS[energy].axis];
     return {
       energy,
-      family,
       x: cx + rOuter * Math.cos(angle),
       y: cy + rOuter * Math.sin(angle),
       lx: cx + rLabel * Math.cos(angle),
@@ -30,7 +28,7 @@ export default function OrbitGraphic() {
       <polygon
         points={nodes.map(n => `${n.x},${n.y}`).join(" ")}
         fill="none"
-        stroke="var(--hairline-strong)"
+        stroke="var(--color-border)"
         strokeWidth={1.2}
       />
       {/* 6개 대응축을 잇는 얇은 guide line */}
@@ -41,15 +39,15 @@ export default function OrbitGraphic() {
           y1={n.y}
           x2={nodes[i + 6].x}
           y2={nodes[i + 6].y}
-          stroke={n.family.soft}
+          stroke="var(--color-primary-soft)"
           strokeWidth={1.4}
         />
       ))}
-      <circle cx={cx} cy={cy} r={rOuter * 0.55} fill="none" stroke="var(--hairline)" strokeDasharray="3 6" />
+      <circle cx={cx} cy={cy} r={rOuter * 0.55} fill="none" stroke="var(--color-border)" strokeDasharray="3 6" />
       {nodes.map(n => (
         <g key={n.energy}>
-          <circle cx={n.x} cy={n.y} r={9} fill="var(--surface)" stroke={n.family.strong} strokeWidth={2} />
-          <circle cx={n.x} cy={n.y} r={3.2} fill={n.family.strong} />
+          <circle cx={n.x} cy={n.y} r={9} fill="var(--color-surface)" stroke="var(--color-primary)" strokeWidth={2} />
+          <circle cx={n.x} cy={n.y} r={3.2} fill="var(--color-primary)" />
           <text
             x={n.lx}
             y={n.ly}
@@ -57,7 +55,7 @@ export default function OrbitGraphic() {
             dominantBaseline="middle"
             fontSize={15}
             fontWeight={500}
-            fill="var(--ink-2)"
+            fill="var(--color-text-secondary)"
           >
             {n.energy}
           </text>
@@ -71,7 +69,7 @@ export default function OrbitGraphic() {
         fontSize={11}
         letterSpacing={1.6}
         fontWeight={560}
-        fill="var(--ink-3)"
+        fill="var(--color-text-muted)"
       >
         MYCORE12
       </text>

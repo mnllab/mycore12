@@ -3,9 +3,11 @@
  * 원본 데이터 파일과 엔진을 Source of Truth로 유지하고,
  * 이 파일은 타입과 매칭/파생값(예: isBalanced)만 담당한다.
  */
-import typeDatasetRaw from "../data/positive_64_type_dataset_bundle_v2.1.json";
-// 엔진이 참조하는 것과 동일한 원본 문항은행 ES Module
-import { POSITIVE_QUESTION_BANK } from "../vendor/positive_144_situational_question_bank_FINAL_v3.1.js";
+import typeDatasetRaw from "../data/MYCORE12_64_type_dataset_v3.0.json";
+// 운영 문항은행 v3.2 — v3.1 의 표시 문구를 윤문한 정식 버전
+import questionBankV32 from "../data/positive_144_situational_question_bank_FINAL_v3.2.json";
+// v3.1 원본 (엔진이 추출·채점에 사용하는 모듈과 동일본, 비교·검증용)
+import { POSITIVE_QUESTION_BANK as QUESTION_BANK_V31 } from "../vendor/positive_144_situational_question_bank_FINAL_v3.1.js";
 
 export interface AxisDef {
   axis: string;
@@ -105,9 +107,20 @@ export interface ProfileType {
   selfCoachingQuestions: string[];
   encouragement: string;
   interpretationNote: string;
+  /** 파일럿 유형에만 존재 — 이름 변경 전 원래 이름 */
+  legacyPersonaName?: string;
 }
 
-export const QUESTION_BANK = POSITIVE_QUESTION_BANK as unknown as {
+/**
+ * 운영 문항은행 (v3.2).
+ *
+ * v3.1 대비 12문항의 scenario / optionA / optionB 만 윤문했고,
+ * id · axis · context · optionAValue · optionBValue · responseScale · active 는
+ * 전부 동일하다. 따라서 추출(drawAssessment)·채점(scoreAssessment) 결과는
+ * v3.1 과 완전히 같다. 엔진은 원본 v3.1 모듈을 그대로 사용하고,
+ * 화면과 문항 조회는 이 v3.2 를 사용한다.
+ */
+export const QUESTION_BANK = questionBankV32 as unknown as {
   framework: string;
   version: string;
   questionBankSize: number;
@@ -115,7 +128,14 @@ export const QUESTION_BANK = POSITIVE_QUESTION_BANK as unknown as {
   axes: AxisDef[];
   contexts: ContextDef[];
   questions: Question[];
+  previousVersion?: string;
   brand?: unknown;
+};
+
+/** v3.1 원본 문항은행 (윤문 전 문구 비교·검증용) */
+export const QUESTION_BANK_ORIGINAL = QUESTION_BANK_V31 as unknown as {
+  version: string;
+  questions: Question[];
 };
 
 export const TYPE_DATASET = typeDatasetRaw as unknown as {
@@ -124,25 +144,43 @@ export const TYPE_DATASET = typeDatasetRaw as unknown as {
 };
 
 export const BANK_VERSION: string = QUESTION_BANK.version;
-export const TYPE_DATASET_VERSION = "2.1";
+/** 결과 기록용 짧은 문항은행 버전 (예: "3.2") */
+export const QUESTION_BANK_VERSION: string = QUESTION_BANK.version
+  .split("-")[0]
+  .split(".")
+  .slice(0, 2)
+  .join("."); // major.minor 만 기록 (패치 단위는 채점에 영향 없음)
+/** 결과 기록용 유형 데이터 버전 (metadata.version의 major.minor, 예: "3.0") */
+export const TYPE_DATASET_VERSION: string = String(TYPE_DATASET.metadata.version ?? "3.0")
+  .split(".")
+  .slice(0, 2)
+  .join(".");
 export const ENGINE_VERSION = "FINAL_v3.1";
 
 export const AXES: AxisDef[] = QUESTION_BANK.axes;
+/** 화면·세션 복원에 사용하는 문항 조회표 (v3.2) */
 export const QUESTION_BY_ID: Map<string, Question> = new Map(
   QUESTION_BANK.questions.map(q => [q.id, q])
 );
 
-/** 6개 pair family 색상 (구분 보조용 — 우열 의미 없음, 텍스트 라벨 병행) */
-export const PAIR_FAMILY: Record<
-  string,
-  { hue: string; soft: string; strong: string }
-> = {
-  action: { hue: "amber", soft: "#F6E7C9", strong: "#B07C24" },
-  collaboration: { hue: "teal", soft: "#D4EAE7", strong: "#2A7A72" },
-  ideation: { hue: "violet", soft: "#E4DEF2", strong: "#6A5AA8" },
-  judgment: { hue: "blue", soft: "#D9E5F2", strong: "#3A6698" },
-  relationship: { hue: "rose", soft: "#F4DEE2", strong: "#A85566" },
-  operation: { hue: "green", soft: "#DBEAD9", strong: "#4A7C4E" }
+/** v3.1 문항 조회표 (윤문 전후 비교·검증용) */
+export const ORIGINAL_QUESTION_BY_ID: Map<string, Question> = new Map(
+  QUESTION_BANK_ORIGINAL.questions.map(q => [q.id, q])
+);
+
+/**
+ * 축 구분용 색상.
+ * 무지개식 배색을 피하고 muted indigo ~ slate 단일 계열 안에서만
+ * 아주 제한적으로 명도 variation 을 둔다. 색은 보조 수단이며
+ * 항상 텍스트 라벨을 병행한다.
+ */
+export const PAIR_FAMILY: Record<string, { strong: string; soft: string }> = {
+  action: { strong: "#4338CA", soft: "#EEF2FF" },
+  collaboration: { strong: "#4F46E5", soft: "#EEF2FF" },
+  ideation: { strong: "#5B54D6", soft: "#F0F1FE" },
+  judgment: { strong: "#4C5578", soft: "#EFF1F6" },
+  relationship: { strong: "#475569", soft: "#F1F5F9" },
+  operation: { strong: "#55607A", soft: "#F0F2F6" }
 };
 
 /** 12에너지 → 소속 축 매핑 */
@@ -158,12 +196,26 @@ export const ENERGY_RING_ORDER: string[] = [
   ...AXES.map(a => a.pole0)
 ];
 
+/**
+ * 결과 콘텐츠 v3.0 — 64유형 전체가 "쉽게 읽히는 정제된 설명체"로 확정됨 (2026-08-29).
+ * 확정 데이터셋이 Source of Truth이며, 표시 단계에서 문장을 덧씌우는
+ * 파일럿 패치는 v3.0 반영과 함께 종료되었다 (이력: positive_64_type_plain_pilot_v2.3.json).
+ * personaName 은 데이터셋 값을 그대로 사용한다 (별도 매핑 없음).
+ */
+
 /** 채점 code → 64유형 매칭. 실패 시 조용히 넘어가지 않고 명시적 오류를 낸다. */
 export function matchType(code: string): ProfileType {
   const matched = TYPE_DATASET.types.find(t => t.code === code);
   if (!matched) {
     throw new Error(`마이코어12 유형 매칭 실패: code=${code} 가 유형 데이터셋에 없습니다.`);
   }
+  return matched;
+}
+
+/** 원본(파일럿 적용 전) 유형 조회 — 비교·검증용 */
+export function matchTypeOriginal(code: string): ProfileType {
+  const matched = TYPE_DATASET.types.find(t => t.code === code);
+  if (!matched) throw new Error(`유형 없음: ${code}`);
   return matched;
 }
 
@@ -184,7 +236,7 @@ export const BRAND = {
   tagline: "나를 이루는 12가지 에너지",
   descriptor: "6축 기반 성향 프로파일",
   copyright: "© Janggil Kim. All Rights Reserved.",
-  copyrightKo: "무단 복제 및 재배포를 금지합니다."
+  copyrightKo: "저작권자의 허락 없이 무단 복제 및 재배포를 금지합니다."
 } as const;
 
 /**

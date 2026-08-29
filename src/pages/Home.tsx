@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import OrbitGraphic from "../components/OrbitGraphic";
 import { BRAND } from "../lib/mycore12";
+import { ArrowRight } from "../components/icons";
 import { getActiveSession, getLatestResult } from "../lib/storage";
 
 export default function Home() {
@@ -34,7 +35,7 @@ export default function Home() {
               >
                 {activeSession ? "이어서 진행하기" : `${BRAND.nameKo} 시작하기`}
               </button>
-              <Link className="btn btn-ghost" to="/how">
+              <Link className="btn btn-secondary" to="/how">
                 검사 방식 알아보기
               </Link>
             </div>
@@ -42,6 +43,7 @@ export default function Home() {
             {latest && (
               <Link className="hero-link" to={`/result/${latest.sessionId}`}>
                 최근 프로파일 다시 보기 — {latest.typePersonaName}
+                <ArrowRight />
               </Link>
             )}
           </div>

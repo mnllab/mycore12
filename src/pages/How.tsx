@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { ListChecks, Scale, Layers } from "../components/icons";
+
+const STEP_ICONS = [ListChecks, Scale, Layers];
 
 const STEPS = [
   {
@@ -26,13 +29,19 @@ export default function How() {
       </p>
 
       <div className="steps">
-        {STEPS.map((s, i) => (
+        {STEPS.map((s, i) => {
+          const Icon = STEP_ICONS[i];
+          return (
           <div className="step" key={s.title}>
-            <span className="idx">STEP {String(i + 1).padStart(2, "0")}</span>
+            <span className="idx">
+              <Icon />
+              STEP {String(i + 1).padStart(2, "0")}
+            </span>
             <h2>{s.title}</h2>
             <p>{s.body}</p>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       <div style={{ marginTop: 40 }}>

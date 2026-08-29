@@ -7,6 +7,24 @@ import { cleanup, fireEvent, render, screen, within } from "@testing-library/rea
 import { MemoryRouter } from "react-router-dom";
 import React from "react";
 
+// 뷰포트 전환을 제어하기 위한 matchMedia 스텁
+let MATCH_WIDE = true;
+Object.defineProperty(globalThis, "matchMedia", {
+  configurable: true,
+  writable: true,
+  value: (q: string) => ({
+    matches: q.includes("min-width: 700px") ? MATCH_WIDE : !MATCH_WIDE,
+    media: q,
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    addListener: () => {},
+    removeListener: () => {}
+  })
+});
+const setViewport = (px: number) => {
+  MATCH_WIDE = px >= 700;
+};
+
 // jsdom은 window.scrollTo를 구현하지 않는다 (브라우저에서는 정상 동작)
 Object.defineProperty(globalThis, "scrollTo", { configurable: true, value: () => {} });
 
@@ -24,7 +42,7 @@ Object.defineProperty(globalThis, "localStorage", {
 
 const App = (await import("../src/App")).default;
 const storage = await import("../src/lib/storage");
-const { BRAND, TYPE_DATASET } = await import("../src/lib/mycore12");
+const { BRAND, TYPE_DATASET, matchType } = await import("../src/lib/mycore12");
 
 const BANNED = ["High", "Low", "발현", "잠재", "결핍", "열등", "우수", "약점"];
 // 기존 브랜드가 화면에 남아 있으면 안 된다 (MYCORE12 안의 CORE12는 제외)
@@ -94,7 +112,41 @@ describe("첫 화면 브랜드 표기", () => {
     const { container } = renderAt("/");
     const legal = container.querySelector(".site-footer .legal")!.textContent!;
     expect(legal).toContain("© Janggil Kim. All Rights Reserved.");
-    expect(legal).toContain("무단 복제 및 재배포를 금지합니다.");
+    expect(legal).toContain("저작권자의 허락 없이 무단 복제 및 재배포를 금지합니다.");
+  });
+
+  it("모든 페이지 하단에 저작권이 표시된다", () => {
+    const paths = ["/", "/how", "/privacy", "/history", "/assessment"];
+    for (const path of paths) {
+      const { container, unmount } = renderAt(path);
+      const text = container.textContent!;
+      expect(text, `${path}: 저작권자`).toContain("© Janggil Kim. All Rights Reserved.");
+      expect(text, `${path}: 금지 문구`).toContain(
+        "저작권자의 허락 없이 무단 복제 및 재배포를 금지합니다."
+      );
+      // 푸터(전체 또는 검사용 최소 표기) 중 하나는 반드시 있다
+      expect(
+        container.querySelector(".site-footer") ?? container.querySelector(".mini-footer"),
+        `${path}: 푸터 없음`
+      ).toBeTruthy();
+      unmount();
+    }
+  });
+
+  it("결과 페이지에도 저작권이 표시된다", () => {
+    const stored = buildResult(3);
+    const { container } = renderAt(`/result/${stored.sessionId}`);
+    const text = container.textContent!;
+    expect(text).toContain("© Janggil Kim. All Rights Reserved.");
+    expect(text).toContain("저작권자의 허락 없이 무단 복제 및 재배포를 금지합니다.");
+  });
+
+  it("검사 화면은 저작권만 표시하고 네비게이션은 노출하지 않는다", () => {
+    const { container } = renderAt("/assessment");
+    const mini = container.querySelector(".mini-footer")!;
+    expect(mini).toBeTruthy();
+    expect(mini.querySelectorAll("a, button")).toHaveLength(0);
+    expect(container.querySelector(".site-header")).toBeNull();
   });
 
   it("문서 title·meta·OG·PWA manifest가 MYCORE12 기준이다", () => {
@@ -128,8 +180,8 @@ describe("첫 화면 브랜드 표기", () => {
 /* ── 검사 화면 ──────────────────────────────────── */
 describe("검사 화면", () => {
   it("36문항 세션이 시작되고 1/36이 표시된다", () => {
-    renderAt("/assessment");
-    expect(screen.getByText("1 / 36")).toBeTruthy();
+    const { container } = renderAt("/assessment");
+    expect(container.textContent).toContain("1 / 36");
     expect(storage.getActiveSession()!.questionIds.length).toBe(36);
   });
 
@@ -149,21 +201,125 @@ describe("검사 화면", () => {
     vi.useRealTimers();
   });
 
-  it("A/B 선택지가 동일한 시각 요소로 렌더된다 (색 의미 부여 없음)", () => {
+  it("넓은 화면: 두 보기가 좌우 2열이고 척도도 좌우다 (방향 일치)", () => {
+    setViewport(1024);
     const { container } = renderAt("/assessment");
-    const options = container.querySelectorAll(".option");
-    expect(options).toHaveLength(2);
-    expect(options[0].className).toBe(options[1].className);
-    expect(options[0].querySelector(".mark")!.textContent).toBe("A");
-    expect(options[1].querySelector(".mark")!.textContent).toBe("B");
-    // 인라인 색상 지정이 없어야 한다
-    for (const o of options) expect(o.getAttribute("style")).toBeNull();
+
+    const pair = container.querySelector(".choice-pair")!;
+    const cards = pair.querySelectorAll(".choice-card");
+    expect(cards).toHaveLength(2);
+    // 두 카드는 완전히 동일한 클래스·무스타일 (강조 수준 동일)
+    expect(cards[0].className).toBe(cards[1].className);
+    for (const c of cards) expect(c.getAttribute("style")).toBeNull();
+
+    // 왼쪽 = optionA, 오른쪽 = optionB
+    const session = storage.getActiveSession()!;
+    const q = storage.questionsOf(session)[0];
+    expect(cards[0].textContent).toBe(q.optionA);
+    expect(cards[1].textContent).toBe(q.optionB);
+
+    // 척도는 카드 아래에 좌우 5단계
+    const scale = container.querySelector(".scale-h")!;
+    expect(scale.querySelectorAll('[role="radio"]')).toHaveLength(5);
+    expect(pair.compareDocumentPosition(scale) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect([...scale.querySelectorAll(".cap")].map(c => c.textContent)).toEqual([
+      "많이", "조금", "비슷", "조금", "많이"
+    ]);
+  });
+
+  it("좁은 화면: 보기가 위아래이고 강도 버튼이 각 카드에 붙는다", () => {
+    setViewport(375);
+    const { container } = renderAt("/assessment");
+
+    expect(container.querySelector(".choice-pair")).toBeNull();
+    expect(container.querySelector(".scale-h")).toBeNull();
+
+    const cards = container.querySelectorAll(".v-card");
+    expect(cards).toHaveLength(2);
+    const session = storage.getActiveSession()!;
+    const q = storage.questionsOf(session)[0];
+    expect(cards[0].querySelector(".v-text")!.textContent).toBe(q.optionA);
+    expect(cards[1].querySelector(".v-text")!.textContent).toBe(q.optionB);
+
+    // 강도 버튼이 각 카드 내부에 있다 (다른 카드로 시선을 옮길 필요 없음)
+    for (const c of cards) {
+      const btns = [...c.querySelectorAll("button")].map(b => b.textContent);
+      expect(btns).toEqual(["조금 더 가까워요", "많이 더 가까워요"]);
+    }
+    expect(container.querySelector(".v-mid")!.textContent).toBe("둘 다 비슷해요");
+    expect(container.querySelectorAll('[role="radio"]')).toHaveLength(5);
+    setViewport(1024);
+  });
+
+  it("A/B 식별자와 방향 표현이 화면에 노출되지 않는다 (두 레이아웃 모두)", () => {
+    const banned = [
+      "A 쪽", "B 쪽",
+      "A에 매우 가깝다", "A에 조금 가깝다",
+      "B에 조금 가깝다", "B에 매우 가깝다"
+    ];
+    for (const px of [375, 1024]) {
+      setViewport(px);
+      const { container, unmount } = renderAt("/assessment");
+      const text = container.textContent!;
+      for (const b of banned) expect(text.includes(b), `${px}px: ${b}`).toBe(false);
+      // 단독 A/B 마커 원형 표시도 없다
+      expect(container.querySelector(".mark")).toBeNull();
+      expect(/(^|\s)[AB](\s|$)/.test(text), `${px}px: 단독 A/B 표기`).toBe(false);
+      unmount();
+    }
+    setViewport(1024);
+  });
+
+  it("1~5 응답 매핑이 두 레이아웃에서 동일하다", () => {
+    // 넓은 화면: 왼쪽부터 1,2,3,4,5
+    setViewport(1024);
+    for (let i = 0; i < 5; i++) {
+      store.clear();
+      const { container, unmount } = renderAt("/assessment");
+      const id = storage.getActiveSession()!.questionIds[0];
+      const radios = container.querySelectorAll('.scale-h [role="radio"]');
+      fireEvent.click(radios[i]);
+      expect(storage.getActiveSession()!.answers[id], `넓은 화면 ${i}번째`).toBe(i + 1);
+      unmount();
+    }
+
+    // 좁은 화면: 첫 카드 많이=1 조금=2, 중앙=3, 둘째 카드 조금=4 많이=5
+    setViewport(375);
+    const expected: [string, number][] = [
+      [".v-card:nth-of-type(1) .v-actions button:nth-child(2)", 1],
+      [".v-card:nth-of-type(1) .v-actions button:nth-child(1)", 2],
+      [".v-mid", 3],
+      [".v-card:nth-of-type(2) .v-actions button:nth-child(1)", 4],
+      [".v-card:nth-of-type(2) .v-actions button:nth-child(2)", 5]
+    ];
+    for (const [selector, value] of expected) {
+      store.clear();
+      const { container, unmount } = renderAt("/assessment");
+      const id = storage.getActiveSession()!.questionIds[0];
+      const cards = container.querySelectorAll(".v-card");
+      const el =
+        selector === ".v-mid"
+          ? container.querySelector(".v-mid")!
+          : cards[selector.includes("nth-of-type(1)") ? 0 : 1].querySelectorAll(
+              ".v-actions button"
+            )[selector.includes("nth-child(1)") ? 0 : 1];
+      fireEvent.click(el);
+      expect(storage.getActiveSession()!.answers[id], selector).toBe(value);
+      unmount();
+    }
+    setViewport(1024);
   });
 
   it("모든 응답 컨트롤에 aria-label과 radiogroup이 있다", () => {
     renderAt("/assessment");
     const group = screen.getByRole("radiogroup");
-    expect(group.getAttribute("aria-label")).toMatch(/A:.*\/ B:/);
+    const session = storage.getActiveSession()!;
+    const q = storage.questionsOf(session)[0];
+    // 그룹 이름이 A/B 글자가 아니라 실제 보기 문장으로 읽힌다
+    const label = group.getAttribute("aria-label")!;
+    expect(label).toContain(q.optionA);
+    expect(label).toContain(q.optionB);
+    expect(/\bA:|\bB:/.test(label)).toBe(false);
     for (const r of screen.getAllByRole("radio")) {
       expect(r.getAttribute("aria-label")).toBeTruthy();
       expect(r.getAttribute("aria-checked")).toBeTruthy();
@@ -201,8 +357,10 @@ const buildResult = (answerValue: 1 | 2 | 3 | 4 | 5) => {
 
 describe("결과 화면", () => {
   it("결과 본문이 누락 없이 렌더된다 (전 섹션)", () => {
+    // 표시 단계 중복 정리 후에도 모든 문장이 페이지 어딘가에는 남아야 한다
     const stored = buildResult(1);
-    const type = TYPE_DATASET.types.find(t => t.code === stored.code)!;
+    // 화면에 실제로 렌더되는 콘텐츠(파일럿 적용본 포함) 기준으로 검사한다
+    const type = matchType(stored.code);
     const { container } = renderAt(`/result/${stored.sessionId}`);
     const text = container.textContent!;
 
@@ -212,7 +370,20 @@ describe("결과 화면", () => {
     expect(text).toContain(type.workStyle);
     expect(text).toContain(type.decisionStyle);
     expect(text).toContain(type.relationshipStyle);
-    expect(text).toContain(type.teamContribution);
+    // teamContribution 등은 화면에서 앞 섹션과 중복되는 문장을 생략해 표시하므로
+    // 필드 원문 통짜가 아니라 문장 단위로 페이지 어딘가에 존재하는지 검사한다
+    for (const s of type.teamContribution.split(/(?<=[.?])\s+/)) {
+      expect(text, s.slice(0, 24)).toContain(s.trim());
+    }
+    for (const s of type.overview.split(/(?<=[.?])\s+/)) {
+      expect(text, s.slice(0, 24)).toContain(s.trim());
+    }
+    for (const s of type.cautions.flatMap(c => c.split(/(?<=[.?])\s+/))) {
+      expect(text, s.slice(0, 24)).toContain(s.trim());
+    }
+    for (const s of type.recoveryStrategies.flatMap(c => c.split(/(?<=[.?])\s+/))) {
+      expect(text, s.slice(0, 24)).toContain(s.trim());
+    }
     expect(text).toContain(type.collaborationGuide.bestFeedbackStyle);
     expect(text).toContain(type.encouragement);
     expect(text).toContain(type.developmentRoadmap.startNow);
@@ -224,7 +395,6 @@ describe("결과 화면", () => {
       type.cautions,
       type.goodFitSituations,
       type.stressSignals,
-      type.recoveryStrategies,
       type.selfCoachingQuestions,
       type.collaborationGuide.worksWellWhen,
       type.collaborationGuide.mayStruggleWhen

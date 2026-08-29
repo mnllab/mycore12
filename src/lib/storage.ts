@@ -8,6 +8,7 @@ import { drawAssessment, scoreAssessment } from "../vendor/positive_assessment_e
 import { spreadByAxis } from "./ordering";
 import {
   BANK_VERSION,
+  QUESTION_BANK_VERSION,
   ENGINE_VERSION,
   TYPE_DATASET_VERSION,
   QUESTION_BY_ID,
@@ -22,20 +23,25 @@ const K_RESULTS = "mycore12.results.v1";
 const RECENT_KEEP_ASSESSMENTS = 3;
 
 /**
- * LEGACY ONLY — 브랜드 변경(구 CORE12 → 마이코어12 / MYCORE12) 이전 버전이
- * 사용하던 localStorage key다. 오직 과거 사용자 데이터 이전(migration)에만
- * 쓰이며, 신규 저장에는 절대 사용하지 않는다. 이전이 끝나면 삭제된다.
+ * 로컬에 저장되는 데이터의 버전 지문.
+ * 문항은행·엔진·유형 데이터 중 하나라도 바뀌면 값이 달라진다.
  */
-const LEGACY_CORE12_SESSION_KEY = "core12.activeSession.v1";
-const LEGACY_CORE12_RECENT_KEY = "core12.recentQuestionIds.v1";
-const LEGACY_CORE12_RESULTS_KEY = "core12.results.v1";
+const DATA_VERSION = `${BANK_VERSION}|${ENGINE_VERSION}|${TYPE_DATASET_VERSION}`;
+const K_DATA_VERSION = "mycore12.dataVersion";
 
-/** legacy key → 신규 key 대응표 (migration 전용) */
-const LEGACY_KEY_MAP: Record<string, string> = {
-  [LEGACY_CORE12_SESSION_KEY]: K_SESSION,
-  [LEGACY_CORE12_RECENT_KEY]: K_RECENT,
-  [LEGACY_CORE12_RESULTS_KEY]: K_RESULTS
-};
+/**
+ * 정리 대상 key 전체 (현행 + 구 브랜드 시절 잔여물).
+ * 구 key 는 값을 옮기지 않고 지우기만 한다.
+ */
+const ALL_KNOWN_KEYS = [
+  K_SESSION,
+  K_RECENT,
+  K_RESULTS,
+  K_DATA_VERSION,
+  "core12.activeSession.v1", // 구 브랜드 잔여물 — 삭제 전용
+  "core12.recentQuestionIds.v1", // 구 브랜드 잔여물 — 삭제 전용
+  "core12.results.v1" // 구 브랜드 잔여물 — 삭제 전용
+];
 
 export interface AssessmentSession {
   sessionId: string;
@@ -58,40 +64,50 @@ export interface StoredAssessmentResult {
   axisResults: ScoreResult["axisResults"];
   typePersonaName: string;
   bankVersion: string;
+  /** 짧은 문항은행 버전 표기 (예: "3.2"). 과거 결과에는 없을 수 있다. */
+  questionBankVersion?: string;
   engineVersion: string;
   typeDatasetVersion: string;
 }
 
 /**
- * 앱 시작 시 1회 실행. 기존 core12.* key가 있고 신규 mycore12.* key가 없으면
- * 저장된 값을 그대로(응답·점수·유형코드 변형 없이) 신규 key로 옮긴다.
- * 이미 신규 key가 있으면 덮어쓰지 않는다.
+ * 앱 시작 시 1회 실행.
+ *
+ * 데이터 버전이 직전 실행과 다르면 **문항은행에 묶여 있는 상태**만 정리한다.
+ *   - 진행 중 세션: 삭제 (출제된 문항 문구가 바뀌었을 수 있다)
+ *   - 최근 출제 문항 이력: 삭제
+ *   - 완료된 결과 기록: 보존
+ *
+ * 완료 결과는 응답·점수·유형코드와 자신이 사용한 버전을 모두 담고 있는
+ * 독립 스냅숏이라 문항 문구가 바뀌어도 그대로 열린다. 과거 결과의 버전
+ * 표기는 덮어쓰지 않는다.
+ *
+ * 구 브랜드 시절의 잔여 key 는 값을 옮기지 않고 삭제만 한다.
  */
-export function migrateLegacyStorage(): { migrated: string[]; skipped: string[] } {
-  const migrated: string[] = [];
-  const skipped: string[] = [];
-  for (const [legacyKey, nextKey] of Object.entries(LEGACY_KEY_MAP)) {
-    let legacyValue: string | null = null;
-    try {
-      legacyValue = localStorage.getItem(legacyKey);
-    } catch {
-      continue;
-    }
-    if (legacyValue === null) continue;
+export function resetStaleLocalData(): { reset: boolean; from: string | null } {
+  let stored: string | null = null;
+  try {
+    stored = localStorage.getItem(K_DATA_VERSION);
+  } catch {
+    return { reset: false, from: null };
+  }
 
+  if (stored === DATA_VERSION) return { reset: false, from: stored };
+
+  const KEYS_TO_CLEAR = ALL_KNOWN_KEYS.filter(k => k !== K_RESULTS && k !== K_DATA_VERSION);
+  for (const key of KEYS_TO_CLEAR) {
     try {
-      if (localStorage.getItem(nextKey) === null) {
-        localStorage.setItem(nextKey, legacyValue); // 값은 그대로 이전한다
-        migrated.push(legacyKey);
-      } else {
-        skipped.push(legacyKey);
-      }
-      localStorage.removeItem(legacyKey);
+      localStorage.removeItem(key);
     } catch {
       /* 저장 불가 환경에서도 앱은 계속 동작한다 */
     }
   }
-  return { migrated, skipped };
+  try {
+    localStorage.setItem(K_DATA_VERSION, DATA_VERSION);
+  } catch {
+    /* noop */
+  }
+  return { reset: true, from: stored };
 }
 
 function read<T>(key: string): T | null {
@@ -126,7 +142,7 @@ function pushRecentQuestionIds(ids: string[]) {
 export function getActiveSession(): AssessmentSession | null {
   const s = read<AssessmentSession>(K_SESSION);
   if (!s || !Array.isArray(s.questionIds) || s.questionIds.length !== 36) return null;
-  // 은행 버전이 바뀐 세션은 복원하지 않는다
+  // 데이터 버전이 다른 세션은 복원하지 않는다 (새 검사로 시작)
   if (s.bankVersion !== BANK_VERSION) return null;
 
   // 저장 데이터가 손상되었거나 문항은행에 없는 ID가 섞인 세션은 복원하지 않는다.
@@ -211,6 +227,7 @@ export function completeSession(session: AssessmentSession): StoredAssessmentRes
     axisResults: result.axisResults,
     typePersonaName: matched.personaName,
     bankVersion: session.bankVersion,
+    questionBankVersion: QUESTION_BANK_VERSION,
     engineVersion: session.engineVersion,
     typeDatasetVersion: TYPE_DATASET_VERSION
   };
@@ -243,11 +260,10 @@ export function deleteResult(sessionId: string) {
 /** '내 결과 삭제' — 로컬에 저장된 모든 마이코어12 데이터를 지운다 (legacy key 포함) */
 export function deleteAllLocalData() {
   try {
-    localStorage.removeItem(K_SESSION);
-    localStorage.removeItem(K_RECENT);
-    localStorage.removeItem(K_RESULTS);
-    // 이전되지 않은 legacy 데이터도 함께 삭제한다
-    for (const legacyKey of Object.keys(LEGACY_KEY_MAP)) localStorage.removeItem(legacyKey);
+    for (const key of ALL_KNOWN_KEYS) {
+      if (key === K_DATA_VERSION) continue; // 버전 지문은 유지해 불필요한 초기화를 막는다
+      localStorage.removeItem(key);
+    }
   } catch {
     /* noop */
   }

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { AXES, ENERGY_RING_ORDER, ENERGY_TO_AXIS, PAIR_FAMILY } from "../lib/mycore12";
+import { AXES, ENERGY_RING_ORDER, ENERGY_TO_AXIS } from "../lib/mycore12";
 
 /**
  * 마이코어12(MYCORE12) 12 Energy Map.
@@ -37,7 +37,6 @@ export default function EnergyMap({
           energy,
           score,
           axis,
-          family: PAIR_FAMILY[axis.axis],
           x: c + r * Math.cos(angle),
           y: c + r * Math.sin(angle),
           ox: c + rOuter * Math.cos(angle),
@@ -71,7 +70,7 @@ export default function EnergyMap({
         <polygon
           points={nodes.map(n => `${n.ox},${n.oy}`).join(" ")}
           fill="none"
-          stroke="var(--hairline-strong)"
+          stroke="var(--color-border-strong)"
           strokeWidth={1.2}
         />
 
@@ -83,7 +82,7 @@ export default function EnergyMap({
             y1={c}
             x2={n.ox}
             y2={n.oy}
-            stroke="var(--hairline)"
+            stroke="var(--color-border)"
             strokeWidth={1}
           />
         ))}
@@ -94,8 +93,7 @@ export default function EnergyMap({
           cy={c}
           r={r50}
           fill="none"
-          stroke="var(--ink-3)"
-          strokeOpacity={0.5}
+          stroke="var(--color-border-strong)"
           strokeDasharray="2 6"
           strokeWidth={1}
         />
@@ -104,7 +102,7 @@ export default function EnergyMap({
           y={c - r50 - 6}
           fontSize={11}
           letterSpacing={1}
-          fill="var(--ink-3)"
+          fill="var(--color-text-muted)"
         >
           50
         </text>
@@ -113,9 +111,9 @@ export default function EnergyMap({
         <polygon
           points={nodes.map(n => `${n.x},${n.y}`).join(" ")}
           fill="none"
-          stroke="var(--deep)"
-          strokeOpacity={0.42}
-          strokeWidth={1.2}
+          stroke="var(--color-slate)"
+          strokeOpacity={0.75}
+          strokeWidth={1.4}
           strokeLinejoin="round"
         />
 
@@ -139,11 +137,11 @@ export default function EnergyMap({
               cx={n.x}
               cy={n.y}
               r={active === n.energy ? 11 : 9}
-              fill="var(--surface)"
-              stroke={n.family.strong}
+              fill="var(--color-surface)"
+              stroke="var(--color-primary)"
               strokeWidth={2}
             />
-            <circle cx={n.x} cy={n.y} r={3.4} fill={n.family.strong} />
+            <circle cx={n.x} cy={n.y} r={3.4} fill="var(--color-primary)" />
           </g>
         ))}
 
@@ -158,7 +156,7 @@ export default function EnergyMap({
             fontSize={18}
             fontWeight={active === n.energy ? 600 : 500}
             letterSpacing={-0.3}
-            fill={active === n.energy ? "var(--ink)" : "var(--ink-2)"}
+            fill={active === n.energy ? "var(--color-primary)" : "var(--color-text-secondary)"}
           >
             {n.energy}
           </text>
@@ -170,10 +168,10 @@ export default function EnergyMap({
           y={c + 1}
           textAnchor="middle"
           dominantBaseline="middle"
-          fontSize={11}
-          letterSpacing={1.6}
-          fontWeight={560}
-          fill="var(--ink-3)"
+          fontSize={10.5}
+          letterSpacing={1.4}
+          fontWeight={600}
+          fill="var(--color-text-muted)"
         >
           MYCORE12
         </text>
@@ -186,13 +184,13 @@ export default function EnergyMap({
           minHeight: 46,
           fontSize: 13.5,
           lineHeight: 1.65,
-          color: "var(--ink-3)",
+          color: "var(--color-text-secondary)",
           padding: "4px 10px 0"
         }}
       >
         {shown ? (
           <>
-            <b style={{ color: "var(--ink)", fontWeight: 560 }} className="num">
+            <b style={{ color: "var(--color-text)", fontWeight: 600 }} className="num">
               {shown.energy} {shown.score}
             </b>
             {" — "}
