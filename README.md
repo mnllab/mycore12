@@ -59,20 +59,25 @@ location / {
 브라우저가 `/assets/...` 를 찾다가 404가 나고 **화면이 비어 보입니다.**
 
 ```bash
-npm run build:gh                  # base = /mycore12/
-REPO=저장소이름 npm run build:gh   # base = /저장소이름/
+npm run build:gh
 ```
 
-이 스크립트는 다음을 함께 처리합니다.
+저장소 이름을 지정할 필요가 없습니다. 이 스크립트가 GitHub Pages 의 두 가지
+제약을 함께 우회합니다.
 
-- `VITE_BASE` 로 에셋 경로를 `/저장소이름/assets/...` 로 생성
-- 라우터 `basename` 을 동일한 base 로 맞춤
-- `dist/404.html` 생성 (GitHub Pages 는 `_redirects` 를 지원하지 않으므로
-  딥링크 새로고침 fallback 용)
-- `dist/.nojekyll` 생성 (`_` 로 시작하는 파일이 무시되는 것을 방지)
+| 제약 | 대응 |
+|---|---|
+| 저장소 이름이 하위 경로가 됨 | 에셋을 `./assets/...` 상대경로로 빌드 — 어느 폴더에 올려도 동작 |
+| `_redirects` 등 rewrite 미지원 | HashRouter 사용 (`/mycore12/#/result/…`) + `404.html` 생성 |
+| `_` 로 시작하는 파일 무시 | `.nojekyll` 생성 |
 
-빌드 후 `dist/` 내용을 `gh-pages` 브랜치 또는 저장소 설정의 Pages 소스 폴더에
-올리면 됩니다.
+빌드 후 **`dist/` 폴더의 내용물**(폴더 자체가 아니라 그 안의
+`index.html`, `assets/`, `404.html`, `.nojekyll` 등)을 `gh-pages` 브랜치 또는
+Pages 소스 폴더에 올리면 됩니다.
+
+배포가 반영됐는지 확인하는 방법: 페이지 소스에서 `<script src="./assets/...">`
+처럼 **`./` 로 시작**하면 새 빌드입니다. `/assets/` 로 시작하면 아직 예전
+빌드가 올라가 있는 것입니다.
 
 권장 서버 헤더: `assets/*` 는 장기 캐시(immutable), `index.html` 은 `no-cache`.
 
@@ -85,7 +90,9 @@ REPO=저장소이름 npm run build:gh   # base = /저장소이름/
 | `src/vendor/positive_assessment_engine_FINAL_v3.1.js` | 36문항 층화 추출 + 채점 엔진 |
 | `src/vendor/positive_144_situational_question_bank_FINAL_v3.1.js` | 144문항 문항은행 |
 | `src/data/positive_64_type_dataset_bundle_v2.1.json` | 64유형 메타데이터·결과 콘텐츠 |
-| `src/data/positive_144_situational_question_bank_FINAL_v3.1.json` | 문항은행 JSON 기준본 |
+| `src/data/positive_144_situational_question_bank_FINAL_v3.1.json` | 문항은행 v3.1 원본 (수정 금지) |
+| `src/data/positive_144_situational_question_bank_v3.2.json` | **운영 문항은행 v3.2** — 화면·조회에 사용 |
+| `src/data/positive_question_readability_pilot_v3.2.json` | v3.1 → v3.2 윤문 변경 기록 |
 | `src/data/positive_144_question_bank_FINAL_review_QA_v3.1.json` | 감수·QA 데이터 |
 
 네 개 핵심 파일의 SHA256은 `PACKAGE_MANIFEST.json` 값과 일치하며,
@@ -156,15 +163,32 @@ mycore12-app/
 `MyCore12` · `Mycore12` · `My Core 12` · `MY CORE 12` · `MYCORE 12` · `CORE12`
 <!-- deprecated-brand-list:end -->
 
-## 저장 데이터 마이그레이션
+## 로컬 데이터 정책 (공개 전 테스트 단계)
 
-브랜드 변경 이전 버전의 `core12.*` localStorage key는 앱 시작 시
-`migrateLegacyStorage()` 가 `mycore12.*` 로 1회 이전합니다. 응답 데이터,
-12에너지 점수, 6축 점수, 유형 코드, 유형 결과는 변형 없이 그대로 보존되며,
-신규 key가 이미 있으면 덮어쓰지 않습니다.
+아직 실사용자가 없는 단계이므로 **과거 데이터를 이전하지 않습니다.**
+앱 시작 시 `resetStaleLocalData()` 가 데이터 버전 지문을 확인해서,
+직전 실행과 다르면 로컬 데이터를 지우고 깨끗한 상태로 시작합니다.
+
+```
+DATA_VERSION = `${BANK_VERSION}|${ENGINE_VERSION}|${TYPE_DATASET_VERSION}`
+```
+
+- 문항은행·엔진·유형 데이터 중 **하나라도 바뀌면** 자동 초기화
+- 진행 중이던 세션, 결과 기록, 최근 문항 이력 모두 삭제
+- 구 브랜드(`core12.*`) 잔여 key도 값을 옮기지 않고 함께 정리
+- `내 결과 삭제`는 검사 데이터만 지우고 버전 지문은 남김
+
+덕분에 문항을 수정하거나 새로 배포할 때 **덮어쓰기만 하면 되고**, 이전 데이터가
+남아 화면이 꼬이는 일이 없습니다.
+
+> 실사용자가 생긴 뒤 데이터를 보존해야 한다면, `resetStaleLocalData()` 를
+> 버전별 이전 로직으로 교체하면 됩니다. 호출 지점은 `src/main.tsx` 한 곳입니다.
 
 ## 데이터 버전
 
-- 문항은행 `3.1-operational-final` (내용 감수 완료 / 심리측정 검증 예정)
+- 운영 문항은행 `3.2-readability` — v3.1 의 12문항 표시 문구를 윤문한 정식 버전.
+  문항 ID·축·상황·A/B 방향·응답 매핑이 v3.1 과 동일하므로 채점 결과는 달라지지
+  않는다. 추출·채점 엔진은 v3.1 모듈을 그대로 사용한다.
+- 원본 문항은행 `3.1-operational-final` (보존, 수정 금지)
 - 유형 데이터셋 `v2.1`
 - 엔진 `FINAL_v3.1`
