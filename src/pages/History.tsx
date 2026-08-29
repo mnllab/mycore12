@@ -27,7 +27,7 @@ export default function History() {
             아직 저장된 결과가 없습니다.
           </p>
           <button className="btn btn-primary" onClick={() => navigate("/assessment")}>
-            마이코어12 시작하기
+            검사시작
           </button>
         </div>
       ) : (
