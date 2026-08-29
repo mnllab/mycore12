@@ -160,3 +160,41 @@ describe("배포 설정", () => {
     expect(/import\.meta\.env/.test(tsx)).toBe(false);
   });
 });
+
+describe("하위 경로 배포 (GitHub Pages 등)", () => {
+  it("vite base 를 환경변수로 지정할 수 있다", () => {
+    const cfg = readFileSync(join(ROOT, "vite.config.ts"), "utf8");
+    expect(cfg).toContain("VITE_BASE");
+    expect(cfg).toMatch(/base,?\s*\n?\s*plugins|base:/);
+  });
+
+  it("라우터 basename 이 빌드 base 와 연동된다", () => {
+    const main = readFileSync(join(ROOT, "src/main.tsx"), "utf8");
+    expect(main).toContain("basename={import.meta.env.BASE_URL}");
+  });
+
+  it("index.html 의 브랜드 에셋이 base 치환자를 사용한다", () => {
+    const html = readFileSync(join(ROOT, "index.html"), "utf8");
+    expect(html).toContain('href="%BASE_URL%manifest.webmanifest"');
+    expect(html).toContain('href="%BASE_URL%brand-mark.svg"');
+    // 절대경로 하드코딩이 남아 있으면 하위 경로 배포에서 404가 난다
+    expect(html.includes('href="/brand-mark.svg"')).toBe(false);
+    expect(html.includes('content="/brand-mark.svg"')).toBe(false);
+  });
+
+  it("manifest 가 상대 경로를 사용한다", () => {
+    const mf = JSON.parse(readFileSync(join(ROOT, "public/manifest.webmanifest"), "utf8"));
+    expect(mf.start_url).toBe("./");
+    expect(mf.scope).toBe("./");
+    expect(mf.icons[0].src).toBe("./brand-mark.svg");
+  });
+
+  it("GitHub Pages 빌드 스크립트가 404 fallback 과 .nojekyll 을 만든다", () => {
+    const script = readFileSync(join(ROOT, "scripts/build-gh.mjs"), "utf8");
+    expect(script).toContain("404.html");
+    expect(script).toContain(".nojekyll");
+    expect(script).toContain("VITE_BASE");
+    const pkg = JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8"));
+    expect(pkg.scripts["build:gh"]).toBe("node scripts/build-gh.mjs");
+  });
+});

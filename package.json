@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint src tests",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:gh": "node scripts/build-gh.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

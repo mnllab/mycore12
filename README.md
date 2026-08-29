@@ -41,6 +41,7 @@ npm run preview   # 빌드 결과 로컬 확인 → http://localhost:4173
 | Vercel | `vercel.json` | 추가 설정 불필요 |
 | Apache / cPanel | `public/.htaccess` | `mod_rewrite` 활성화 필요 |
 | Nginx | 아래 스니펫 | 직접 추가 |
+| GitHub Pages | `npm run build:gh` | 하위 경로 배포이므로 **반드시 이 명령 사용** |
 
 ```nginx
 location / {
@@ -49,8 +50,29 @@ location / {
 }
 ```
 
-배포 대상은 `dist/` 폴더 전체입니다. 하위 경로(예: `example.com/mycore12/`)에
-배포한다면 `vite.config.ts` 에 `base: "/mycore12/"` 를 추가하세요.
+배포 대상은 `dist/` 폴더 전체입니다.
+
+### 하위 경로 배포 (GitHub Pages 등)
+
+`https://<계정>.github.io/<저장소>/` 처럼 **루트가 아닌 경로**에 배포할 때는
+에셋 경로를 그 base 에 맞춰 빌드해야 합니다. 그냥 `npm run build` 결과를 올리면
+브라우저가 `/assets/...` 를 찾다가 404가 나고 **화면이 비어 보입니다.**
+
+```bash
+npm run build:gh                  # base = /mycore12/
+REPO=저장소이름 npm run build:gh   # base = /저장소이름/
+```
+
+이 스크립트는 다음을 함께 처리합니다.
+
+- `VITE_BASE` 로 에셋 경로를 `/저장소이름/assets/...` 로 생성
+- 라우터 `basename` 을 동일한 base 로 맞춤
+- `dist/404.html` 생성 (GitHub Pages 는 `_redirects` 를 지원하지 않으므로
+  딥링크 새로고침 fallback 용)
+- `dist/.nojekyll` 생성 (`_` 로 시작하는 파일이 무시되는 것을 방지)
+
+빌드 후 `dist/` 내용을 `gh-pages` 브랜치 또는 저장소 설정의 Pages 소스 폴더에
+올리면 됩니다.
 
 권장 서버 헤더: `assets/*` 는 장기 캐시(immutable), `index.html` 은 `no-cache`.
 

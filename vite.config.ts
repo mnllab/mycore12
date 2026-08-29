@@ -1,7 +1,12 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
+// 하위 경로 배포(GitHub Pages 등)에서는 VITE_BASE 로 base 경로를 지정한다.
+// 예: VITE_BASE=/mycore12/  → 에셋이 /mycore12/assets/... 로 생성된다.
+const base = process.env.VITE_BASE ?? "/";
+
 export default defineConfig({
+  base,
   plugins: [react()],
   build: {
     rollupOptions: {
