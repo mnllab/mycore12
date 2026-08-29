@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BRAND } from "../lib/mycore12";
 import { MiniFooter } from "../components/Chrome";
 import { ArrowLeft, ArrowRight, Check } from "../components/icons";
@@ -11,6 +11,7 @@ import {
   startNewSession,
   type AssessmentSession
 } from "../lib/storage";
+import { DEFAULT_ASSESSMENT_LENGTH, isAssessmentLength } from "../lib/draw";
 
 /**
  * 응답값 매핑 (기존과 동일 — 채점 로직은 건드리지 않는다)
@@ -61,8 +62,15 @@ function useWideLayout(): boolean {
 
 export default function Assessment() {
   const navigate = useNavigate();
+  const location = useLocation();
+  // 검사 길이는 시작할 때 한 번 정해지고, 진행 중에는 바뀌지 않는다.
+  const requested = (location.state as { length?: unknown } | null)?.length;
   const [session, setSession] = useState<AssessmentSession>(
-    () => getActiveSession() ?? startNewSession()
+    () =>
+      getActiveSession() ??
+      startNewSession(
+        isAssessmentLength(requested) ? requested : DEFAULT_ASSESSMENT_LENGTH
+      )
   );
   const [processing, setProcessing] = useState(false);
   const advanceTimer = useRef<number | null>(null);
@@ -80,6 +88,14 @@ export default function Assessment() {
       if (advanceTimer.current) window.clearTimeout(advanceTimer.current);
     };
   }, []);
+
+  // 문항이 바뀌면 질문이 보이는 위치에서 시작한다 (이전 문항의 스크롤 위치가 남지 않게)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.scrollY <= 8) return;
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  }, [q.id]);
 
   const update = (next: AssessmentSession) => {
     setSession(next);
@@ -135,7 +151,7 @@ export default function Assessment() {
   if (processing) {
     return (
       <>
-        <main className="processing page-enter" aria-live="polite">
+        <main className="assessment-screen processing page-enter" aria-live="polite">
           <OrbitPulse />
           <p>12가지 에너지의 균형을 정리하고 있습니다.</p>
         </main>
@@ -145,7 +161,7 @@ export default function Assessment() {
   }
 
   return (
-    <main>
+    <main className="assessment-screen">
       <div className="assess-top">
         <div className="shell">
           <div className="row">
@@ -224,7 +240,7 @@ export default function Assessment() {
                     onClick={() => answer(2)}
                     className={current === 2 ? "on" : ""}
                   >
-                    조금 더 가까워요
+                    약간 그렇다
                   </button>
                   <button
                     type="button"
@@ -234,7 +250,7 @@ export default function Assessment() {
                     onClick={() => answer(1)}
                     className={current === 1 ? "on" : ""}
                   >
-                    많이 더 가까워요
+                    매우 그렇다
                   </button>
                 </div>
               </div>
@@ -261,7 +277,7 @@ export default function Assessment() {
                     onClick={() => answer(4)}
                     className={current === 4 ? "on" : ""}
                   >
-                    조금 더 가까워요
+                    약간 그렇다
                   </button>
                   <button
                     type="button"
@@ -271,7 +287,7 @@ export default function Assessment() {
                     onClick={() => answer(5)}
                     className={current === 5 ? "on" : ""}
                   >
-                    많이 더 가까워요
+                    매우 그렇다
                   </button>
                 </div>
               </div>
@@ -279,32 +295,32 @@ export default function Assessment() {
           )}
 
           <div className="assess-nav">
-            <button
-              className="btn-text"
-              type="button"
-              onClick={() => update({ ...session, currentIndex: index - 1 })}
-              disabled={index === 0}
-            >
-              <ArrowLeft />
-              이전
-            </button>
-
-            {allAnswered ? (
+            {allAnswered && (
               <button className="btn btn-primary" type="button" onClick={() => finish(session)}>
                 결과 보기
               </button>
-            ) : current && index < questions.length - 1 ? (
+            )}
+            <div className="assess-nav-steps">
               <button
                 className="btn-text"
                 type="button"
-                onClick={() => update({ ...session, currentIndex: index + 1 })}
+                onClick={() => update({ ...session, currentIndex: index - 1 })}
+                disabled={index === 0}
               >
-                다음
-                <ArrowRight />
+                <ArrowLeft />
+                이전 문항
               </button>
-            ) : (
-              <span />
-            )}
+              {current && index < questions.length - 1 && (
+                <button
+                  className="btn-text"
+                  type="button"
+                  onClick={() => update({ ...session, currentIndex: index + 1 })}
+                >
+                  다음 문항
+                  <ArrowRight />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -244,7 +244,7 @@ describe("검사 화면", () => {
     // 강도 버튼이 각 카드 내부에 있다 (다른 카드로 시선을 옮길 필요 없음)
     for (const c of cards) {
       const btns = [...c.querySelectorAll("button")].map(b => b.textContent);
-      expect(btns).toEqual(["조금 더 가까워요", "많이 더 가까워요"]);
+      expect(btns).toEqual(["약간 그렇다", "매우 그렇다"]);
     }
     expect(container.querySelector(".v-mid")!.textContent).toBe("둘 다 비슷해요");
     expect(container.querySelectorAll('[role="radio"]')).toHaveLength(5);

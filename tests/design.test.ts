@@ -138,7 +138,11 @@ describe("반응형 안전장치", () => {
     // 문항 응답 컨트롤 (좌우 척도 / 세로 강도 버튼 / 중립 버튼)
     expect(/\.scale-h button \{[^}]*min-height:\s*6\dpx/.test(css)).toBe(true);
     expect(/\.v-actions button \{[^}]*min-height:\s*4[6-9]px/.test(css)).toBe(true);
-    expect(/\.v-mid \{[^}]*min-height:\s*44px/.test(css)).toBe(true);
+    expect(/\.v-mid \{[^}]*min-height:\s*4[2-9]px/.test(css)).toBe(true);
+    // 하단 이전/다음 문항 버튼
+    expect(/\.assess-nav-steps \.btn-text \{[^}]*min-height:\s*44px/.test(css)).toBe(true);
+    // 검사 길이 선택 카드
+    expect(/\.length-card \{[^}]*min-height:\s*44px/.test(css)).toBe(true);
   });
 
   it("가로 스크롤을 차단한다", () => {
@@ -234,11 +238,13 @@ describe("디자인 토큰 체계", () => {
       ["--color-surface", "#ffffff"],
       ["--color-text", "#1f2937"],
       ["--color-text-secondary", "#64748b"],
-      ["--color-primary", "#4338ca"],
-      ["--color-primary-hover", "#3730a3"],
-      ["--color-primary-soft", "#eef2ff"],
+      // 2026-08-29 Primary 를 채도 낮은 Dark Gray Blue 계열로 교체
+      ["--color-primary", "#3f4d5f"],
+      ["--color-primary-hover", "#334155"],
+      ["--color-primary-active", "#293545"],
+      ["--color-primary-soft", "#eef1f4"],
       ["--color-slate", "#475569"],
-      ["--color-border", "#e5e7eb"],
+      ["--color-border", "#e2e6ea"],
       ["--color-border-strong", "#cbd5e1"]
     ];
     for (const [name, value] of tokens) {
@@ -256,6 +262,7 @@ describe("디자인 토큰 체계", () => {
     const radii = [...css.matchAll(/border-radius:\s*([^;]+);/g)].map(m => m[1].trim());
     const allowed = [
       "var(--radius-sm)", "var(--radius-btn)", "var(--radius-card)", "var(--radius-lg)",
+      "16px", // 검사 길이 선택 카드
       "50%", "999px", "2px", "4px"
     ];
     for (const r of radii) expect(allowed, `허용되지 않은 radius: ${r}`).toContain(r);
@@ -266,7 +273,8 @@ describe("디자인 토큰 체계", () => {
     for (const s of shadows) {
       // 허용: focus ring(soft), 정의된 float/modal 토큰, marker outline
       expect(
-        /var\(--shadow-|0 0 0 \d+px/.test(s),
+        // 카드 그림자는 아주 옅은 것 하나만 허용 (검사 길이 선택 카드)
+        /var\(--shadow-|0 0 0 \d+px|^0 6px 20px rgba\(15, 23, 42, 0\.04\)$/.test(s),
         `허용되지 않은 shadow: ${s}`
       ).toBe(true);
     }

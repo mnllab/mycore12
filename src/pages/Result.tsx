@@ -61,7 +61,7 @@ export default function Result() {
             : "이 기기에 저장된 해당 결과가 없습니다. 새 검사를 시작해 보세요."}
         </p>
         <Link className="btn btn-primary" to="/assessment">
-          검사시작
+          마이코어12 시작하기
         </Link>
       </main>
     );
@@ -128,7 +128,7 @@ export default function Result() {
   };
 
   return (
-    <main className="page-enter">
+    <main className="result-content page-enter">
       {/* ── 01 Result Hero — 이름·핵심 특징·에너지 서명 (5초 안에 파악) ── */}
       <section className="result-hero">
         <div className="shell shell-wide inner">
@@ -429,6 +429,10 @@ export default function Result() {
 
           <div className="meta-line num">
             <span>검사일 {new Date(stored.completedAt).toLocaleString("ko-KR")}</span>
+            <span>
+              {stored.assessmentLength ?? 36}문항
+              {(stored.assessmentLength ?? 36) === 36 ? " 표준 검사" : ""}
+            </span>
             <span>문항은행 {stored.bankVersion}</span>
             <span>유형 데이터 v{stored.typeDatasetVersion}</span>
           </div>

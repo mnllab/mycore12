@@ -1,11 +1,17 @@
 /**
  * 로컬 저장 레이어 (localStorage) — 마이코어12(MYCORE12).
- * - 진행 중 세션: 새로고침 시 동일 36문항과 답변을 복원
+ * - 진행 중 세션: 새로고침 시 동일 문항 구성·검사 길이·답변을 복원
  * - 최근 문항 ID: 재검사 시 recentlySeenIds로 전달 (최근 3회)
  * - 결과 기록: 유형·점수·버전 저장, 삭제 기능 제공
  */
-import { drawAssessment, scoreAssessment } from "../vendor/positive_assessment_engine_FINAL_v3.1.js";
+import { scoreAssessment } from "../vendor/positive_assessment_engine_FINAL_v3.1.js";
 import { spreadByAxis } from "./ordering";
+import {
+  DEFAULT_ASSESSMENT_LENGTH,
+  drawAssessmentByLength,
+  isAssessmentLength,
+  type AssessmentLength
+} from "./draw";
 import {
   BANK_VERSION,
   QUESTION_BANK_VERSION,
@@ -49,6 +55,8 @@ export interface AssessmentSession {
   questionIds: string[];
   answers: Record<string, 1 | 2 | 3 | 4 | 5>;
   currentIndex: number;
+  /** 이 세션의 문항 수 — 시작할 때 확정되고 검사 중에는 바뀌지 않는다 */
+  assessmentLength: AssessmentLength;
   bankVersion: string;
   engineVersion: string;
 }
@@ -63,6 +71,8 @@ export interface StoredAssessmentResult {
   energyScores: Record<string, number>;
   axisResults: ScoreResult["axisResults"];
   typePersonaName: string;
+  /** 이 결과가 사용한 문항 수. 과거 결과에는 없을 수 있다(기존 표준 36문항). */
+  assessmentLength?: AssessmentLength;
   bankVersion: string;
   /** 짧은 문항은행 버전 표기 (예: "3.2"). 과거 결과에는 없을 수 있다. */
   questionBankVersion?: string;
@@ -141,7 +151,10 @@ function pushRecentQuestionIds(ids: string[]) {
 
 export function getActiveSession(): AssessmentSession | null {
   const s = read<AssessmentSession>(K_SESSION);
-  if (!s || !Array.isArray(s.questionIds) || s.questionIds.length !== 36) return null;
+  if (!s || !Array.isArray(s.questionIds)) return null;
+  // 검사 길이는 시작할 때 확정된다. 저장값과 문항 수가 어긋난 세션은 복원하지 않는다.
+  const length = s.assessmentLength ?? (s.questionIds.length as AssessmentLength);
+  if (!isAssessmentLength(length) || s.questionIds.length !== length) return null;
   // 데이터 버전이 다른 세션은 복원하지 않는다 (새 검사로 시작)
   if (s.bankVersion !== BANK_VERSION) return null;
 
@@ -158,21 +171,24 @@ export function getActiveSession(): AssessmentSession | null {
     typeof s.currentIndex !== "number" ||
     !Number.isInteger(s.currentIndex) ||
     s.currentIndex < 0 ||
-    s.currentIndex > 35
+    s.currentIndex > length - 1
   ) {
-    return { ...s, currentIndex: 0 };
+    return { ...s, assessmentLength: length, currentIndex: 0 };
   }
-  return s;
+  return { ...s, assessmentLength: length };
 }
 
-/** 검사를 새로 시작할 때만 호출 — drawAssessment()로 새 36문항 추출 */
-export function startNewSession(): AssessmentSession {
-  const draw = drawAssessment as (opts?: {
-    recentlySeenIds?: string[];
-    rng?: () => number;
-  }) => Question[];
-  // 엔진이 뽑은 36문항을 그대로 사용하되, 표시 순서만 축이 연속되지 않게 보정한다
-  const items = spreadByAxis(draw({ recentlySeenIds: getRecentQuestionIds() }));
+/**
+ * 검사를 새로 시작할 때만 호출 — 선택한 길이로 문항을 추출한다.
+ * questionIds 는 여기서 한 번 만들어지고 그 세션 동안 고정된다.
+ */
+export function startNewSession(
+  length: AssessmentLength = DEFAULT_ASSESSMENT_LENGTH
+): AssessmentSession {
+  // 뽑은 문항 집합은 그대로 두고, 표시 순서만 축이 연속되지 않게 보정한다
+  const items = spreadByAxis(
+    drawAssessmentByLength({ length, recentlySeenIds: getRecentQuestionIds() })
+  );
   const session: AssessmentSession = {
     sessionId:
       typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -182,6 +198,7 @@ export function startNewSession(): AssessmentSession {
     questionIds: items.map(q => q.id),
     answers: {},
     currentIndex: 0,
+    assessmentLength: length,
     bankVersion: BANK_VERSION,
     engineVersion: ENGINE_VERSION
   };
@@ -210,7 +227,7 @@ export function questionsOf(session: AssessmentSession): Question[] {
   });
 }
 
-/** 36문항 응답 완료 → 채점, 유형 매칭, 결과 저장, 세션 종료 */
+/** 응답 완료 → 채점, 유형 매칭, 결과 저장, 세션 종료 (길이와 무관하게 동일) */
 export function completeSession(session: AssessmentSession): StoredAssessmentResult {
   const items = questionsOf(session);
   const result = scoreAssessment(items, session.answers) as ScoreResult;
@@ -226,6 +243,7 @@ export function completeSession(session: AssessmentSession): StoredAssessmentRes
     energyScores: result.energyScores,
     axisResults: result.axisResults,
     typePersonaName: matched.personaName,
+    assessmentLength: session.assessmentLength,
     bankVersion: session.bankVersion,
     questionBankVersion: QUESTION_BANK_VERSION,
     engineVersion: session.engineVersion,

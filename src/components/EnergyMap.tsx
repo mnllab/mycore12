@@ -11,7 +11,12 @@ import { AXES, ENERGY_RING_ORDER, ENERGY_TO_AXIS } from "../lib/mycore12";
  * - 내부 면적 채우기 금지, 면적값 계산·표시 금지
  *
  * 각 축의 두 에너지는 링에서 정반대(180°)에 놓여 pair 관계가 드러난다.
+ *
+ * 색: 12개 에너지에 채도를 낮춘 muted color 를 하나씩 준다. 구조선(외곽 12각형,
+ * spoke, 50 기준선)은 중립 회색을 유지하고 node 와 label 에만 색을 쓴다.
+ * 색은 구분 보조 수단이며 라벨 텍스트를 항상 함께 표시한다(색각 이상 대응).
  */
+const energyColor = (energy: string) => `var(--energy-${energy})`;
 export default function EnergyMap({
   energyScores,
   animate = false
@@ -138,11 +143,23 @@ export default function EnergyMap({
               cy={n.y}
               r={active === n.energy ? 11 : 9}
               fill="var(--color-surface)"
-              stroke="var(--color-primary)"
+              stroke={energyColor(n.energy)}
               strokeWidth={2}
             />
-            <circle cx={n.x} cy={n.y} r={3.4} fill="var(--color-primary)" />
+            <circle cx={n.x} cy={n.y} r={3.4} fill={energyColor(n.energy)} />
           </g>
+        ))}
+
+        {/* 외곽 지점의 작은 색 marker — 어느 방향이 어떤 에너지인지 구분 보조 */}
+        {nodes.map(n => (
+          <circle
+            key={`m-${n.energy}`}
+            cx={n.ox}
+            cy={n.oy}
+            r={3}
+            fill={energyColor(n.energy)}
+            opacity={0.85}
+          />
         ))}
 
         {/* labels — 색상만으로 구분하지 않도록 항상 텍스트 병기 */}
@@ -156,7 +173,7 @@ export default function EnergyMap({
             fontSize={18}
             fontWeight={active === n.energy ? 600 : 500}
             letterSpacing={-0.3}
-            fill={active === n.energy ? "var(--color-primary)" : "var(--color-text-secondary)"}
+            fill={active === n.energy ? energyColor(n.energy) : "var(--color-text-secondary)"}
           >
             {n.energy}
           </text>
