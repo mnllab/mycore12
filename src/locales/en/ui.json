@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "title": "MYCORE12 | The 12 Energies That Shape You",
+    "description": "Explore how you naturally think, choose, act, and connect through six paired preference axes and 12 positive energies.",
+    "ogTitle": "MYCORE12 | The 12 Energies That Shape You",
+    "ogDescription": "Explore your natural patterns through six paired preference axes and 12 positive energies.",
+    "ogLocale": "en_US"
+  },
+  "brand": {
+    "name": "MYCORE12",
+    "tagline": "The 12 Energies That Shape You",
+    "descriptor": "A 6-Axis Preference Profile",
+    "copyright": "© Janggil Kim. All Rights Reserved."
+  },
+  "nav": {
+    "how": "How It Works",
+    "history": "My Results",
+    "support": "Support",
+    "supportAlt": "Buy me a coffee — Support MYCORE12",
+    "privacy": "Privacy & Local Storage",
+    "deleteAll": "Delete My Results",
+    "mainMenuAria": "Main menu",
+    "infoMenuAria": "Information menu",
+    "principle": "Assessment Principles",
+    "localeAria": "Language selection"
+  },
+  "home": {
+    "lede": "Answer everyday situations to see how your 12 energies balance across six paired preference axes.",
+    "resume": "You have an assessment in progress with {length} questions. Resume to continue with the same questions.",
+    "chooseLength": "Choose your assessment length",
+    "lengthHelp": "More questions cover a wider range of situations.",
+    "recommended": "Recommended",
+    "start": "Start Assessment",
+    "resumeButton": "Resume Assessment",
+    "howButton": "See How It Works",
+    "recentProfile": "View Recent Profile — {personaName}",
+    "infoQuestions": "situational questions",
+    "infoEnergies": "energies to explore",
+    "infoPatterns": "possible combinations",
+    "noRightAnswers": "No right answers",
+    "equalValue": "All 12 energies have equal value.",
+    "lengthAria": "Assessment length"
+  },
+  "lengths": {
+    "18": {
+      "title": "18 Questions",
+      "tagline": "Quick",
+      "description": "A concise look at your core tendencies."
+    },
+    "36": {
+      "title": "36 Questions",
+      "tagline": "Standard",
+      "description": "Covers all six contexts evenly for a balanced profile."
+    },
+    "54": {
+      "title": "54 Questions",
+      "tagline": "Detailed",
+      "description": "Uses more situations for a more nuanced profile."
+    },
+    "72": {
+      "title": "72 Questions",
+      "tagline": "In Depth",
+      "description": "Covers each context more fully for a detailed profile."
+    }
+  },
+  "how": {
+    "title": "How MYCORE12 Works",
+    "lede": "Choose the response that best reflects how you have actually been lately. You can leave and resume later in the same browser.",
+    "steps": [
+      {
+        "title": "Read the situation",
+        "body": "You will see one everyday situation at a time, drawn from personal life, work and study, relationships, group activities, change, and decision-making."
+      },
+      {
+        "title": "Choose what feels more natural",
+        "body": "Rate which of two positive responses is closer to how you would usually respond. There are no better or worse choices."
+      },
+      {
+        "title": "See your 12-energy profile",
+        "body": "Review the balance across six energy pairs, your overall combination, and ways to use your strengths more broadly."
+      }
+    ],
+    "start": "Start Assessment",
+    "principle": "MYCORE12 looks at how naturally you tend to use 12 positive energies across six paired preference axes. The two energies on each axis always add up to 100. The result describes relative preference, not total ability or rank."
+  },
+  "privacy": {
+    "title": "Privacy & Local Storage",
+    "p1": "You can use MYCORE12 without creating an account. Your assessment progress and results are stored only in this browser's local storage and are not sent to a server.",
+    "p2": "Stored data includes your active assessment session, recently shown question IDs, and completed results. Your answers are not placed in a shareable URL.",
+    "p3": "Select Delete My Results at the bottom of the page to remove all MYCORE12 data stored on this device. Results are not shared across devices or browsers.",
+    "adsTitle": "Advertising and Cookies",
+    "p4": "If Google AdSense advertising is enabled in the future, Google and other third-party advertising services may use cookies or similar technologies, along with browser and device information, to serve and measure ads.",
+    "p5": "Even then, your MYCORE12 assessment responses and results are not provided as ad targeting information.",
+    "p6": "You can manage advertising consent and settings through Google's consent messages, your browser settings, and Google Ad Settings below.",
+    "linkPartnerSites": "How Google uses information from sites that use its services",
+    "linkAdCenter": "Google Ad Settings"
+  },
+  "assessment": {
+    "prompt": "I usually...",
+    "very": "Very true for me",
+    "somewhat": "Somewhat true for me",
+    "neutral": "Both are about the same",
+    "previous": "Previous",
+    "next": "Next",
+    "viewResults": "View Results",
+    "processing": "Putting your 12-energy profile together.",
+    "progressAria": "Assessment progress",
+    "groupAria": "Choose the response that is closer to you",
+    "ariaVeryA": "{option} — much closer to me",
+    "ariaSomewhatA": "{option} — somewhat closer to me",
+    "ariaNeutral": "Both are about the same",
+    "ariaSomewhatB": "{option} — somewhat closer to me",
+    "ariaVeryB": "{option} — much closer to me",
+    "scaleMuch": "Much more",
+    "scaleLittle": "A little more",
+    "scaleSame": "About the same"
+  },
+  "result": {
+    "resultLabel": "MYCORE12 Result",
+    "tocAria": "Result sections",
+    "toc": {
+      "core": "Core Profile",
+      "energy": "12 Energies",
+      "strengths": "Natural Strengths",
+      "work": "At Work",
+      "judgment": "Decisions",
+      "people": "With Others",
+      "signals": "When Strengths Go Too Far",
+      "wider": "Broader Range",
+      "roadmap": "Growth Roadmap",
+      "pressure": "Stress & Balance",
+      "questions": "Reflection"
+    },
+    "core": "My Core Profile",
+    "energy": "My 12 Energies",
+    "energyTitle": "Where my six energy pairs sit",
+    "energyHelp": "The two energies on each axis always add up to 100. The scores show which direction feels more natural to you, with equal value on both sides.",
+    "strengths": "What Comes Naturally to Me",
+    "work": "At Work",
+    "workStyle": "How I Work",
+    "goodFit": "Where My Strengths Come Through",
+    "judgment": "How I Make Decisions",
+    "people": "With Other People",
+    "worksWell": "Works Well When",
+    "watch": "Situations to Watch",
+    "feedback": "Feedback That Works for Me",
+    "team": "What I Bring to a Group",
+    "signals": "When a Strength Goes Too Far",
+    "wider": "Using My Strengths More Broadly",
+    "widerTitle": "Practicing both sides of each pair",
+    "widerHelp": "Complementary energies support and extend your current strengths. Open each section to see practical ways to use them together.",
+    "addEnergy": "Adding {energy}",
+    "notice": "A Sign to Notice",
+    "practice": "A Practical Step",
+    "mature": "A Broader Strength",
+    "roadmap": "My Growth Roadmap",
+    "startNow": "Start Now",
+    "next30": "Practice Over the Next Month",
+    "longTerm": "Build Over Time",
+    "stress": "Under Stress",
+    "stressSignals": "Signs That May Appear",
+    "recovery": "Regaining Balance",
+    "questions": "Questions for Reflection",
+    "closing": "Closing Note",
+    "retest": "Take the Assessment Again",
+    "history": "View My Results",
+    "delete": "Delete This Result",
+    "balanced": "Balanced Point",
+    "balancedNote": "You use both energies on this axis at about the same level.",
+    "notFoundTitle": "Result Not Found",
+    "mismatchTitle": "Unable to Display This Result",
+    "notFoundBody": "This result is not stored on this device. Start a new assessment to create a new result.",
+    "mismatchBody": "This saved result does not match the current profile data. Start a new assessment to generate a current result.",
+    "start": "Start Assessment",
+    "deleteConfirm": "Delete this result?",
+    "date": "Assessment date {date}",
+    "questionCount": "{count} questions",
+    "standard": "Standard",
+    "questionBank": "Question bank {version}",
+    "typeData": "Type data v{version}",
+    "validationNote": "This result describes relative preferences and is intended for self-understanding. Medical and psychological diagnosis should be based on professional assessment and consultation. The item content has been reviewed, and sample-based psychometric validation is planned.",
+    "balancedAria": "{axis} axis: balanced point, {pair} are used at about the same level (50 to 50)",
+    "axisAria": "{axis} axis: {pole1} {score1}, {pole0} {score0}"
+  },
+  "history": {
+    "title": "My Assessment History",
+    "lede": "Results are stored only on this device. If your type changes over time, compare how the balance on each axis shifted in this set of responses.",
+    "empty": "No saved results yet.",
+    "start": "Start Assessment",
+    "view": "View Result",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this result?"
+  },
+  "energyMap": {
+    "title": "MYCORE12 12-Energy Map",
+    "description": "The outer 12-sided frame is fixed for everyone. Each marker shows the relative preference score for one energy. Shape area is not used for interpretation.",
+    "baseline": "The dotted circle marks the 50-point reference line. Select a point to view its value.",
+    "mapDetail": "{energy} {score} — paired with {other} {otherScore} on the {axis} axis.",
+    "mapNodeAria": "{energy} {score}. Paired with {other} {otherScore} on the {axis} axis.",
+    "srAxis": "{axis}: {pole1} {score1}, {pole0} {score0}"
+  },
+  "errors": {
+    "boundaryTitle": "Something Went Wrong",
+    "boundaryBody": "We ran into a problem while loading your assessment data. Start a new assessment to continue.",
+    "goHome": "Go to Home",
+    "deleteAllConfirm": "Delete all MYCORE12 assessment history and results stored on this device? This cannot be undone."
+  },
+  "orbit": {
+    "aria": "MYCORE12 brand graphic showing the 12 energies placed on a single circular orbit"
+  }
+}

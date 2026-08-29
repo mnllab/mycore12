@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "title": "마이코어12 MYCORE12 | 6축 기반 성향 프로파일",
+    "description": "마이코어12(MYCORE12)는 6개의 성향축과 12가지 긍정 에너지를 통해 나의 자연스러운 선택과 행동 패턴을 탐색하는 성향 프로파일입니다.",
+    "ogTitle": "마이코어12 MYCORE12 | 나를 이루는 12가지 에너지",
+    "ogDescription": "마이코어12(MYCORE12)는 6개의 성향축과 12가지 긍정 에너지를 통해 나의 자연스러운 선택과 행동 패턴을 탐색하는 성향 프로파일입니다.",
+    "ogLocale": "ko_KR"
+  },
+  "brand": {
+    "name": "마이코어12",
+    "tagline": "나를 이루는 12가지 에너지",
+    "descriptor": "6축 기반 성향 프로파일",
+    "copyright": "© Janggil Kim. All Rights Reserved."
+  },
+  "nav": {
+    "how": "검사 방식",
+    "history": "내 기록",
+    "support": "후원",
+    "supportAlt": "Buy me a coffee — 마이코어12 후원하기",
+    "privacy": "개인정보 · 로컬저장 안내",
+    "deleteAll": "내 결과 삭제",
+    "mainMenuAria": "주요 메뉴",
+    "infoMenuAria": "안내 메뉴",
+    "principle": "검사 원리",
+    "localeAria": "언어 선택"
+  },
+  "home": {
+    "lede": "일상에서 마주하는 상황에 답하면, 여섯 개의 상대선호 축 위에서 내가 자연스럽게 쓰는 12가지 에너지의 균형을 하나의 프로파일로 읽을 수 있습니다.",
+    "resume": "진행 중인 {length}문항 검사가 있습니다. 이어서 진행하면 같은 문항으로 계속됩니다.",
+    "chooseLength": "검사 길이를 선택해 주세요",
+    "lengthHelp": "문항이 많을수록 여러 상황에서의 성향을 더 충분히 반영할 수 있습니다.",
+    "recommended": "추천",
+    "start": "검사 시작",
+    "resumeButton": "이어서 진행하기",
+    "howButton": "검사 방식 알아보기",
+    "recentProfile": "최근 프로파일 다시 보기 — {personaName}",
+    "infoQuestions": "의 상황문항에 답합니다",
+    "infoEnergies": "의 에너지를 살펴봅니다",
+    "infoPatterns": "의 고유한 조합 가운데 나의 패턴",
+    "noRightAnswers": "정답 없음",
+    "equalValue": "모든 에너지는 동등한 강점입니다",
+    "lengthAria": "검사 길이"
+  },
+  "lengths": {
+    "18": {
+      "title": "18문항",
+      "tagline": "빠르게 보기",
+      "description": "핵심적인 성향을 간단히 확인합니다."
+    },
+    "36": {
+      "title": "36문항",
+      "tagline": "표준 검사",
+      "description": "6가지 상황을 고르게 반영해 성향을 균형 있게 살펴봅니다."
+    },
+    "54": {
+      "title": "54문항",
+      "tagline": "자세히 보기",
+      "description": "더 많은 상황을 반영해 결과를 조금 더 세밀하게 살펴봅니다."
+    },
+    "72": {
+      "title": "72문항",
+      "tagline": "깊이 있게 보기",
+      "description": "각 상황을 더 충분히 반영해 성향을 자세히 살펴봅니다."
+    }
+  },
+  "how": {
+    "title": "마이코어12는 이렇게 진행됩니다",
+    "lede": "최근의 실제 나와 가장 가까운 선택을 골라주세요. 약 7~10분이 걸리며, 중간에 나가더라도 같은 브라우저에서 이어서 진행할 수 있습니다.",
+    "steps": [
+      {
+        "title": "상황을 읽는다",
+        "body": "일상, 일과 학업, 관계, 공동활동, 변화, 선택의 순간처럼 누구나 겪는 장면이 한 번에 하나씩 주어집니다."
+      },
+      {
+        "title": "자연스러운 선택을 표시한다",
+        "body": "두 가지 반응 중 최근의 실제 나와 가장 가까운 쪽을 5단계로 표시합니다. 두 선택 모두 좋은 방식입니다."
+      },
+      {
+        "title": "12에너지 프로파일을 확인한다",
+        "body": "여섯 쌍의 에너지 균형과 나의 고유한 조합, 그리고 강점을 더 잘 쓰기 위한 안내를 확인합니다."
+      }
+    ],
+    "start": "마이코어12 시작하기",
+    "principle": "마이코어12(MYCORE12)는 여섯 개의 양극 축에서 12가지 에너지를 상대적으로 얼마나 자연스럽게 사용하는지를 살펴봅니다. 각 축의 두 에너지는 모두 긍정적인 강점이며, 점수의 합은 언제나 100입니다. 결과는 능력의 총량이나 사람 사이의 순서를 뜻하지 않습니다."
+  },
+  "privacy": {
+    "title": "개인정보 · 로컬저장 안내",
+    "p1": "마이코어12는 회원가입 없이 사용할 수 있습니다. 검사 진행 상태와 결과는 서버로 전송되지 않고 지금 사용 중인 브라우저의 로컬 저장소에만 보관됩니다.",
+    "p2": "저장되는 항목은 진행 중인 검사 세션, 최근에 출제된 문항 번호, 완료된 결과 기록입니다. 응답 내용이 공유 주소에 담기지 않습니다.",
+    "p3": "화면 아래의 내 결과 삭제를 누르면 이 기기에 저장된 모든 마이코어12 데이터가 즉시 삭제됩니다. 다른 기기나 브라우저에는 기록이 공유되지 않습니다.",
+    "adsTitle": "광고와 쿠키",
+    "p4": "앞으로 Google AdSense 광고가 활성화되면, Google을 비롯한 제3자 광고 서비스가 광고 제공과 측정 등을 위해 쿠키 또는 유사한 기술과 브라우저·기기 관련 정보를 사용할 수 있습니다.",
+    "p5": "이때에도 마이코어12의 검사 응답과 결과 데이터는 광고 타기팅 정보로 제공하지 않습니다.",
+    "p6": "광고 관련 동의와 설정은 Google의 동의 메시지와 브라우저 설정, 아래 Google 광고 설정에서 관리할 수 있습니다.",
+    "linkPartnerSites": "Google의 파트너 사이트 데이터 사용 안내",
+    "linkAdCenter": "Google 광고 설정"
+  },
+  "assessment": {
+    "prompt": "나는 보통...",
+    "very": "매우 그렇다",
+    "somewhat": "약간 그렇다",
+    "neutral": "둘 다 비슷하다",
+    "previous": "이전 문항",
+    "next": "다음 문항",
+    "viewResults": "결과 보기",
+    "processing": "12가지 에너지의 균형을 정리하고 있습니다.",
+    "progressAria": "응답 진행 상황",
+    "groupAria": "{optionA} 또는 {optionB} 중 나와 더 가까운 쪽",
+    "ariaVeryA": "{option} — 많이 더 가깝다",
+    "ariaSomewhatA": "{option} — 조금 더 가깝다",
+    "ariaNeutral": "둘 다 비슷하다",
+    "ariaSomewhatB": "{option} — 조금 더 가깝다",
+    "ariaVeryB": "{option} — 많이 더 가깝다",
+    "scaleMuch": "많이",
+    "scaleLittle": "조금",
+    "scaleSame": "비슷"
+  },
+  "result": {
+    "resultLabel": "마이코어12 결과",
+    "tocAria": "결과 목차",
+    "toc": {
+      "core": "핵심 특징",
+      "energy": "12가지 에너지",
+      "strengths": "잘하는 것",
+      "work": "일할 때",
+      "judgment": "판단할 때",
+      "people": "사람들과 함께할 때",
+      "signals": "강점이 너무 앞설 때",
+      "wider": "나를 더 넓게 쓰는 방법",
+      "roadmap": "성장 로드맵",
+      "pressure": "스트레스와 회복",
+      "questions": "질문"
+    },
+    "core": "나의 핵심 특징",
+    "energy": "나의 12가지 에너지",
+    "energyTitle": "여섯 쌍의 에너지가 어디에 놓여 있는지",
+    "energyHelp": "각 축에서 두 에너지의 합은 언제나 100입니다. 어느 쪽도 우열이 아니라, 평소 더 자연스럽게 선택하는 방향을 보여줍니다.",
+    "strengths": "내가 자연스럽게 잘하는 것",
+    "work": "일할 때의 나",
+    "workStyle": "일하는 방식",
+    "goodFit": "강점이 잘 살아나는 상황",
+    "judgment": "판단할 때의 나",
+    "people": "사람들과 함께할 때",
+    "worksWell": "이럴 때 잘 작동합니다",
+    "watch": "함께 살펴볼 장면",
+    "feedback": "나에게 맞는 피드백",
+    "team": "함께할 때 더해지는 힘",
+    "signals": "강점이 너무 앞설 때",
+    "wider": "나를 더 넓게 쓰는 방법",
+    "widerTitle": "여섯 쌍을 함께 쓰는 연습",
+    "widerHelp": "보완 에너지는 부족한 점이 아니라 현재의 강점을 받쳐주는 확장 자원입니다. 각 항목을 펼치면 연습 방법을 볼 수 있습니다.",
+    "addEnergy": "{energy} 에너지를 더하면",
+    "notice": "살펴볼 신호",
+    "practice": "실제로 할 수 있는 행동",
+    "mature": "성숙한 모습",
+    "roadmap": "나의 성장 로드맵",
+    "startNow": "지금 시작할 것",
+    "next30": "한 달 동안 연습할 것",
+    "longTerm": "조금 더 길게 가져갈 방향",
+    "stress": "스트레스를 받을 때",
+    "stressSignals": "나타날 수 있는 신호",
+    "recovery": "다시 균형을 찾는 방법",
+    "questions": "나에게 던져볼 질문",
+    "closing": "마무리",
+    "retest": "다시 검사하기",
+    "history": "내 기록 보기",
+    "delete": "이 결과 삭제",
+    "balanced": "균형 지점",
+    "balancedNote": "이 축에서는 {pair} 두 에너지를 비슷하게 쓰고 있습니다.",
+    "notFoundTitle": "결과를 찾을 수 없어요",
+    "mismatchTitle": "결과를 표시할 수 없어요",
+    "notFoundBody": "이 기기에 저장된 해당 결과가 없습니다. 새 검사를 시작해 보세요.",
+    "mismatchBody": "저장된 결과가 현재 유형 데이터와 맞지 않습니다. 새 검사를 진행하면 정상적으로 결과를 확인할 수 있습니다.",
+    "start": "마이코어12 시작하기",
+    "deleteConfirm": "이 결과를 삭제할까요?",
+    "date": "검사일 {date}",
+    "questionCount": "{count}문항",
+    "standard": "표준 검사",
+    "questionBank": "문항은행 {version}",
+    "typeData": "유형 데이터 v{version}",
+    "validationNote": "이 결과는 능력의 총량이나 사람 사이의 순서를 뜻하지 않으며, 임상적 판단 도구가 아닌 자기이해를 돕는 성향 프로파일입니다. 문항은 내용 감수를 마쳤고 실제 표본 기반 심리측정 검증은 진행 예정입니다.",
+    "balancedAria": "{axis}축: {pair}를 비슷하게 쓰는 균형 지점 (50 대 50)",
+    "axisAria": "{axis}축: {pole1} {score1}, {pole0} {score0}"
+  },
+  "history": {
+    "title": "내 검사 기록",
+    "lede": "기록은 이 기기에만 저장됩니다. 유형이 이전과 다르게 나왔다면 성향이 바뀌었다기보다, 이번 응답에서 어떤 축의 균형이 어느 쪽으로 움직였는지를 함께 살펴보세요.",
+    "empty": "아직 저장된 결과가 없습니다.",
+    "start": "마이코어12 시작하기",
+    "view": "결과 보기",
+    "delete": "삭제",
+    "deleteConfirm": "이 결과를 삭제할까요?"
+  },
+  "energyMap": {
+    "title": "마이코어12 12 에너지 맵",
+    "description": "바깥 12각형은 모든 사람에게 동일한 고정 형태이며, 각 점의 위치만 에너지의 상대 선호를 나타냅니다. 도형의 넓이는 해석에 사용하지 않습니다.",
+    "baseline": "점선 원은 50 기준선입니다. 점을 선택하면 값을 볼 수 있습니다.",
+    "mapDetail": "{energy} {score} — {axis}축에서 {other} {otherScore}와 함께 구성됩니다.",
+    "mapNodeAria": "{energy} {score}. {axis}축에서 {other} {otherScore}와 함께 구성됩니다.",
+    "srAxis": "{axis}: {pole1} {score1}, {pole0} {score0}"
+  },
+  "errors": {
+    "boundaryTitle": "화면을 불러오지 못했어요",
+    "boundaryBody": "진행 중인 검사 데이터를 읽는 중 문제가 발생했습니다. 아래 버튼으로 검사를 새로 시작하면 정상적으로 이용할 수 있어요.",
+    "goHome": "처음 화면으로 이동",
+    "deleteAllConfirm": "이 기기에 저장된 마이코어12 검사 기록과 결과를 모두 삭제할까요? 삭제 후에는 되돌릴 수 없습니다."
+  },
+  "orbit": {
+    "aria": "12개의 에너지가 하나의 원 궤도 위에 배치된 마이코어12 브랜드 그래픽"
+  }
+}

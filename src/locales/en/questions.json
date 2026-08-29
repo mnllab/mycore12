@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "AS-D01",
+    "scenario": "My weekend opened up earlier than I expected.",
+    "prompt": "I usually...",
+    "optionA": "I pick something I have wanted to try and start right away.",
+    "optionB": "I take a moment to see what I could do, then decide."
+  },
+  {
+    "id": "AS-D02",
+    "scenario": "I notice an area at home that I want to organize.",
+    "prompt": "I usually...",
+    "optionA": "I picture where things should go before I start.",
+    "optionB": "I start with what is in front of me and tidy as I go."
+  },
+  {
+    "id": "AS-D03",
+    "scenario": "I have some extra time in a neighborhood I have never visited.",
+    "prompt": "I usually...",
+    "optionA": "I wander into places that catch my eye and explore as I go.",
+    "optionB": "I look up what is nearby and decide where to go first."
+  },
+  {
+    "id": "AS-D04",
+    "scenario": "I feel like starting a new hobby.",
+    "prompt": "I usually...",
+    "optionA": "I look into what might suit me before I begin.",
+    "optionB": "I choose something easy to try and give it a go first."
+  },
+  {
+    "id": "AS-W01",
+    "scenario": "I am just starting a new assignment.",
+    "prompt": "I usually...",
+    "optionA": "I begin with something I can do and figure things out as I go.",
+    "optionB": "I look over what needs to be done before choosing my first task."
+  },
+  {
+    "id": "AS-W02",
+    "scenario": "An idea worth trying comes up in a meeting.",
+    "prompt": "I usually...",
+    "optionA": "I think through whether it makes sense and decide how to approach it.",
+    "optionB": "I try it on a small scale and decide what to do next from there."
+  },
+  {
+    "id": "AS-W03",
+    "scenario": "I need to work with a program I have never used before.",
+    "prompt": "I usually...",
+    "optionA": "I learn by clicking around and trying things out.",
+    "optionB": "I scan how it works before I start the task."
+  },
+  {
+    "id": "AS-W04",
+    "scenario": "I am given a task with plenty of time before the deadline.",
+    "prompt": "I usually...",
+    "optionA": "I first write down what I need and the order I will tackle it in.",
+    "optionB": "I make a small early version so I can get a feel for the work."
+  },
+  {
+    "id": "AS-R01",
+    "scenario": "A friend and I decide to try something new together.",
+    "prompt": "I usually...",
+    "optionA": "I suggest one promising idea and try it first.",
+    "optionB": "We talk a little more about what we each want to do before deciding."
+  },
+  {
+    "id": "AS-R02",
+    "scenario": "Someone I know invites me to a new group or gathering.",
+    "prompt": "I usually...",
+    "optionA": "I learn a bit about the group before deciding whether to go.",
+    "optionB": "If it sounds fun, I go and see what it is like."
+  },
+  {
+    "id": "AS-R03",
+    "scenario": "I unexpectedly get to spend a whole day with a friend.",
+    "prompt": "I usually...",
+    "optionA": "We follow whatever feels appealing in the moment and fill the day as we go.",
+    "optionB": "We first share what we want to do and put the day in some order."
+  },
+  {
+    "id": "AS-R04",
+    "scenario": "Someone suggests that we start something new together.",
+    "prompt": "I usually...",
+    "optionA": "I think through whether it is workable before we begin.",
+    "optionB": "If it seems workable, I start with something small together."
+  },
+  {
+    "id": "AS-T01",
+    "scenario": "It is the first meeting for an event we are preparing as a group.",
+    "prompt": "I usually...",
+    "optionA": "I pick up something we can do now and get moving.",
+    "optionB": "I look over everything that needs doing before we divide the work."
+  },
+  {
+    "id": "AS-T02",
+    "scenario": "The team decides to try something new.",
+    "prompt": "I usually...",
+    "optionA": "I want to agree on how we will do it before we start.",
+    "optionB": "I want to try a little first and find the method as we go."
+  },
+  {
+    "id": "AS-T03",
+    "scenario": "The general direction of a group project has been set.",
+    "prompt": "I usually...",
+    "optionA": "We divide up the tasks that can be started right away.",
+    "optionB": "We look at how the tasks depend on one another before dividing them up."
+  },
+  {
+    "id": "AS-T04",
+    "scenario": "A good idea comes up in the group, but it is still vague.",
+    "prompt": "I usually...",
+    "optionA": "I clarify what we will do and how before we start.",
+    "optionB": "I start with what we can do now and fill in the rest as we go."
+  },
+  {
+    "id": "AS-C01",
+    "scenario": "The place I planned to use suddenly becomes unavailable.",
+    "prompt": "I usually...",
+    "optionA": "I move to another promising place and think about the next step from there.",
+    "optionB": "I check a few possible places and then choose one."
+  },
+  {
+    "id": "AS-C02",
+    "scenario": "I realize that something I am working on is different from what I expected.",
+    "prompt": "I usually...",
+    "optionA": "I look at what changed and what it affects before I act.",
+    "optionB": "I start with what I can do now and adjust as I go."
+  },
+  {
+    "id": "AS-C03",
+    "scenario": "My schedule for the day suddenly changes a lot.",
+    "prompt": "I usually...",
+    "optionA": "I start using the newly opened time and adjust the rest around it.",
+    "optionB": "I look over the whole day again before I move forward."
+  },
+  {
+    "id": "AS-C04",
+    "scenario": "An unfamiliar problem comes up unexpectedly.",
+    "prompt": "I usually...",
+    "optionA": "I look at the problem a little more before taking action.",
+    "optionB": "I try what I can do now and find a way forward as I go."
+  },
+  {
+    "id": "AS-J01",
+    "scenario": "Several options all look promising.",
+    "prompt": "I usually...",
+    "optionA": "I choose the one that feels most appealing now and move on.",
+    "optionB": "I compare a few more and choose once I feel settled."
+  },
+  {
+    "id": "AS-J02",
+    "scenario": "I want to buy something, but there are too many similar choices.",
+    "prompt": "I usually...",
+    "optionA": "I put a few candidates side by side and compare them before choosing.",
+    "optionB": "When one catches my eye and fits what I wanted, I choose it."
+  },
+  {
+    "id": "AS-J03",
+    "scenario": "I need to choose a direction even though some things are still unknown.",
+    "prompt": "I usually...",
+    "optionA": "I decide with what I know now and adjust as I move forward.",
+    "optionB": "I find out what else I can before making the decision."
+  },
+  {
+    "id": "AS-J04",
+    "scenario": "I have to choose between two plans.",
+    "prompt": "I usually...",
+    "optionA": "I think about what each choice could affect later before deciding.",
+    "optionB": "When one feels more important, I choose it and move on."
+  },
+  {
+    "id": "CA-D01",
+    "scenario": "I am deciding how to divide household chores with someone I live with.",
+    "prompt": "I usually...",
+    "optionA": "We talk about what is comfortable for each of us and coordinate who does what.",
+    "optionB": "I decide what is mine to handle and do it in my own way."
+  },
+  {
+    "id": "CA-D02",
+    "scenario": "I am traveling with someone, and we want to visit different places.",
+    "prompt": "I usually...",
+    "optionA": "We each pick the places we really want to see and spend the rest of the time separately.",
+    "optionB": "We connect the places we each want to see into a route we can enjoy together."
+  },
+  {
+    "id": "CA-D03",
+    "scenario": "A friend and I are cooking together.",
+    "prompt": "I usually...",
+    "optionA": "We keep track of where we are and divide the tasks as we go.",
+    "optionB": "I take one dish and make it from start to finish on my own."
+  },
+  {
+    "id": "CA-D04",
+    "scenario": "I need to choose a major purchase with someone close to me.",
+    "prompt": "I usually...",
+    "optionA": "We agree on what matters, then each look for options separately.",
+    "optionB": "We work out what matters together and narrow the options as a pair."
+  },
+  {
+    "id": "CA-W01",
+    "scenario": "We need to decide who will handle what on a shared project.",
+    "prompt": "I usually...",
+    "optionA": "We keep talking about what each person is doing and coordinate as we go.",
+    "optionB": "I take responsibility for my part and handle it in my own way."
+  },
+  {
+    "id": "CA-W02",
+    "scenario": "A coworker and I have somewhat different work habits.",
+    "prompt": "I usually...",
+    "optionA": "We agree on what needs to be delivered and each decide how to get there.",
+    "optionB": "We find a way of working that is comfortable for both of us and adjust to each other."
+  },
+  {
+    "id": "CA-W03",
+    "scenario": "Several ideas come up at once in a meeting.",
+    "prompt": "I usually...",
+    "optionA": "I look for the overlap and bring related ideas together.",
+    "optionB": "I give each idea to someone to develop separately, then compare them later."
+  },
+  {
+    "id": "CA-W04",
+    "scenario": "Someone on a shared project suddenly needs to change their schedule.",
+    "prompt": "I usually...",
+    "optionA": "We decide only what needs to be handed off, and each person rearranges their own schedule.",
+    "optionB": "We look at everything together and revise roles and dates as a group."
+  },
+  {
+    "id": "CA-R01",
+    "scenario": "I am planning a get-together with friends who have very different tastes.",
+    "prompt": "I usually...",
+    "optionA": "I plan it so different preferences are represented across the group.",
+    "optionB": "I leave room for people to spend some time doing what they personally prefer."
+  },
+  {
+    "id": "CA-R02",
+    "scenario": "I am preparing something together with someone close to me.",
+    "prompt": "I usually...",
+    "optionA": "I trust them with their part and step in only when needed.",
+    "optionB": "We check in often on how things are going and keep adjusting together."
+  },
+  {
+    "id": "CA-R03",
+    "scenario": "During a group conversation, two people strongly disagree.",
+    "prompt": "I usually...",
+    "optionA": "I look for a point both can accept and help the conversation continue.",
+    "optionB": "I let each person fully express their view and leave the choice to them."
+  },
+  {
+    "id": "CA-R04",
+    "scenario": "A friend and I decide to work toward the same goal.",
+    "prompt": "I usually...",
+    "optionA": "We each do it our own way and share how it went on an agreed date.",
+    "optionB": "We check our progress and keep our pace roughly aligned."
+  },
+  {
+    "id": "CA-T01",
+    "scenario": "A group needs to divide several roles.",
+    "prompt": "I usually...",
+    "optionA": "I match roles by connecting what people are good at with what they want to do.",
+    "optionB": "I make each role's goal clear and leave the rest to the person responsible."
+  },
+  {
+    "id": "CA-T02",
+    "scenario": "There are several opinions about something we are creating together.",
+    "prompt": "I usually...",
+    "optionA": "The people who suggested each idea build their own version, then we compare them.",
+    "optionB": "We combine the different ideas into one approach the whole group can use."
+  },
+  {
+    "id": "CA-T03",
+    "scenario": "People on the team work at different speeds.",
+    "prompt": "I usually...",
+    "optionA": "We shift roles around so the team can stay more in sync.",
+    "optionB": "I let each person work at their own pace within their role."
+  },
+  {
+    "id": "CA-T04",
+    "scenario": "We need to decide a new way to run a group.",
+    "prompt": "I usually...",
+    "optionA": "We set only what is essential and leave the rest to the people responsible.",
+    "optionB": "We gather everyone's input and create a shared way of working."
+  },
+  {
+    "id": "CA-C01",
+    "scenario": "One person can no longer make a day we had planned together.",
+    "prompt": "I usually...",
+    "optionA": "We ask about everyone's availability again and find another day that works for all.",
+    "optionB": "We reschedule only the parts that truly need everyone and separate the rest."
+  },
+  {
+    "id": "CA-C02",
+    "scenario": "Someone on the team suddenly cannot complete their assigned work.",
+    "prompt": "I usually...",
+    "optionA": "We split the work, assign new owners, and let each person handle their part.",
+    "optionB": "We look again at what each person can do and redistribute the work together."
+  },
+  {
+    "id": "CA-C03",
+    "scenario": "Something we planned to do together suddenly changes.",
+    "prompt": "I usually...",
+    "optionA": "We get together and talk through who will do what again.",
+    "optionB": "I check what changed and reorganize my own part first."
+  },
+  {
+    "id": "CA-C04",
+    "scenario": "An unexpected problem requires several people to respond together.",
+    "prompt": "I usually...",
+    "optionA": "We quickly divide roles and let each person use their own judgment.",
+    "optionB": "We keep track of what everyone is doing and coordinate our actions."
+  },
+  {
+    "id": "CA-J01",
+    "scenario": "People want different things in a decision we need to make together.",
+    "prompt": "I usually...",
+    "optionA": "I look for an option that as many people as possible can feel comfortable with.",
+    "optionB": "I shape the decision so people still have room to choose for themselves."
+  },
+  {
+    "id": "CA-J02",
+    "scenario": "I get to choose who I will work with.",
+    "prompt": "I usually...",
+    "optionA": "I choose someone who can own their part and handle it in their own way.",
+    "optionB": "I choose someone who seems likely to work in sync with me."
+  },
+  {
+    "id": "CA-J03",
+    "scenario": "Several people are editing one piece of writing together.",
+    "prompt": "I usually...",
+    "optionA": "We coordinate which parts to edit so our work does not overlap.",
+    "optionB": "We assign sections and each person edits their own section independently."
+  },
+  {
+    "id": "CA-J04",
+    "scenario": "A group needs to decide what to do next.",
+    "prompt": "I usually...",
+    "optionA": "We keep several options open and let the person responsible choose.",
+    "optionB": "We gather everyone's views and choose the option with the most common ground."
+  },
+  {
+    "id": "IC-D01",
+    "scenario": "I am thinking about redesigning one part of a room.",
+    "prompt": "I usually...",
+    "optionA": "I imagine several looks that feel very different from how it is now.",
+    "optionB": "I decide what should go where based on the space and how it will be used."
+  },
+  {
+    "id": "IC-D02",
+    "scenario": "I am making a meal with ingredients I use often.",
+    "prompt": "I usually...",
+    "optionA": "I choose an easy dish that fits the ingredients I have.",
+    "optionB": "I imagine a new dish by combining familiar ingredients in an unusual way."
+  },
+  {
+    "id": "IC-D03",
+    "scenario": "I want to organize my photos or personal records.",
+    "prompt": "I usually...",
+    "optionA": "I think of an interesting way to group them that feels different from the usual.",
+    "optionB": "I sort them by clear features such as date or subject."
+  },
+  {
+    "id": "IC-D04",
+    "scenario": "I am choosing a gift for someone.",
+    "prompt": "I usually...",
+    "optionA": "I picture when and how that person would use it, then choose.",
+    "optionB": "I imagine several things that person would never expect."
+  },
+  {
+    "id": "IC-W01",
+    "scenario": "I get a chance to improve a routine task.",
+    "prompt": "I usually...",
+    "optionA": "I imagine several ways of doing it differently from now.",
+    "optionB": "I identify something concrete that I can improve right away."
+  },
+  {
+    "id": "IC-W02",
+    "scenario": "I need to set the overall direction for a new project.",
+    "prompt": "I usually...",
+    "optionA": "I first define clearly who it is for and what we are making.",
+    "optionB": "I spread out several possible directions and explore them broadly."
+  },
+  {
+    "id": "IC-W03",
+    "scenario": "I can choose how to present something.",
+    "prompt": "I usually...",
+    "optionA": "I come up with a way to show it that people may not have seen before.",
+    "optionB": "I organize the main points in order and add examples."
+  },
+  {
+    "id": "IC-W04",
+    "scenario": "I am asked to suggest several ways to solve a problem.",
+    "prompt": "I usually...",
+    "optionA": "I list practical things we could try right away, one by one.",
+    "optionB": "I also imagine approaches that are completely different from what we do now."
+  },
+  {
+    "id": "IC-R01",
+    "scenario": "I am helping prepare something for a friend's special day.",
+    "prompt": "I usually...",
+    "optionA": "I think of something unusual that could become a memorable experience.",
+    "optionB": "I plan around what the person likes and the time we have."
+  },
+  {
+    "id": "IC-R02",
+    "scenario": "I am looking for something fun to do with someone I know.",
+    "prompt": "I usually...",
+    "optionA": "I look for options that fit the available time and place.",
+    "optionB": "I freely imagine things we have never tried before."
+  },
+  {
+    "id": "IC-R03",
+    "scenario": "Someone asks me to add ideas to their plan.",
+    "prompt": "I usually...",
+    "optionA": "I suggest a new direction that could open up their thinking.",
+    "optionB": "I suggest a practical way to help them carry it out."
+  },
+  {
+    "id": "IC-R04",
+    "scenario": "I am preparing a small event with friends.",
+    "prompt": "I usually...",
+    "optionA": "I plan the sequence so people can enjoy themselves comfortably.",
+    "optionB": "I imagine a fresh concept that could change the whole atmosphere."
+  },
+  {
+    "id": "IC-T01",
+    "scenario": "The team needs to decide what to work on next.",
+    "prompt": "I usually...",
+    "optionA": "I connect different ideas to create something unexpected.",
+    "optionB": "I narrow the options based on the goal and the number of people involved."
+  },
+  {
+    "id": "IC-T02",
+    "scenario": "We can freely choose the form of something we are making together.",
+    "prompt": "I usually...",
+    "optionA": "I choose a form that makes its intended use immediately clear.",
+    "optionB": "I explore several formats we have not used before."
+  },
+  {
+    "id": "IC-T03",
+    "scenario": "A group is designing a new recurring program.",
+    "prompt": "I usually...",
+    "optionA": "I imagine a new program that combines different fields or themes.",
+    "optionB": "I build the program around the time available and the sequence of activities."
+  },
+  {
+    "id": "IC-T04",
+    "scenario": "The team suggests finding new uses for things we already have.",
+    "prompt": "I usually...",
+    "optionA": "I look for practical uses that are possible with what we already have.",
+    "optionB": "I imagine uses far beyond what those things were originally meant for."
+  },
+  {
+    "id": "IC-C01",
+    "scenario": "The method I planned to use is no longer available.",
+    "prompt": "I usually...",
+    "optionA": "I open up completely different possibilities and rethink the approach.",
+    "optionB": "I identify a practical way forward with what is still available."
+  },
+  {
+    "id": "IC-C02",
+    "scenario": "I suddenly have to work with unexpected materials or tools.",
+    "prompt": "I usually...",
+    "optionA": "I look at each item's intended use and find a practical way to use it.",
+    "optionB": "I try combining things in new ways and experiment."
+  },
+  {
+    "id": "IC-C03",
+    "scenario": "I need to set something up in a place I have never seen before.",
+    "prompt": "I usually...",
+    "optionA": "I draw new possibilities from what feels unique about the space.",
+    "optionB": "I look at how people will move through the space and where the facilities are, then place things accordingly."
+  },
+  {
+    "id": "IC-C04",
+    "scenario": "A plan I made is not working as well as expected.",
+    "prompt": "I usually...",
+    "optionA": "I look at what has happened so far and identify what can be improved.",
+    "optionB": "I reframe the problem and look for a new direction."
+  },
+  {
+    "id": "IC-J01",
+    "scenario": "I need to choose one idea from several options.",
+    "prompt": "I usually...",
+    "optionA": "I am drawn to the one that sparks ideas for what else could be added.",
+    "optionB": "I am drawn to the one where I can clearly picture who will use it, when, and how."
+  },
+  {
+    "id": "IC-J02",
+    "scenario": "I need to choose a topic for something new I will create.",
+    "prompt": "I usually...",
+    "optionA": "I look for a topic with a clear picture of who would use it, when, and how.",
+    "optionB": "I look for a topic that could connect with something unfamiliar."
+  },
+  {
+    "id": "IC-J03",
+    "scenario": "I need to create something freely without a set topic.",
+    "prompt": "I usually...",
+    "optionA": "I choose something that lets me combine things that are not usually put together.",
+    "optionB": "I choose something I can complete with what I already have."
+  },
+  {
+    "id": "IC-J04",
+    "scenario": "Two ways of solving a problem both look good.",
+    "prompt": "I usually...",
+    "optionA": "I am drawn to the option whose outcome I can picture clearly right now.",
+    "optionB": "I am drawn to the option that leaves more room to grow later."
+  },
+  {
+    "id": "JI-D01",
+    "scenario": "I want to review how I spent money over the past month.",
+    "prompt": "I usually...",
+    "optionA": "I break the spending into categories and see how much went to each.",
+    "optionB": "I look at the month as a whole and see where the spending was concentrated."
+  },
+  {
+    "id": "JI-D02",
+    "scenario": "Sometimes I want to change one of my daily habits.",
+    "prompt": "I usually...",
+    "optionA": "I look at my whole daily pattern of eating, sleeping, and working.",
+    "optionB": "I look back one by one at what I did and how I felt afterward."
+  },
+  {
+    "id": "JI-D03",
+    "scenario": "I am choosing a new electronic device.",
+    "prompt": "I usually...",
+    "optionA": "I compare features and prices side by side, category by category.",
+    "optionB": "I consider how I will use it and how it will fit with my other devices."
+  },
+  {
+    "id": "JI-D04",
+    "scenario": "Lately, it feels like I never have enough time.",
+    "prompt": "I usually...",
+    "optionA": "I look at work, rest, and relationships as one overall pattern.",
+    "optionB": "I break down where my time has gone by activity."
+  },
+  {
+    "id": "JI-W01",
+    "scenario": "The result of my work turns out differently from what I expected.",
+    "prompt": "I usually...",
+    "optionA": "I break the process into stages and look for where things went off track.",
+    "optionB": "I look at how the whole process unfolded from beginning to end."
+  },
+  {
+    "id": "JI-W02",
+    "scenario": "I need to reach a conclusion from several pieces of information.",
+    "prompt": "I usually...",
+    "optionA": "I first look for the larger picture that the sources point to together.",
+    "optionB": "I compare the evidence and differences in each source side by side."
+  },
+  {
+    "id": "JI-W03",
+    "scenario": "I need to explain something complicated to someone.",
+    "prompt": "I usually...",
+    "optionA": "I break it into smaller parts and explain them in order.",
+    "optionB": "I focus on how the different parts connect to one another."
+  },
+  {
+    "id": "JI-W04",
+    "scenario": "I need to evaluate a new proposal.",
+    "prompt": "I usually...",
+    "optionA": "I look at how the proposal would fit with the work already underway.",
+    "optionB": "I examine its assumptions and supporting reasons one by one."
+  },
+  {
+    "id": "JI-R01",
+    "scenario": "A friend asks what I think about a complicated situation.",
+    "prompt": "I usually...",
+    "optionA": "I separate out what happened and in what order.",
+    "optionB": "I step back and look at how the people involved affect one another."
+  },
+  {
+    "id": "JI-R02",
+    "scenario": "Several people tell somewhat different versions of the same situation.",
+    "prompt": "I usually...",
+    "optionA": "I consider each person's position together with the atmosphere at the time.",
+    "optionB": "I separate what matches across the accounts from what differs."
+  },
+  {
+    "id": "JI-R03",
+    "scenario": "I am helping someone think through a choice they need to make.",
+    "prompt": "I usually...",
+    "optionA": "I put the options side by side and compare how they differ.",
+    "optionB": "I consider how the choice could connect with the life they want going forward."
+  },
+  {
+    "id": "JI-R04",
+    "scenario": "I think about why a misunderstanding happened in a conversation.",
+    "prompt": "I usually...",
+    "optionA": "I consider what had happened before and the atmosphere that day.",
+    "optionB": "I pinpoint the point where we may have understood the same words differently."
+  },
+  {
+    "id": "JI-T01",
+    "scenario": "A team activity did not go as well as expected.",
+    "prompt": "I usually...",
+    "optionA": "I separate the process and look for where each person got stuck.",
+    "optionB": "I step back and look at how the team worked together as a whole."
+  },
+  {
+    "id": "JI-T02",
+    "scenario": "We look back after finishing something together.",
+    "prompt": "I usually...",
+    "optionA": "I consider the overall change the work created.",
+    "optionB": "I compare how far we got on each goal."
+  },
+  {
+    "id": "JI-T03",
+    "scenario": "I need to compare proposals from several teams.",
+    "prompt": "I usually...",
+    "optionA": "I use the same criteria to compare differences item by item.",
+    "optionB": "I look at the larger changes each proposal could create over time."
+  },
+  {
+    "id": "JI-T04",
+    "scenario": "Someone suggests that the way our group operates needs improvement.",
+    "prompt": "I usually...",
+    "optionA": "I look at how the group runs together with people's overall experience of it.",
+    "optionB": "I identify where problems happen and how often they occur."
+  },
+  {
+    "id": "JI-C01",
+    "scenario": "A problem suddenly appears, and I do not know why.",
+    "prompt": "I usually...",
+    "optionA": "I separate the visible clues one by one and narrow down the cause.",
+    "optionB": "I look at what happened before and after the problem and connect the sequence."
+  },
+  {
+    "id": "JI-C02",
+    "scenario": "Something unexpected keeps happening again and again.",
+    "prompt": "I usually...",
+    "optionA": "I scan for broader changes around me that may have happened recently.",
+    "optionB": "I compare when it happens and when it does not to find a pattern."
+  },
+  {
+    "id": "JI-C03",
+    "scenario": "I try my usual way of doing things in a new place, but it does not work well.",
+    "prompt": "I usually...",
+    "optionA": "I compare the details to find exactly where things begin to differ.",
+    "optionB": "I look at how my usual approach fits with the way this place operates."
+  },
+  {
+    "id": "JI-C04",
+    "scenario": "The things I have heard do not line up with one another.",
+    "prompt": "I usually...",
+    "optionA": "I consider the circumstances before and after each statement was made.",
+    "optionB": "I check each statement one by one to see where it came from."
+  },
+  {
+    "id": "JI-J01",
+    "scenario": "I have gathered a lot of information before an important decision.",
+    "prompt": "I usually...",
+    "optionA": "I set clear criteria and compare the options one by one.",
+    "optionB": "I consider how the decision could shape my life going forward."
+  },
+  {
+    "id": "JI-J02",
+    "scenario": "Two plans look similarly good.",
+    "prompt": "I usually...",
+    "optionA": "I consider how each plan would affect other commitments and people.",
+    "optionB": "I break the plans down and examine exactly how they differ."
+  },
+  {
+    "id": "JI-J03",
+    "scenario": "I am deciding which of several explanations makes the most sense.",
+    "prompt": "I usually...",
+    "optionA": "I check whether each claim follows logically from its supporting evidence.",
+    "optionB": "I look at how well each explanation fits the situation as a whole."
+  },
+  {
+    "id": "JI-J04",
+    "scenario": "I need to choose which problem to solve first.",
+    "prompt": "I usually...",
+    "optionA": "I look at how the problems are connected and choose the one at the center.",
+    "optionB": "I compare the size and cause of each problem and choose what to address first."
+  },
+  {
+    "id": "RE-D01",
+    "scenario": "Someone close to me is quieter than usual.",
+    "prompt": "I usually...",
+    "optionA": "I gently start a conversation so they can speak when they feel comfortable.",
+    "optionB": "I mention what seems different and ask whether they are okay."
+  },
+  {
+    "id": "RE-D02",
+    "scenario": "Someone close to me opens up about something they are struggling with.",
+    "prompt": "I usually...",
+    "optionA": "I listen through to the end, then share what I understood and what I think.",
+    "optionB": "I ask more about how they feel and follow where the conversation goes."
+  },
+  {
+    "id": "RE-D03",
+    "scenario": "Someone looks like they may need my help.",
+    "prompt": "I usually...",
+    "optionA": "I take time to understand what they need without making them feel pressured.",
+    "optionB": "I say what I can help with and ask whether they want it."
+  },
+  {
+    "id": "RE-D04",
+    "scenario": "Someone I am with seems to be in a very good mood.",
+    "prompt": "I usually...",
+    "optionA": "I point out what seems good and congratulate them clearly.",
+    "optionB": "I share their excitement and ask what made them happy."
+  },
+  {
+    "id": "RE-W01",
+    "scenario": "A coworker seems to be taking a mistake very hard.",
+    "prompt": "I usually...",
+    "optionA": "I listen to how it felt for them and give them room to say what they need to say.",
+    "optionB": "I clarify what needs to happen now and what I can help with."
+  },
+  {
+    "id": "RE-W02",
+    "scenario": "Someone cautiously shares an opinion in a meeting.",
+    "prompt": "I usually...",
+    "optionA": "I reflect what I understood and state my own view clearly too.",
+    "optionB": "I respond in a way that helps them keep talking and listen."
+  },
+  {
+    "id": "RE-W03",
+    "scenario": "Someone I work with has seemed worn out lately.",
+    "prompt": "I usually...",
+    "optionA": "I naturally check in and ask how things have been.",
+    "optionB": "I mention what I have noticed and ask whether they need anything."
+  },
+  {
+    "id": "RE-W04",
+    "scenario": "I need to give someone feedback.",
+    "prompt": "I usually...",
+    "optionA": "I point out what I observed and what I think could be improved.",
+    "optionB": "I think about how it may come across and choose my wording and order carefully."
+  },
+  {
+    "id": "RE-R01",
+    "scenario": "A friend talks to me about a major decision they are facing.",
+    "prompt": "I usually...",
+    "optionA": "I listen for what matters to them and help them sort through it.",
+    "optionB": "I clearly tell them what seems most important from my point of view."
+  },
+  {
+    "id": "RE-R02",
+    "scenario": "I realize that someone close to me and I saw the same situation differently.",
+    "prompt": "I usually...",
+    "optionA": "I clearly share what I think and what I hope for going forward.",
+    "optionB": "I first listen to how the other person felt at the time."
+  },
+  {
+    "id": "RE-R03",
+    "scenario": "Someone I know shares good news with me.",
+    "prompt": "I usually...",
+    "optionA": "I focus on how happy they are and celebrate the feeling with them.",
+    "optionB": "I point out what is good about the news and clearly congratulate them."
+  },
+  {
+    "id": "RE-R04",
+    "scenario": "A friend brings up the same concern several times.",
+    "prompt": "I usually...",
+    "optionA": "I listen and honestly share what I have come to think about it.",
+    "optionB": "I keep the conversation going while noticing how their feelings change each time."
+  },
+  {
+    "id": "RE-T01",
+    "scenario": "Someone new to the group looks uncomfortable.",
+    "prompt": "I usually...",
+    "optionA": "I read the atmosphere and start a conversation that helps them join in.",
+    "optionB": "I clearly explain what is happening and what they can do."
+  },
+  {
+    "id": "RE-T02",
+    "scenario": "Someone on the team is having trouble speaking up.",
+    "prompt": "I usually...",
+    "optionA": "I ask them directly what they think and listen to their answer.",
+    "optionB": "I leave space for them to speak and wait while watching their response."
+  },
+  {
+    "id": "RE-T03",
+    "scenario": "We are talking together about something we just completed.",
+    "prompt": "I usually...",
+    "optionA": "I listen to how each person experienced it and build the conversation from there.",
+    "optionB": "I point out what went well and what could be changed."
+  },
+  {
+    "id": "RE-T04",
+    "scenario": "Someone I worked with feels very disappointed about how things ended.",
+    "prompt": "I usually...",
+    "optionA": "I clearly explain where we got to and what happens next.",
+    "optionB": "I listen to what feels disappointing to them and pay attention to their feelings."
+  },
+  {
+    "id": "RE-C01",
+    "scenario": "The other person's expression suddenly changes during a conversation.",
+    "prompt": "I usually...",
+    "optionA": "I slow down and consider what may have made them uncomfortable.",
+    "optionB": "I immediately ask whether something in what we just discussed bothered them."
+  },
+  {
+    "id": "RE-C02",
+    "scenario": "A conflict suddenly comes up between us.",
+    "prompt": "I usually...",
+    "optionA": "I clarify what the problem is and what each of us wants.",
+    "optionB": "I keep the conversation going while paying attention to how each person feels."
+  },
+  {
+    "id": "RE-C03",
+    "scenario": "I hear that someone I know has suddenly gone through something difficult.",
+    "prompt": "I usually...",
+    "optionA": "I stay available and listen in the way that seems to fit what they need.",
+    "optionB": "I contact them and clearly say what I can do to help."
+  },
+  {
+    "id": "RE-C04",
+    "scenario": "Someone I was working with suddenly says they are stepping away.",
+    "prompt": "I usually...",
+    "optionA": "I confirm what had been agreed and take care of the remaining work.",
+    "optionB": "I first listen to what circumstances and feelings led to the decision."
+  },
+  {
+    "id": "RE-J01",
+    "scenario": "A friend seems to want both comfort and my opinion.",
+    "prompt": "I usually...",
+    "optionA": "I pay attention to what they seem to need and let the conversation unfold from there.",
+    "optionB": "I honestly tell them what I think."
+  },
+  {
+    "id": "RE-J02",
+    "scenario": "I am deciding when to bring up an important topic.",
+    "prompt": "I usually...",
+    "optionA": "Once I know clearly what I want to say, I set a time and bring it up.",
+    "optionB": "I look for a time when the other person seems comfortable and bring it up then."
+  },
+  {
+    "id": "RE-J03",
+    "scenario": "I am unsure whether to offer my help.",
+    "prompt": "I usually...",
+    "optionA": "I watch a little longer and ask naturally when it feels right.",
+    "optionB": "I say what I can do and let the other person decide whether they want it."
+  },
+  {
+    "id": "RE-J04",
+    "scenario": "We want different things and need to work out an agreement.",
+    "prompt": "I usually...",
+    "optionA": "I first state clearly what I can and cannot do.",
+    "optionB": "I first ask what matters most to the other person."
+  },
+  {
+    "id": "OF-D01",
+    "scenario": "I have a few things I need to do every week.",
+    "prompt": "I usually...",
+    "optionA": "I set specific days and times and keep the routine the same.",
+    "optionB": "I look at that week's circumstances and fit them in where I can."
+  },
+  {
+    "id": "OF-D02",
+    "scenario": "I need to keep my home organized on a regular basis.",
+    "prompt": "I usually...",
+    "optionA": "I start with whatever feels most urgent that day.",
+    "optionB": "I follow a set order and take care of each area when its turn comes."
+  },
+  {
+    "id": "OF-D03",
+    "scenario": "I want to keep up a regular exercise or study routine.",
+    "prompt": "I usually...",
+    "optionA": "I stick to the frequency and times I decided in advance.",
+    "optionB": "I adjust the routine based on how I feel and what my schedule looks like."
+  },
+  {
+    "id": "OF-D04",
+    "scenario": "I have several things to remember when I leave home.",
+    "prompt": "I usually...",
+    "optionA": "I first pack what I need for where I am going that day.",
+    "optionB": "I go through the same usual order and check each item."
+  },
+  {
+    "id": "OF-W01",
+    "scenario": "I am responsible for a task with several stages.",
+    "prompt": "I usually...",
+    "optionA": "I set the dates and sequence in advance and follow them.",
+    "optionB": "I keep the goal in mind and change the order as needed along the way."
+  },
+  {
+    "id": "OF-W02",
+    "scenario": "There is a task I do over and over.",
+    "prompt": "I usually...",
+    "optionA": "I adjust how I do it to fit the circumstances that day.",
+    "optionB": "I follow the same established method each time."
+  },
+  {
+    "id": "OF-W03",
+    "scenario": "I am working on a long project with a distant deadline.",
+    "prompt": "I usually...",
+    "optionA": "I set interim goals and review dates in advance.",
+    "optionB": "I watch how things are going and adjust when to put in more effort."
+  },
+  {
+    "id": "OF-W04",
+    "scenario": "I need to decide how to organize materials that build up through my work.",
+    "prompt": "I usually...",
+    "optionA": "I adjust the way I sort them over time so they stay easy to find.",
+    "optionB": "I create a common rule and organize them the same way each time."
+  },
+  {
+    "id": "OF-R01",
+    "scenario": "I have a regular get-together with friends.",
+    "prompt": "I usually...",
+    "optionA": "I try to keep the agreed date and format as consistently as possible.",
+    "optionB": "I change the date and format to fit people's circumstances."
+  },
+  {
+    "id": "OF-R02",
+    "scenario": "Someone close to me and I have an agreement we want to keep.",
+    "prompt": "I usually...",
+    "optionA": "If our circumstances change, we revise the agreement together.",
+    "optionB": "I keep the agreement in mind and try to follow it consistently."
+  },
+  {
+    "id": "OF-R03",
+    "scenario": "Several people need to split a shared cost.",
+    "prompt": "I usually...",
+    "optionA": "I divide it the same way we originally agreed each time.",
+    "optionB": "I adjust how we split it when people's circumstances differ."
+  },
+  {
+    "id": "OF-R04",
+    "scenario": "We need rules for a shared item or space.",
+    "prompt": "I usually...",
+    "optionA": "I set only the main guidelines and let people handle the rest as they see fit.",
+    "optionB": "I set clear rules for how it is used and have everyone follow the same rules."
+  },
+  {
+    "id": "OF-T01",
+    "scenario": "The team regularly shares how far the work has progressed.",
+    "prompt": "I usually...",
+    "optionA": "We share updates on a set schedule and in a consistent format.",
+    "optionB": "We change the timing and format depending on how the work is going."
+  },
+  {
+    "id": "OF-T02",
+    "scenario": "We are planning the sequence for a group event.",
+    "prompt": "I usually...",
+    "optionA": "We leave room to change roles and the order on the day if needed.",
+    "optionB": "We decide roles and the sequence in advance and follow the plan."
+  },
+  {
+    "id": "OF-T03",
+    "scenario": "The team is creating new standards for how work should be done.",
+    "prompt": "I usually...",
+    "optionA": "We set standards that can be applied the same way no matter who is doing the work.",
+    "optionB": "We set the main guidelines and let each person adapt them to the situation."
+  },
+  {
+    "id": "OF-T04",
+    "scenario": "Several people need to manage a shared deadline.",
+    "prompt": "I usually...",
+    "optionA": "We adjust the dates as the work progresses.",
+    "optionB": "We set the dates in advance and keep them as planned."
+  },
+  {
+    "id": "OF-C01",
+    "scenario": "An unexpected issue comes up in a schedule I already planned.",
+    "prompt": "I usually...",
+    "optionA": "I keep the dates that must stay fixed and move only what can be changed.",
+    "optionB": "I rebuild the dates and sequence around the new situation."
+  },
+  {
+    "id": "OF-C02",
+    "scenario": "My usual way of doing something does not fit well today.",
+    "prompt": "I usually...",
+    "optionA": "I rearrange the order to fit today as well as possible.",
+    "optionB": "I keep my usual approach and change only what is necessary."
+  },
+  {
+    "id": "OF-C03",
+    "scenario": "An unexpected request comes in.",
+    "prompt": "I usually...",
+    "optionA": "I keep my original priority order and fit the request into an open spot.",
+    "optionB": "I reassess what is most urgent now and reorder everything."
+  },
+  {
+    "id": "OF-C04",
+    "scenario": "Something changes suddenly while we are already working together.",
+    "prompt": "I usually...",
+    "optionA": "I change the method and sequence right away to fit the situation.",
+    "optionB": "I keep what we already agreed and look for another way to adapt."
+  },
+  {
+    "id": "OF-J01",
+    "scenario": "I am choosing between two ways of working.",
+    "prompt": "I usually...",
+    "optionA": "I choose the one that makes it easier to keep dates and standards consistent.",
+    "optionB": "I choose the one that is easier to adjust when circumstances change."
+  },
+  {
+    "id": "OF-J02",
+    "scenario": "I am deciding how to make a new habit last.",
+    "prompt": "I usually...",
+    "optionA": "I choose an approach that lets me adjust from day to day.",
+    "optionB": "I choose an approach with set times and frequency."
+  },
+  {
+    "id": "OF-J03",
+    "scenario": "I need to set one standard that several people will use.",
+    "prompt": "I usually...",
+    "optionA": "I first look for a standard that can be applied the same way to everyone.",
+    "optionB": "I first look for a standard that can be adjusted to fit different circumstances."
+  },
+  {
+    "id": "OF-J04",
+    "scenario": "I am choosing a tool to manage my schedule.",
+    "prompt": "I usually...",
+    "optionA": "I choose one that makes it easy to move and rearrange plans.",
+    "optionB": "I choose one that lets me see planned and completed tasks at a glance."
+  }
+]
