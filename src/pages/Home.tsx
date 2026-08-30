@@ -8,7 +8,13 @@ import {
   LENGTH_OPTIONS,
   type AssessmentLength
 } from "../lib/draw";
-import { clearActiveSession, getActiveSession, getLatestResult } from "../lib/storage";
+import {
+  clearActiveSession,
+  deleteAllLocalData,
+  getActiveSession,
+  getLatestResult
+} from "../lib/storage";
+import ResetDialog from "../components/ResetDialog";
 import { useI18n } from "../i18n/useI18n";
 import { HOME_TEASER_SLUGS, PUBLIC_CONTENT, STORIES } from "../i18n/publicContent";
 import { localizedTypeByCode } from "../i18n/content";
@@ -36,6 +42,26 @@ export default function Home() {
     if (!window.confirm(t.home.startOverConfirm)) return;
     clearActiveSession();
     navigate("/assessment", { state: { length: DEFAULT_ASSESSMENT_LENGTH } });
+  };
+
+  /**
+   * 초기화 다이얼로그 — window.confirm 은 두 갈래뿐이라 별도 컴포넌트로
+   * 세 갈래(전체 삭제 / 지금 것만 삭제 / 취소)를 구현했다.
+   * 어떤 선택이든 다이얼로그를 닫고 나면 이 함수(Home)가 다시 렌더되면서
+   * getActiveSession()/getLatestResult() 를 새로 읽으므로 화면이 최신 상태로
+   * 갱신된다 — 별도의 refresh 상태를 두지 않아도 된다.
+   */
+  const [resetOpen, setResetOpen] = useState(false);
+  const closeReset = () => setResetOpen(false);
+  const resetAll = () => {
+    deleteAllLocalData();
+    setLength(DEFAULT_ASSESSMENT_LENGTH);
+    setResetOpen(false);
+  };
+  const resetCurrentOnly = () => {
+    clearActiveSession();
+    setLength(DEFAULT_ASSESSMENT_LENGTH);
+    setResetOpen(false);
   };
 
   return (
@@ -122,7 +148,23 @@ export default function Home() {
                   {t.home.howButton}
                 </Link>
               )}
+              {/* 첫 화면에도, 진행 중 화면에도 항상 노출되는 초기화 버튼 */}
+              <button
+                className="btn-text"
+                type="button"
+                onClick={() => setResetOpen(true)}
+              >
+                {t.home.resetButton}
+              </button>
             </div>
+
+            <ResetDialog
+              open={resetOpen}
+              hasActiveSession={!!activeSession}
+              onYes={resetAll}
+              onNo={resetCurrentOnly}
+              onCancel={closeReset}
+            />
             {activeSession && (
               <Link className="hero-link" to="/how">
                 {t.home.howButton}

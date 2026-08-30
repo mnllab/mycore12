@@ -2100,3 +2100,43 @@ html[lang="en"] .map-panel figure { max-width: 500px; }
   color: var(--color-text-muted);
 }
 .changelog-item p { font-size: 15.5px; line-height: 1.75; color: var(--color-text); }
+
+/* ── 데이터 초기화 확인 다이얼로그 ────────────────────
+   window.confirm 이 지원 못하는 3지선다(예/아니오/취소)를 위한 작은 모달.
+   큰 카드형 모달을 지양하는 기존 원칙에 맞춰 폭을 좁게 유지한다. */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.42);
+}
+.confirm-dialog {
+  width: 100%;
+  max-width: 380px;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 24px 24px 20px;
+  box-shadow: var(--shadow-modal);
+}
+.confirm-dialog h2 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.confirm-lines { margin-bottom: 20px; }
+.confirm-lines p {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+.confirm-lines p + p { margin-top: 8px; }
+.confirm-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.confirm-actions .btn { width: 100%; justify-content: center; }

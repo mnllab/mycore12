@@ -1,5 +1,10 @@
 [
   {
+    "version": "7.5",
+    "date": "2026-08-30",
+    "text": "Added a data reset button to the start screen, letting you choose to delete everything or just the assessment in progress."
+  },
+  {
     "version": "7.4",
     "date": "2026-08-30",
     "text": "Added a short instruction to the assessment screen and replaced response text with intuitive directional symbols (▲▼◀▶●). Replaced the result page's retake button with a button that returns to the start screen so you can choose the assessment length again, and fixed an issue that could prevent the deployed site from running correctly."

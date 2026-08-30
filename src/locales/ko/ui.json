@@ -42,7 +42,15 @@
     "equalValue": "모든 에너지는 동등한 강점입니다",
     "lengthAria": "검사 길이",
     "startOver": "새로 시작하기",
-    "startOverConfirm": "진행 중인 검사를 지우고 새로 시작할까요? 지금까지의 응답은 저장되지 않습니다."
+    "startOverConfirm": "진행 중인 검사를 지우고 새로 시작할까요? 지금까지의 응답은 저장되지 않습니다.",
+    "resetButton": "초기화",
+    "resetTitle": "데이터를 모두 지울까요?",
+    "resetLineYes": "예 — 지금까지의 기록을 포함해 모두 삭제합니다.",
+    "resetLineNo": "아니오 — 지금 진행 중인 검사만 삭제하고, 저장된 기록은 남겨둡니다.",
+    "resetLineCancel": "아니오 — 아무것도 삭제하지 않습니다.",
+    "resetYes": "예",
+    "resetNo": "아니오",
+    "resetDialogAria": "데이터 삭제 확인"
   },
   "lengths": {
     "18": {

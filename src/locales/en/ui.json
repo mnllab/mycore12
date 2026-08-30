@@ -42,7 +42,15 @@
     "equalValue": "All 12 energies have equal value.",
     "lengthAria": "Assessment length",
     "startOver": "Start Over",
-    "startOverConfirm": "Discard the assessment in progress and start over? Your answers so far will not be saved."
+    "startOverConfirm": "Discard the assessment in progress and start over? Your answers so far will not be saved.",
+    "resetButton": "Reset",
+    "resetTitle": "Delete all data?",
+    "resetLineYes": "Yes — deletes everything, including your saved results.",
+    "resetLineNo": "No — deletes only the assessment in progress; your saved results stay.",
+    "resetLineCancel": "No — nothing will be deleted.",
+    "resetYes": "Yes",
+    "resetNo": "No",
+    "resetDialogAria": "Confirm data deletion"
   },
   "lengths": {
     "18": {
