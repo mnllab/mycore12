@@ -888,7 +888,8 @@ describe("ko / en UI 리소스 구조 동등성", () => {
     const principleLink = [...container.querySelectorAll(".site-footer .links a")].find(
       a => a.getAttribute("href")?.includes("/how")
     )!;
-    expect(principleLink.textContent!.trim()).toBe("Assessment Principles");
+    // 푸터의 검사 원리 링크는 공개 콘텐츠 리소스의 nav.how 를 쓴다
+    expect(principleLink.textContent!.trim()).toBe("How It Works");
     expect(
       container.querySelector(".locale-switch")!.getAttribute("aria-label")
     ).toBe("Language selection");

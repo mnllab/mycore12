@@ -3,6 +3,7 @@ import { BRAND } from "../lib/mycore12";
 import { deleteAllLocalData } from "../lib/storage";
 import { FileText, Shield, Trash } from "./icons";
 import { useI18n } from "../i18n/useI18n";
+import { PUBLIC_CONTENT } from "../i18n/publicContent";
 import { LOCALES, LOCALE_LABEL } from "../i18n/resources";
 
 /**
@@ -31,6 +32,7 @@ function LocaleSwitch() {
 
 export function SiteHeader() {
   const { locale, t } = useI18n();
+  const nav = PUBLIC_CONTENT[locale].nav;
   return (
     <header className="site-header">
       <div className="shell inner">
@@ -46,7 +48,7 @@ export function SiteHeader() {
           )}
         </Link>
         <nav className="header-nav" aria-label={t.nav.mainMenuAria}>
-          <Link to="/how">{t.nav.how}</Link>
+          <Link to="/about">{nav.explore}</Link>
           <Link to="/history">{t.nav.history}</Link>
           {/* 후원 — 화면이 좁으면 이미지 배너 대신 짧은 텍스트 링크로 바뀐다 */}
           <a
@@ -94,6 +96,7 @@ export function MiniFooter() {
 export function SiteFooter() {
   const navigate = useNavigate();
   const { locale, t } = useI18n();
+  const nav = PUBLIC_CONTENT[locale].nav;
 
   const onDeleteAll = () => {
     if (window.confirm(t.errors.deleteAllConfirm)) {
@@ -121,10 +124,14 @@ export function SiteFooter() {
           </div>
         </div>
         <nav className="links" aria-label={t.nav.infoMenuAria}>
+          <Link to="/about">{nav.about}</Link>
+          <Link to="/energies">{nav.energies}</Link>
           <Link to="/how">
             <FileText />
-            {t.nav.principle}
+            {nav.how}
           </Link>
+          <Link to="/guide">{nav.guide}</Link>
+          <Link to="/stories">{nav.stories}</Link>
           <Link to="/privacy">
             <Shield />
             {t.nav.privacy}

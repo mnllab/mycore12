@@ -10,11 +10,14 @@ import {
 } from "../lib/draw";
 import { clearActiveSession, getActiveSession, getLatestResult } from "../lib/storage";
 import { useI18n } from "../i18n/useI18n";
+import { HOME_TEASER_SLUGS, PUBLIC_CONTENT, STORIES } from "../i18n/publicContent";
 import { localizedTypeByCode } from "../i18n/content";
 
 export default function Home() {
   const navigate = useNavigate();
   const { locale, t, fill } = useI18n();
+  const pub = PUBLIC_CONTENT[locale].home;
+  const stories = STORIES[locale];
   const activeSession = getActiveSession();
   const latest = getLatestResult();
   // 저장된 typePersonaName(저장 시점 한국어)이 아니라 code 로 현재 유형을 찾아 표시한다
@@ -163,6 +166,92 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* ── 마이코어12 소개 티저 ─────────────────────── */}
+      <section className="content-section">
+        <div className="shell">
+          <p className="eyebrow-text">{pub.about.eyebrow}</p>
+          <h2>{pub.about.title}</h2>
+          <div className="content-prose">
+            <p>{pub.about.body1}</p>
+            <p>{pub.about.body2}</p>
+          </div>
+          <ul className="content-list" style={{ marginTop: 20 }}>
+            {pub.about.points.map(p => (
+              <li key={p}>{p}</li>
+            ))}
+          </ul>
+          <Link className="hero-link" to="/about" style={{ marginTop: 22 }}>
+            {pub.about.link}
+            <ArrowRight />
+          </Link>
+        </div>
+      </section>
+
+      {/* ── 여섯 쌍 티저 ─────────────────────────────── */}
+      <section className="content-section band">
+        <div className="shell shell-wide">
+          <p className="eyebrow-text">{pub.pairs.eyebrow}</p>
+          <h2>{pub.pairs.title}</h2>
+          <p className="content-prose">{pub.pairs.intro}</p>
+          <ul className="pair-rows" style={{ marginTop: 22 }}>
+            {pub.pairs.items.map(p => (
+              <li key={p}>{p}</li>
+            ))}
+          </ul>
+          <Link className="hero-link" to="/energies" style={{ marginTop: 22 }}>
+            {pub.pairs.link}
+            <ArrowRight />
+          </Link>
+        </div>
+      </section>
+
+      {/* ── 결과 활용 티저 ───────────────────────────── */}
+      <section className="content-section">
+        <div className="shell shell-wide">
+          <p className="eyebrow-text">{pub.usage.eyebrow}</p>
+          <h2>{pub.usage.title}</h2>
+          <div className="principle-cards" style={{ marginTop: 24 }}>
+            {pub.usage.cards.map(c => (
+              <div className="principle-card" key={c.title}>
+                <h3>{c.title}</h3>
+                <p>{c.body}</p>
+              </div>
+            ))}
+          </div>
+          <Link className="hero-link" to="/guide" style={{ marginTop: 22 }}>
+            {pub.usage.link}
+            <ArrowRight />
+          </Link>
+        </div>
+      </section>
+
+      {/* ── 읽을거리 티저 (Article 01 · 02 · 08) ────── */}
+      <section className="content-section band">
+        <div className="shell shell-wide">
+          <p className="eyebrow-text">{pub.journal.eyebrow}</p>
+          <h2>{pub.journal.title}</h2>
+          <div className="story-grid" style={{ marginTop: 24 }}>
+            {HOME_TEASER_SLUGS.map(slug => {
+              const a = stories.articles.find(x => x.slug === slug);
+              if (!a) return null;
+              return (
+                <Link className="story-card" to={`/stories/${a.slug}`} key={a.slug}>
+                  <span className="story-cat">
+                    {(stories.categories as Record<string, string>)[a.category]}
+                  </span>
+                  <b>{a.title}</b>
+                  <span className="story-deck">{a.deck}</span>
+                </Link>
+              );
+            })}
+          </div>
+          <Link className="hero-link" to="/stories" style={{ marginTop: 22 }}>
+            {pub.journal.link}
+            <ArrowRight />
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

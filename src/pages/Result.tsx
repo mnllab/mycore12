@@ -17,6 +17,7 @@ import {
 } from "../components/icons";
 import ResultDownload from "../components/ResultDownload";
 import { useI18n } from "../i18n/useI18n";
+import { RESULT_RELATED_SLUGS, STORIES } from "../i18n/publicContent";
 import { localizeType } from "../i18n/content";
 import { dropSentences, sentenceSet, splitOverview } from "../i18n/display";
 
@@ -38,6 +39,8 @@ function Eyebrow({
 
 export default function Result() {
   const { locale, t, fill, formatDateTime, energy, axis } = useI18n();
+  // 결과 해석 뒤에 붙는 보조 영역. 고정 목록이라 채점·매칭·저장과 무관하다.
+  const stories = STORIES[locale];
   const { sessionId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -411,6 +414,23 @@ export default function Result() {
           <p className="note" style={{ marginTop: 10 }}>
             {t.result.validationNote}
           </p>
+
+          {/* 함께 읽어볼 글 — 결과 해석보다 뒤에, 시각적으로 보조 위계 */}
+          <div className="result-reading">
+            <h3>{stories.labels.continueReading}</h3>
+            <div className="story-mini-list">
+              {RESULT_RELATED_SLUGS.map(slug => {
+                const a = stories.articles.find(x => x.slug === slug);
+                if (!a) return null;
+                return (
+                  <Link className="story-mini" to={`/stories/${a.slug}`} key={a.slug}>
+                    <b>{a.title}</b>
+                    <span>{a.deck}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
 
           <div className="result-actions">
             <button className="btn btn-primary" onClick={startRetest}>

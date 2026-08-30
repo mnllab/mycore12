@@ -41,24 +41,18 @@ function readStoredLocale(): Locale {
   }
 }
 
-/** 문서 언어와 메타 태그를 현재 locale 로 갱신한다 (ko 로 돌아오면 한국어 값 복원). */
+/**
+ * 문서 언어와 locale 전용 메타를 갱신한다.
+ *
+ * title / description / og:title / og:description 은 경로마다 달라지므로
+ * RouteMeta 가 담당한다. (Provider 의 effect 는 자식보다 늦게 실행되므로
+ * 여기서 title 을 함께 쓰면 route 별 값이 홈 값으로 덮인다.)
+ */
 function applyDocumentLocale(locale: Locale) {
   if (typeof document === "undefined") return;
-  const meta = UI[locale].meta;
-
   document.documentElement.lang = locale;
-  document.title = meta.title;
-
-  const set = (selector: string, value: string) => {
-    const el = document.querySelector(selector);
-    if (el) el.setAttribute("content", value);
-  };
-  set('meta[name="description"]', meta.description);
-  set('meta[property="og:title"]', meta.ogTitle);
-  set('meta[property="og:description"]', meta.ogDescription);
-  set('meta[property="og:locale"]', meta.ogLocale);
-  set('meta[name="twitter:title"]', meta.ogTitle);
-  set('meta[name="twitter:description"]', meta.ogDescription);
+  const el = document.querySelector('meta[property="og:locale"]');
+  if (el) el.setAttribute("content", UI[locale].meta.ogLocale);
 }
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
