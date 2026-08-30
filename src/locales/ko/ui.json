@@ -22,7 +22,8 @@
     "mainMenuAria": "주요 메뉴",
     "infoMenuAria": "안내 메뉴",
     "principle": "검사 원리",
-    "localeAria": "언어 선택"
+    "localeAria": "언어 선택",
+    "updates": "업데이트 내역"
   },
   "home": {
     "lede": "일상에서 마주하는 상황에 답하면, 여섯 개의 상대선호 축 위에서 내가 자연스럽게 쓰는 12가지 에너지의 균형을 하나의 프로파일로 읽을 수 있습니다.",

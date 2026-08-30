@@ -4,6 +4,7 @@ import { deleteAllLocalData } from "../lib/storage";
 import { FileText, Shield, Trash } from "./icons";
 import { useI18n } from "../i18n/useI18n";
 import { PUBLIC_CONTENT } from "../i18n/publicContent";
+import { APP_VERSION, LATEST_RELEASE_DATE } from "../i18n/releaseNotes";
 import { LOCALES, LOCALE_LABEL } from "../i18n/resources";
 
 /**
@@ -122,6 +123,10 @@ export function SiteFooter() {
               </>
             )}
           </div>
+          {/* 외부에 보이는 버전 표시 — 누르면 업데이트 내역으로 이동한다 */}
+          <Link className="version-tag num" to="/changelog">
+            v{APP_VERSION} · {LATEST_RELEASE_DATE}
+          </Link>
         </div>
         <nav className="links" aria-label={t.nav.infoMenuAria}>
           <Link to="/about">{nav.about}</Link>

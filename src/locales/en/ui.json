@@ -22,7 +22,8 @@
     "mainMenuAria": "Main menu",
     "infoMenuAria": "Information menu",
     "principle": "Assessment Principles",
-    "localeAria": "Language selection"
+    "localeAria": "Language selection",
+    "updates": "Release Notes"
   },
   "home": {
     "lede": "Answer everyday situations to see how your 12 energies balance across six paired preference axes.",

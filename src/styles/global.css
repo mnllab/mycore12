@@ -2036,3 +2036,39 @@ html[lang="en"] .map-panel figure { max-width: 500px; }
 
 /* 푸터 링크가 늘어나 좁은 화면에서 줄바꿈되도록 */
 .site-footer .links { flex-wrap: wrap; }
+
+/* 푸터의 버전 표시 — 조용한 링크, 강조하지 않는다 */
+.version-tag {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .version-tag:hover { color: var(--color-text-secondary); text-decoration: underline; }
+}
+
+/* 업데이트 내역 페이지 */
+.changelog-list { max-width: 60ch; }
+.changelog-item {
+  padding: 20px 0;
+  border-top: 1px solid var(--color-divider);
+}
+.changelog-item:first-child { border-top: 1px solid var(--color-border); }
+.changelog-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.changelog-version {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.changelog-date {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+}
+.changelog-item p { font-size: 15.5px; line-height: 1.75; color: var(--color-text); }

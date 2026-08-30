@@ -1,0 +1,47 @@
+[
+  {
+    "version": "7.3",
+    "date": "2026-08-30",
+    "text": "You can now check the current version and release history right on the site."
+  },
+  {
+    "version": "7.0",
+    "date": "2026-08-30",
+    "text": "Added new pages: About MYCORE12, The 12 Energies, Profile Guide, and a Journal of short reads."
+  },
+  {
+    "version": "6.4",
+    "date": "2026-08-30",
+    "text": "Refined the English mobile response wording and button colors."
+  },
+  {
+    "version": "6.3",
+    "date": "2026-08-30",
+    "text": "Added a button to discard an in-progress assessment and start over."
+  },
+  {
+    "version": "6.2",
+    "date": "2026-08-30",
+    "text": "Added the ability to save your result as a Korean or English Markdown or text file."
+  },
+  {
+    "version": "6.0",
+    "date": "2026-08-30",
+    "text": "Prepared the site to be discoverable through search engines."
+  },
+  {
+    "version": "5.4",
+    "date": "2026-08-30",
+    "text": "MYCORE12 became fully available in both Korean and English."
+  },
+  {
+    "version": "5.0–5.3",
+    "date": "2026-08-30",
+    "text": "Redesigned the assessment screen and added a choice of assessment length (18, 36, 54, or 72 questions)."
+  },
+  {
+    "version": "4.6–4.9",
+    "date": "2026-08-30",
+    "text": "Finalized all 64 profile names and redesigned the result page."
+  }
+]

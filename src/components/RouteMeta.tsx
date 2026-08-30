@@ -45,6 +45,9 @@ export default function RouteMeta() {
     } else if (pathname.startsWith("/guide")) {
       title = pub.meta.guide.title;
       description = pub.meta.guide.description;
+    } else if (pathname.startsWith("/changelog")) {
+      title = pub.meta.changelog.title;
+      description = pub.meta.changelog.description;
     } else if (pathname.startsWith("/stories")) {
       const article = slug
         ? stories.articles.find(a => a.slug === slug)

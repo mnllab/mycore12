@@ -12,6 +12,7 @@ import Energies from "./pages/Energies";
 import Guide from "./pages/Guide";
 import Stories from "./pages/Stories";
 import Story from "./pages/Story";
+import Changelog from "./pages/Changelog";
 import RouteMeta from "./components/RouteMeta";
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/guide" element={<Guide />} />
         <Route path="/stories" element={<Stories />} />
         <Route path="/stories/:slug" element={<Story />} />
+        <Route path="/changelog" element={<Changelog />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/assessment" element={<Assessment />} />
         <Route path="/result/:sessionId" element={<Result />} />

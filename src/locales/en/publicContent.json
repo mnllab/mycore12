@@ -30,9 +30,18 @@
       "eyebrow": "Using Your Results",
       "title": "A profile becomes more useful when you bring it into everyday situations",
       "cards": [
-        { "title": "For self-understanding", "body": "Notice where your natural strengths show up and which patterns repeat across situations" },
-        { "title": "For work and collaboration", "body": "See how you prefer to start, decide, communicate, and organize, then identify useful complementary approaches" },
-        { "title": "For growth", "body": "Keep your natural strengths and practice adding another energy when it would improve the outcome" }
+        {
+          "title": "For self-understanding",
+          "body": "Notice where your natural strengths show up and which patterns repeat across situations"
+        },
+        {
+          "title": "For work and collaboration",
+          "body": "See how you prefer to start, decide, communicate, and organize, then identify useful complementary approaches"
+        },
+        {
+          "title": "For growth",
+          "body": "Keep your natural strengths and practice adding another energy when it would improve the outcome"
+        }
       ],
       "link": "See the Profile Guide"
     },
@@ -42,7 +51,6 @@
       "link": "Read the Journal"
     }
   },
-
   "about": {
     "title": "What Is MYCORE12?",
     "lede": "MYCORE12 is a 6-axis preference profile that explores the 12 positive energies reflected in your everyday thinking, choices, actions, and interactions. It describes personality as a pattern of strengths and shows both what comes naturally and where you can broaden your range.",
@@ -53,9 +61,18 @@
     ],
     "principlesTitle": "Three ideas at the center of MYCORE12",
     "principles": [
-      { "title": "Every energy has value", "body": "Initiative creates momentum while Deliberation improves timing and consideration. Empathy reads perspective while Clarity makes expectations and boundaries easier to understand. Each energy can become a strength in the right situation." },
-      { "title": "Scores describe relative preference", "body": "The two energies on each axis always add up to 100. A 65–35 result means one energy appeared more naturally in your current responses. It does not represent total ability, personal worth, or rank." },
-      { "title": "Growth expands your range", "body": "You can keep using the strengths that already come naturally while practicing a complementary energy when it would help. MYCORE12 treats growth as adding useful options to the way you respond." }
+      {
+        "title": "Every energy has value",
+        "body": "Initiative creates momentum while Deliberation improves timing and consideration. Empathy reads perspective while Clarity makes expectations and boundaries easier to understand. Each energy can become a strength in the right situation."
+      },
+      {
+        "title": "Scores describe relative preference",
+        "body": "The two energies on each axis always add up to 100. A 65–35 result means one energy appeared more naturally in your current responses. It does not represent total ability, personal worth, or rank."
+      },
+      {
+        "title": "Growth expands your range",
+        "body": "You can keep using the strengths that already come naturally while practicing a complementary energy when it would help. MYCORE12 treats growth as adding useful options to the way you respond."
+      }
     ],
     "resultTitle": "What your profile can show you",
     "resultItems": [
@@ -81,24 +98,53 @@
     "validationBody": "The current item set has been developed around the six-axis, 12-energy framework and has completed content review. Sample-based psychometric validation, including reliability and structural testing, is planned as sufficient user data becomes available.",
     "faqTitle": "Frequently Asked Questions",
     "faq": [
-      { "q": "Does a higher score mean a better energy?", "a": "The score shows relative preference within an axis. Both energies can be strengths, and their usefulness depends on the situation." },
-      { "q": "What does a result close to 50–50 mean?", "a": "It suggests that both energies appeared at similar levels in your responses. You may find that you can move between the two approaches more readily depending on context." },
-      { "q": "Can my result change over time?", "a": "Some preferences may feel familiar across time, while roles, environments, and recent experiences can influence how you respond. When you retake the assessment, compare the movement on each axis as well as the profile name." },
-      { "q": "What is the difference between 18 and 72 questions?", "a": "Every length uses the same six axes and 12 energies. Longer versions include a wider set of situations. The 36-question version is the standard format and covers all six contexts evenly." },
-      { "q": "Can I compare my scores with someone else’s?", "a": "Comparisons are most useful as a conversation about different preferences. In a team, the profile can help people discuss how they communicate, decide, and organize their work." },
-      { "q": "Is MYCORE12 a psychological diagnosis?", "a": "MYCORE12 is a preference profile for self-understanding and reflection. For medical or psychological diagnosis, use assessment and consultation provided by qualified professionals." }
+      {
+        "q": "Does a higher score mean a better energy?",
+        "a": "The score shows relative preference within an axis. Both energies can be strengths, and their usefulness depends on the situation."
+      },
+      {
+        "q": "What does a result close to 50–50 mean?",
+        "a": "It suggests that both energies appeared at similar levels in your responses. You may find that you can move between the two approaches more readily depending on context."
+      },
+      {
+        "q": "Can my result change over time?",
+        "a": "Some preferences may feel familiar across time, while roles, environments, and recent experiences can influence how you respond. When you retake the assessment, compare the movement on each axis as well as the profile name."
+      },
+      {
+        "q": "What is the difference between 18 and 72 questions?",
+        "a": "Every length uses the same six axes and 12 energies. Longer versions include a wider set of situations. The 36-question version is the standard format and covers all six contexts evenly."
+      },
+      {
+        "q": "Can I compare my scores with someone else’s?",
+        "a": "Comparisons are most useful as a conversation about different preferences. In a team, the profile can help people discuss how they communicate, decide, and organize their work."
+      },
+      {
+        "q": "Is MYCORE12 a psychological diagnosis?",
+        "a": "MYCORE12 is a preference profile for self-understanding and reflection. For medical or psychological diagnosis, use assessment and consultation provided by qualified professionals."
+      }
     ],
     "exploreTitle": "Explore next",
     "explore": [
-      { "title": "The 12 Energies", "body": "See what each of the six complementary energy pairs brings to different situations", "to": "/energies" },
-      { "title": "How It Works", "body": "Learn how questions, scoring, 64 combinations, and interpretation fit together", "to": "/how" },
-      { "title": "Profile Guide", "body": "Put your results to use in self-reflection, work, relationships, and growth", "to": "/guide" }
+      {
+        "title": "The 12 Energies",
+        "body": "See what each of the six complementary energy pairs brings to different situations",
+        "to": "/energies"
+      },
+      {
+        "title": "How It Works",
+        "body": "Learn how questions, scoring, 64 combinations, and interpretation fit together",
+        "to": "/how"
+      },
+      {
+        "title": "Profile Guide",
+        "body": "Put your results to use in self-reflection, work, relationships, and growth",
+        "to": "/guide"
+      }
     ],
     "ctaTitle": "Explore your 12 energies",
     "ctaBody": "Choose the responses that best match how you have actually been lately to see your six-axis balance and current profile.",
     "ctaButton": "Start Assessment"
   },
-
   "energies": {
     "title": "The 12 Energies That Shape You",
     "lede": "The 12 energies form six complementary pairs. Each pair represents two useful ways of approaching familiar situations. Reading both sides together makes it easier to see what comes naturally and what you can draw on when the context changes.",
@@ -108,45 +154,99 @@
     "noteDisclaimer": "These notes are general reflections shown to everyone. They are not personalized to your results.",
     "axes": [
       {
-        "axis": "Action", "pair": "Initiative × Deliberation",
+        "axis": "Action",
+        "pair": "Initiative × Deliberation",
         "question": "How quickly do you turn a decision into action, and how much do you prefer to examine the situation before you begin?",
-        "a": { "name": "Initiative", "definition": "Creates a starting point and builds momentum quickly. It is especially useful when the direction is clear and movement matters.", "useful": "starting quickly, moving from decision to action, building early momentum, acting on an opportunity" },
-        "b": { "name": "Deliberation", "definition": "Examines conditions and possible effects before moving. It helps you improve timing, notice risks, and reduce overlooked details in complex choices.", "useful": "checking risk, setting priorities, making careful choices, considering longer-term effects" },
+        "a": {
+          "name": "Initiative",
+          "definition": "Creates a starting point and builds momentum quickly. It is especially useful when the direction is clear and movement matters.",
+          "useful": "starting quickly, moving from decision to action, building early momentum, acting on an opportunity"
+        },
+        "b": {
+          "name": "Deliberation",
+          "definition": "Examines conditions and possible effects before moving. It helps you improve timing, notice risks, and reduce overlooked details in complex choices.",
+          "useful": "checking risk, setting priorities, making careful choices, considering longer-term effects"
+        },
         "together": "Initiative gets movement started. Deliberation improves direction and timing. Used together, they help you adjust speed and care to the situation."
       },
       {
-        "axis": "Collaboration", "pair": "Coordination × Autonomy",
+        "axis": "Collaboration",
+        "pair": "Coordination × Autonomy",
         "question": "When working with others, how much do you align the shared flow, and how much do you rely on independent judgment and ownership?",
-        "a": { "name": "Coordination", "definition": "Reads shared goals, roles, and pace to create a workable flow across people. It is useful when several contributors need to stay connected and aligned.", "useful": "aligning roles, coordinating schedules, connecting viewpoints, keeping a group focused on a shared goal" },
-        "b": { "name": "Autonomy", "definition": "Uses independent judgment to carry responsibility forward. It is useful when focused ownership, expertise, and self-directed execution matter.", "useful": "individual ownership, expert judgment, deep focus, independent execution" },
+        "a": {
+          "name": "Coordination",
+          "definition": "Reads shared goals, roles, and pace to create a workable flow across people. It is useful when several contributors need to stay connected and aligned.",
+          "useful": "aligning roles, coordinating schedules, connecting viewpoints, keeping a group focused on a shared goal"
+        },
+        "b": {
+          "name": "Autonomy",
+          "definition": "Uses independent judgment to carry responsibility forward. It is useful when focused ownership, expertise, and self-directed execution matter.",
+          "useful": "individual ownership, expert judgment, deep focus, independent execution"
+        },
         "together": "Coordination strengthens the shared flow. Autonomy strengthens individual ownership and expertise. Together, they support collaboration with both connection and initiative."
       },
       {
-        "axis": "Thinking", "pair": "Creativity × Practicality",
+        "axis": "Thinking",
+        "pair": "Creativity × Practicality",
         "question": "When developing an idea, how much do you explore new possibilities, and how much do you anchor the idea in concrete facts and constraints?",
-        "a": { "name": "Creativity", "definition": "Looks for new possibilities, unexpected connections, and alternative directions. It is useful when the path is open and fresh options need to be generated.", "useful": "idea generation, new approaches, early-stage planning, exploring possibilities for change" },
-        "b": { "name": "Practicality", "definition": "Grounds thinking in observable facts, real conditions, and usable details. It helps turn an idea into something that can be applied in practice.", "useful": "checking feasibility, defining specifications, working through details, building an actionable plan" },
+        "a": {
+          "name": "Creativity",
+          "definition": "Looks for new possibilities, unexpected connections, and alternative directions. It is useful when the path is open and fresh options need to be generated.",
+          "useful": "idea generation, new approaches, early-stage planning, exploring possibilities for change"
+        },
+        "b": {
+          "name": "Practicality",
+          "definition": "Grounds thinking in observable facts, real conditions, and usable details. It helps turn an idea into something that can be applied in practice.",
+          "useful": "checking feasibility, defining specifications, working through details, building an actionable plan"
+        },
         "together": "Creativity expands the possibilities. Practicality brings them into contact with reality. Together, they turn new ideas into workable choices."
       },
       {
-        "axis": "Judgment", "pair": "Analysis × Integration",
+        "axis": "Judgment",
+        "pair": "Analysis × Integration",
         "question": "When reaching a conclusion, how much do you separate and compare the parts, and how much do you connect them within the larger context?",
-        "a": { "name": "Analysis", "definition": "Breaks a problem into components and compares evidence, criteria, and differences. It is useful for identifying causes, trade-offs, and priorities clearly.", "useful": "diagnosing causes, comparing data, setting criteria, finding errors or inconsistencies" },
-        "b": { "name": "Integration", "definition": "Connects multiple factors, relationships, and contextual conditions into a coherent whole. It is useful when decisions depend on how several elements interact.", "useful": "seeing the big picture, complex decision-making, balancing stakeholders, connecting multiple sources of information" },
+        "a": {
+          "name": "Analysis",
+          "definition": "Breaks a problem into components and compares evidence, criteria, and differences. It is useful for identifying causes, trade-offs, and priorities clearly.",
+          "useful": "diagnosing causes, comparing data, setting criteria, finding errors or inconsistencies"
+        },
+        "b": {
+          "name": "Integration",
+          "definition": "Connects multiple factors, relationships, and contextual conditions into a coherent whole. It is useful when decisions depend on how several elements interact.",
+          "useful": "seeing the big picture, complex decision-making, balancing stakeholders, connecting multiple sources of information"
+        },
         "together": "Analysis clarifies the parts. Integration connects the relationships and the whole. Together, they support decisions that account for both evidence and context."
       },
       {
-        "axis": "Relationships", "pair": "Empathy × Clarity",
+        "axis": "Relationships",
+        "pair": "Empathy × Clarity",
         "question": "In communication, how much do you tune in to another person’s feelings and perspective, and how directly do you express your own expectations and boundaries?",
-        "a": { "name": "Empathy", "definition": "Reads feelings and perspective and adjusts tone, timing, and approach accordingly. It is useful when trust and emotional connection matter.", "useful": "listening, emotional support, easing tension, understanding another person’s point of view" },
-        "b": { "name": "Clarity", "definition": "Expresses thoughts, expectations, requests, and boundaries in direct, understandable terms. It is useful when people need a shared understanding of what comes next.", "useful": "giving feedback, setting expectations, making requests, defining boundaries" },
+        "a": {
+          "name": "Empathy",
+          "definition": "Reads feelings and perspective and adjusts tone, timing, and approach accordingly. It is useful when trust and emotional connection matter.",
+          "useful": "listening, emotional support, easing tension, understanding another person’s point of view"
+        },
+        "b": {
+          "name": "Clarity",
+          "definition": "Expresses thoughts, expectations, requests, and boundaries in direct, understandable terms. It is useful when people need a shared understanding of what comes next.",
+          "useful": "giving feedback, setting expectations, making requests, defining boundaries"
+        },
         "together": "Empathy pays attention to how a message may be received. Clarity makes the message itself easier to understand. Together, they support communication that is both considerate and clear."
       },
       {
-        "axis": "Organization", "pair": "Structure × Flexibility",
+        "axis": "Organization",
+        "pair": "Structure × Flexibility",
         "question": "When organizing work, how much do you rely on stable standards and routines, and how readily do you adjust the method when conditions change?",
-        "a": { "name": "Structure", "definition": "Establishes standards, sequences, and commitments and applies them consistently. It is useful for creating dependable quality and predictable execution.", "useful": "setting standards, managing schedules, maintaining quality, running repeatable work reliably" },
-        "b": { "name": "Flexibility", "definition": "Adjusts sequence, method, or pace as conditions change. It is useful when unexpected variables or new needs require a quick response.", "useful": "handling surprises, shifting priorities, managing exceptions, adapting quickly" },
+        "a": {
+          "name": "Structure",
+          "definition": "Establishes standards, sequences, and commitments and applies them consistently. It is useful for creating dependable quality and predictable execution.",
+          "useful": "setting standards, managing schedules, maintaining quality, running repeatable work reliably"
+        },
+        "b": {
+          "name": "Flexibility",
+          "definition": "Adjusts sequence, method, or pace as conditions change. It is useful when unexpected variables or new needs require a quick response.",
+          "useful": "handling surprises, shifting priorities, managing exceptions, adapting quickly"
+        },
         "together": "Structure creates a dependable baseline. Flexibility adapts the approach to current reality. Together, they support both consistency and responsiveness."
       }
     ],
@@ -168,15 +268,23 @@
       "유연": "Flexibility: You find workable alternatives when circumstances change"
     }
   },
-
   "how": {
     "title": "How MYCORE12 Works",
     "lede": "Choose the responses that best reflect how you have actually been lately. MYCORE12 turns those choices into a profile showing how naturally you tend to use 12 positive energies across six paired preference axes. You can leave and resume later in the same browser.",
     "stepsTitle": "The assessment in three steps",
     "steps": [
-      { "title": "Read the situation", "body": "You will see one situation at a time from six contexts: personal life, work and study, relationships, group activities, change and unexpected events, and choices and decisions." },
-      { "title": "Choose the response that feels more natural", "body": "Read two positive responses and use the five-point scale to show which one is closer to how you have actually been lately. Each response is linked to a different energy on that axis." },
-      { "title": "Review your 12-energy profile", "body": "See the balance across six energy pairs, all 12 energy scores, your current pattern among 64 combinations, and practical guidance for using your strengths more broadly." }
+      {
+        "title": "Read the situation",
+        "body": "You will see one situation at a time from six contexts: personal life, work and study, relationships, group activities, change and unexpected events, and choices and decisions."
+      },
+      {
+        "title": "Choose the response that feels more natural",
+        "body": "Read two positive responses and use the five-point scale to show which one is closer to how you have actually been lately. Each response is linked to a different energy on that axis."
+      },
+      {
+        "title": "Review your 12-energy profile",
+        "body": "See the balance across six energy pairs, all 12 energy scores, your current pattern among 64 combinations, and practical guidance for using your strengths more broadly."
+      }
     ],
     "axesTitle": "What do the six axes measure?",
     "axesItems": [
@@ -207,10 +315,22 @@
     ],
     "lengthsTitle": "What changes with assessment length?",
     "lengths": [
-      { "title": "18 Questions — Quick", "body": "A concise look at your core tendencies, using three distinct contexts on each axis." },
-      { "title": "36 Questions — Standard · Recommended", "body": "Each of the six contexts appears once on every axis, giving the standard version an even spread of situations." },
-      { "title": "54 Questions — Detailed", "body": "Adds more situations on each axis for a more nuanced view of your response pattern." },
-      { "title": "72 Questions — In Depth", "body": "Covers each axis and context combination more fully, giving you a broader sample of everyday situations." }
+      {
+        "title": "18 Questions — Quick",
+        "body": "A concise look at your core tendencies, using three distinct contexts on each axis."
+      },
+      {
+        "title": "36 Questions — Standard · Recommended",
+        "body": "Each of the six contexts appears once on every axis, giving the standard version an even spread of situations."
+      },
+      {
+        "title": "54 Questions — Detailed",
+        "body": "Adds more situations on each axis for a more nuanced view of your response pattern."
+      },
+      {
+        "title": "72 Questions — In Depth",
+        "body": "Covers each axis and context combination more fully, giving you a broader sample of everyday situations."
+      }
     ],
     "lengthsNote": "Every length uses the same six axes, 12 energies, and scoring model. Longer versions simply include a wider range of situations.",
     "readingTitle": "What to keep in mind when reading your result",
@@ -228,7 +348,6 @@
     ],
     "cta": "Start Assessment"
   },
-
   "guide": {
     "title": "How to Use Your MYCORE12 Profile",
     "lede": "Your profile becomes more useful when you connect it to real situations. Start with the six axis balances, then use the profile name, strength descriptions, and development guidance as layers of the same picture.",
@@ -236,42 +355,87 @@
     "steps": [
       {
         "title": "Start with the six axes",
-        "body": ["Look at the six paired bars before focusing on the profile name. Two or three axes with wider gaps show the areas where preference appeared more clearly in this assessment. Axes closer to 50–50 show places where both energies appeared at similar levels."],
-        "items": ["Which axis has the widest gap?", "Which axis is most likely to change with the situation?", "Where do I already use both energies at similar levels?"]
+        "body": [
+          "Look at the six paired bars before focusing on the profile name. Two or three axes with wider gaps show the areas where preference appeared more clearly in this assessment. Axes closer to 50–50 show places where both energies appeared at similar levels."
+        ],
+        "items": [
+          "Which axis has the widest gap?",
+          "Which axis is most likely to change with the situation?",
+          "Where do I already use both energies at similar levels?"
+        ]
       },
       {
         "title": "Use the profile name as a headline for the whole pattern",
-        "body": ["The profile name is a concise way to remember your six-axis combination. People with the same name can still have different score patterns and experiences, so use the individual axes for the detailed interpretation."],
+        "body": [
+          "The profile name is a concise way to remember your six-axis combination. People with the same name can still have different score patterns and experiences, so use the individual axes for the detailed interpretation."
+        ],
         "items": []
       },
       {
         "title": "Connect your strengths to specific moments",
-        "body": ["Choose two or three statements from “What Comes Naturally to Me” that feel especially accurate and connect them to recent experience."],
-        "items": ["When did this strength help me in the past month?", "What do other people tend to rely on me for when I use this strength?", "What feels easy to me here that may take more effort for someone else?"]
+        "body": [
+          "Choose two or three statements from “What Comes Naturally to Me” that feel especially accurate and connect them to recent experience."
+        ],
+        "items": [
+          "When did this strength help me in the past month?",
+          "What do other people tend to rely on me for when I use this strength?",
+          "What feels easy to me here that may take more effort for someone else?"
+        ]
       },
       {
         "title": "Use different energies at different stages of work",
-        "body": ["A single task can benefit from different energies as it moves from start to finish."],
-        "items": ["Starting: use Initiative to create movement and Deliberation to check important conditions", "Ideas: use Creativity to expand the options and Practicality to define workable constraints", "Decisions: use Analysis to compare criteria and Integration to connect the wider impact", "Collaboration: use Coordination to align the shared flow and Autonomy to carry ownership forward", "Communication: use Empathy to read perspective and Clarity to make expectations and requests explicit", "Organization: use Structure to maintain a dependable baseline and Flexibility to adapt when conditions change"]
+        "body": [
+          "A single task can benefit from different energies as it moves from start to finish."
+        ],
+        "items": [
+          "Starting: use Initiative to create movement and Deliberation to check important conditions",
+          "Ideas: use Creativity to expand the options and Practicality to define workable constraints",
+          "Decisions: use Analysis to compare criteria and Integration to connect the wider impact",
+          "Collaboration: use Coordination to align the shared flow and Autonomy to carry ownership forward",
+          "Communication: use Empathy to read perspective and Clarity to make expectations and requests explicit",
+          "Organization: use Structure to maintain a dependable baseline and Flexibility to adapt when conditions change"
+        ]
       },
       {
         "title": "Use the profile as language for different good approaches in relationships",
-        "body": ["Different energies can make communication easier to understand. One person may prefer a quick decision while another values more time to examine the situation. One person may first attend to feelings and perspective while another naturally makes expectations explicit."],
-        "items": ["This is the approach that feels most natural to me in this situation", "What approach works best for you?", "How could we combine our strengths through the way we divide roles or sequence the conversation?"]
+        "body": [
+          "Different energies can make communication easier to understand. One person may prefer a quick decision while another values more time to examine the situation. One person may first attend to feelings and perspective while another naturally makes expectations explicit."
+        ],
+        "items": [
+          "This is the approach that feels most natural to me in this situation",
+          "What approach works best for you?",
+          "How could we combine our strengths through the way we divide roles or sequence the conversation?"
+        ]
       },
       {
         "title": "Practice one complementary energy at a time",
-        "body": ["Choose one behavior that would be useful now rather than trying to change every axis at once. Use the “Using My Strengths More Broadly” and “My Growth Roadmap” sections of your result to select a concrete practice."],
-        "items": ["Choose one situation that comes up regularly", "Identify the energy you tend to use first", "Choose one complementary energy that would help", "Write one specific behavior to try next time", "Afterward, note what changed and how it felt"]
+        "body": [
+          "Choose one behavior that would be useful now rather than trying to change every axis at once. Use the “Using My Strengths More Broadly” and “My Growth Roadmap” sections of your result to select a concrete practice."
+        ],
+        "items": [
+          "Choose one situation that comes up regularly",
+          "Identify the energy you tend to use first",
+          "Choose one complementary energy that would help",
+          "Write one specific behavior to try next time",
+          "Afterward, note what changed and how it felt"
+        ]
       },
       {
         "title": "Treat stress signals as early cues",
-        "body": ["Under pressure, a familiar strength can become more repetitive or less flexible. Knowing your common signals in advance can help you notice that shift earlier."],
-        "items": ["Am I relying on only one approach more than usual?", "Has speed, certainty, independence, or consideration become too dominant for the situation?", "Which complementary energy would help restore range right now?"]
+        "body": [
+          "Under pressure, a familiar strength can become more repetitive or less flexible. Knowing your common signals in advance can help you notice that shift earlier."
+        ],
+        "items": [
+          "Am I relying on only one approach more than usual?",
+          "Has speed, certainty, independence, or consideration become too dominant for the situation?",
+          "Which complementary energy would help restore range right now?"
+        ]
       },
       {
         "title": "On a retake, look for movement on the axes",
-        "body": ["The profile name may stay the same while some axis balances move, or the name may change even though most axes remain similar. Compare where each axis moved, how large the shift was, and whether it connects with changes in your recent role, environment, or experience."],
+        "body": [
+          "The profile name may stay the same while some axis balances move, or the name may change even though most axes remain similar. Compare where each axis moved, how large the shift was, and whether it connects with changes in your recent role, environment, or experience."
+        ],
         "items": []
       }
     ],
@@ -292,7 +456,6 @@
     "ctaPrimary": "View My Latest Result",
     "ctaSecondary": "Start a New Assessment"
   },
-
   "nav": {
     "explore": "Explore",
     "footerLabel": "Explore MYCORE12",
@@ -302,11 +465,26 @@
     "guide": "Profile Guide",
     "stories": "Journal"
   },
-
   "meta": {
-    "about": { "title": "About MYCORE12 | A 6-Axis Preference Profile", "description": "Learn how MYCORE12 uses six paired axes, 12 positive energies, and 64 profile patterns for self-understanding and reflection." },
-    "energies": { "title": "The 12 Energies | MYCORE12", "description": "Explore the six complementary energy pairs behind MYCORE12, from Initiative and Deliberation to Structure and Flexibility." },
-    "how": { "title": "How MYCORE12 Works | Scoring and Interpretation", "description": "See how MYCORE12 situational questions, five response positions, scoring, 64 combinations, and assessment lengths work." },
-    "guide": { "title": "How to Use Your MYCORE12 Profile", "description": "Use your MYCORE12 results for self-reflection, work, relationships, collaboration, growth, and meaningful retakes." }
+    "about": {
+      "title": "About MYCORE12 | A 6-Axis Preference Profile",
+      "description": "Learn how MYCORE12 uses six paired axes, 12 positive energies, and 64 profile patterns for self-understanding and reflection."
+    },
+    "energies": {
+      "title": "The 12 Energies | MYCORE12",
+      "description": "Explore the six complementary energy pairs behind MYCORE12, from Initiative and Deliberation to Structure and Flexibility."
+    },
+    "how": {
+      "title": "How MYCORE12 Works | Scoring and Interpretation",
+      "description": "See how MYCORE12 situational questions, five response positions, scoring, 64 combinations, and assessment lengths work."
+    },
+    "guide": {
+      "title": "How to Use Your MYCORE12 Profile",
+      "description": "Use your MYCORE12 results for self-reflection, work, relationships, collaboration, growth, and meaningful retakes."
+    },
+    "changelog": {
+      "title": "Release Notes | MYCORE12",
+      "description": "See recent updates and version history for MYCORE12."
+    }
   }
 }
