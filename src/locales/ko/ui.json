@@ -190,7 +190,8 @@
     "downloadKo": "한국어",
     "downloadEn": "English",
     "downloadMd": "Markdown (.md)",
-    "downloadTxt": "텍스트 (.txt)"
+    "downloadTxt": "텍스트 (.txt)",
+    "backToHome": "처음으로"
   },
   "history": {
     "title": "내 검사 기록",

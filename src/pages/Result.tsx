@@ -10,7 +10,7 @@ import {
   type ProfileType,
   type ScoreResult
 } from "../lib/mycore12";
-import { clearActiveSession, deleteResult, getResult } from "../lib/storage";
+import { deleteResult, getResult } from "../lib/storage";
 import {
   Briefcase, Clock, Compass, FileText, Layers, ListChecks, MessageCircle,
   RefreshCw, Scale, Sparkles, TrendingUp, Users
@@ -122,11 +122,6 @@ export default function Result() {
   const recoveryShown = matched.recoveryStrategies.map(s =>
     dropSentences(s, roadmapSentences)
   );
-
-  const startRetest = () => {
-    clearActiveSession();
-    navigate("/assessment");
-  };
 
   const removeThis = () => {
     if (window.confirm(t.result.deleteConfirm)) {
@@ -433,9 +428,11 @@ export default function Result() {
           </div>
 
           <div className="result-actions">
-            <button className="btn btn-primary" onClick={startRetest}>
-              {t.result.retest}
-            </button>
+            {/* 검사 길이를 다시 고를 수 있도록 검사 화면으로 바로 보내지 않고
+                시작 화면(Home)으로 돌려보낸다 */}
+            <Link className="btn btn-primary" to="/">
+              {t.result.backToHome}
+            </Link>
             <Link className="btn btn-secondary" to="/history">
               {t.result.history}
             </Link>

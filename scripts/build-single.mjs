@@ -56,9 +56,18 @@ html = html
   .replace(/(<link[^>]*rel="icon"[^>]*href=")[^"]*(")/, `$1${iconDataUri}$2`)
   .replace(/(content=")[^"]*brand-mark\.svg(")/g, `$1${iconDataUri}$2`);
 
+/**
+ * ⚠️ .replace(search, replacementString) 형태는 절대 쓰지 않는다.
+ * replacementString 에 "$&" 가 들어 있으면 JS 가 이를 "일치한 부분 문자열
+ * 삽입" 특수 패턴으로 해석해 그 자리를 검색어(search)로 바꿔버린다.
+ * React 의 번들 코드 자체에 "$&" 문자열이 들어 있어(예: key escape 로직의
+ * "$&/" 리터럴), 문자열 치환으로 주입하면 번들이 깨진다 — 실제로 이 버그
+ * 때문에 지금까지의 build:single 산출물이 손상되어 있었다(2026-08-30 발견).
+ * 반드시 replacer **함수**를 써서 반환값을 그대로(패턴 해석 없이) 넣는다.
+ */
 html = html
-  .replace("</head>", `    <style>${css}</style>\n  </head>`)
-  .replace("</body>", `    <script>${js}</script>\n  </body>`);
+  .replace("</head>", () => `    <style>${css}</style>\n  </head>`)
+  .replace("</body>", () => `    <script>${js}</script>\n  </body>`);
 
 writeFileSync(join(OUT, "index.html"), html);
 

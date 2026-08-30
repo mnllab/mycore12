@@ -1,13 +1,13 @@
 {
   "name": "mycore12-webapp",
   "private": true,
-  "version": "7.4.0",
+  "version": "7.4.1",
   "description": "마이코어12(MYCORE12) — 나를 이루는 12가지 에너지 · 6축 기반 성향 프로파일",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:single": "node scripts/build-single.mjs",
+    "build:single": "node scripts/build-single.mjs && vitest run tests/build-single-smoke.test.ts",
     "build:gh": "node scripts/build-gh.mjs",
     "preview": "vite preview",
     "test": "vitest run",

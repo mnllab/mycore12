@@ -190,7 +190,8 @@
     "downloadKo": "Korean",
     "downloadEn": "English",
     "downloadMd": "Markdown (.md)",
-    "downloadTxt": "Text (.txt)"
+    "downloadTxt": "Text (.txt)",
+    "backToHome": "Back to Home"
   },
   "history": {
     "title": "My Assessment History",
