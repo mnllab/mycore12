@@ -669,7 +669,7 @@ svg { display: block; }
   font-size: 13px;
   font-weight: 500;
   line-height: 1.4;
-  color: var(--color-text-secondary);
+  /* 글자색은 컴포넌트에서 응답 톤에 맞춰 지정한다 */
   border-radius: var(--radius-sm);
   transition: color var(--t-fast) ease-out;
 }
@@ -691,7 +691,7 @@ svg { display: block; }
 @media (hover: hover) and (pointer: fine) {
   .scale-h button:hover .dot { box-shadow: 0 0 0 4px var(--color-primary-soft); }
 }
-.scale-h button[aria-checked="true"] { color: var(--color-text); font-weight: 600; }
+.scale-h button[aria-checked="true"] { font-weight: 600; }
 /* 선택은 색이 아니라 형태(내부 채움)로도 구분된다 */
 .scale-h button[aria-checked="true"] .dot {
   border-width: 6px;
@@ -744,7 +744,7 @@ svg { display: block; }
   border: 1px solid var(--color-border-strong);
   border-radius: 8px;
   background: var(--color-surface);
-  color: var(--color-slate);
+  /* 글자색은 컴포넌트에서 응답 톤(A strong ~ B strong)에 맞춰 지정한다 */
   font-size: 15px;
   font-weight: 500;
   line-height: 1.4;
@@ -759,7 +759,6 @@ svg { display: block; }
 .v-opt.on {
   background: var(--color-primary-soft);
   border-color: var(--color-primary);
-  color: var(--color-text);
   font-weight: 600;
 }
 .v-opt-label { min-width: 0; }

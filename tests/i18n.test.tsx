@@ -348,11 +348,11 @@ describe("Assessment UI 는 locale 과 무관하게 유지된다", () => {
     expect(
       [...container.querySelectorAll(".v-opt-label")].map(e => e.textContent)
     ).toEqual([
-      "Very true for me",
-      "Somewhat true for me",
-      "Both are about the same",
-      "Somewhat true for me",
-      "Very true for me"
+      "Much more",
+      "A little more",
+      "About the same",
+      "A little more",
+      "Much more"
     ]);
     setViewport(1024);
   });

@@ -39,7 +39,9 @@
     "infoPatterns": "possible combinations",
     "noRightAnswers": "No right answers",
     "equalValue": "All 12 energies have equal value.",
-    "lengthAria": "Assessment length"
+    "lengthAria": "Assessment length",
+    "startOver": "Start Over",
+    "startOverConfirm": "Discard the assessment in progress and start over? Your answers so far will not be saved."
   },
   "lengths": {
     "18": {
@@ -97,9 +99,9 @@
   },
   "assessment": {
     "prompt": "I usually...",
-    "very": "Very true for me",
-    "somewhat": "Somewhat true for me",
-    "neutral": "Both are about the same",
+    "very": "Much more",
+    "somewhat": "A little more",
+    "neutral": "About the same",
     "previous": "Previous",
     "next": "Next",
     "viewResults": "View Results",

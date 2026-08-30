@@ -8,7 +8,7 @@ import {
   LENGTH_OPTIONS,
   type AssessmentLength
 } from "../lib/draw";
-import { getActiveSession, getLatestResult } from "../lib/storage";
+import { clearActiveSession, getActiveSession, getLatestResult } from "../lib/storage";
 import { useI18n } from "../i18n/useI18n";
 import { localizedTypeByCode } from "../i18n/content";
 
@@ -23,6 +23,17 @@ export default function Home() {
   const [length, setLength] = useState<AssessmentLength>(
     activeSession?.assessmentLength ?? DEFAULT_ASSESSMENT_LENGTH
   );
+
+  /**
+   * 진행 중인 검사를 버리고 처음부터 다시 시작한다.
+   * 되돌릴 수 없는 동작이라 확인을 한 번 받고, 세션을 지운 뒤 검사 화면으로 간다.
+   * (완료된 결과 기록은 건드리지 않는다)
+   */
+  const startOver = () => {
+    if (!window.confirm(t.home.startOverConfirm)) return;
+    clearActiveSession();
+    navigate("/assessment", { state: { length: DEFAULT_ASSESSMENT_LENGTH } });
+  };
 
   return (
     <main className="page-enter">
@@ -99,10 +110,22 @@ export default function Home() {
               >
                 {activeSession ? t.home.resumeButton : t.home.start}
               </button>
-              <Link className="btn btn-secondary" to="/how">
-                {t.home.howButton}
-              </Link>
+              {activeSession ? (
+                <button className="btn btn-secondary" type="button" onClick={startOver}>
+                  {t.home.startOver}
+                </button>
+              ) : (
+                <Link className="btn btn-secondary" to="/how">
+                  {t.home.howButton}
+                </Link>
+              )}
             </div>
+            {activeSession && (
+              <Link className="hero-link" to="/how">
+                {t.home.howButton}
+                <ArrowRight />
+              </Link>
+            )}
 
             {latest && latestType && (
               <Link className="hero-link" to={`/result/${latest.sessionId}`}>

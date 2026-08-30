@@ -39,7 +39,9 @@
     "infoPatterns": "의 고유한 조합 가운데 나의 패턴",
     "noRightAnswers": "정답 없음",
     "equalValue": "모든 에너지는 동등한 강점입니다",
-    "lengthAria": "검사 길이"
+    "lengthAria": "검사 길이",
+    "startOver": "새로 시작하기",
+    "startOverConfirm": "진행 중인 검사를 지우고 새로 시작할까요? 지금까지의 응답은 저장되지 않습니다."
   },
   "lengths": {
     "18": {

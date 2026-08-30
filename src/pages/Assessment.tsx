@@ -194,6 +194,22 @@ export default function Assessment() {
   const dotStyle = (s: { side: "a" | "b" | null }) =>
     s.side ? { color: choiceVar(s.side) } : undefined;
 
+  /**
+   * 응답 문구 색 — 오른쪽 indicator 와 같은 계열로 맞춘다.
+   * 명암 순서: A strong → A soft → 중립 → B soft → B strong
+   * soft 는 같은 색을 보조 텍스트 색과 섞어 한 단계 옅게 만든다(대비는 유지).
+   */
+  const toneTextStyle = (s: { side: "a" | "b" | null; tone: string }) => {
+    if (!s.side) return { color: "var(--color-text-secondary)" };
+    const base = choiceVar(s.side);
+    return {
+      color:
+        s.tone === "strong"
+          ? base
+          : `color-mix(in srgb, ${base} 68%, var(--color-text-secondary))`
+    };
+  };
+
   if (processing) {
     return (
       <>
@@ -272,6 +288,7 @@ export default function Assessment() {
                     aria-pressed={current === s.value}
                     aria-label={ariaFor(s.value)}
                     onClick={() => answer(s.value)}
+                    style={toneTextStyle(s)}
                   >
                     <span
                       className={`dot ${s.tone}`}
@@ -301,6 +318,7 @@ export default function Assessment() {
                     aria-label={ariaFor(s.value)}
                     onClick={() => answer(s.value)}
                     className={`v-opt ${current === s.value ? "on" : ""}`}
+                    style={toneTextStyle(s)}
                   >
                     <span className="v-opt-label">{t.assessment[s.labelKey]}</span>
                     <span

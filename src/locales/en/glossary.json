@@ -5,12 +5,78 @@
     "descriptor": "A 6-Axis Preference Profile"
   },
   "axes": {
-    "action": {"ko": "행동", "en": "Action", "pole1": {"ko": "추진", "en": "Initiative"}, "pole0": {"ko": "숙고", "en": "Deliberation"}},
-    "collaboration": {"ko": "협업", "en": "Collaboration", "pole1": {"ko": "조율", "en": "Coordination"}, "pole0": {"ko": "자율", "en": "Autonomy"}},
-    "ideation": {"ko": "사고", "en": "Thinking", "pole1": {"ko": "창의", "en": "Creativity"}, "pole0": {"ko": "구체", "en": "Practicality"}},
-    "judgment": {"ko": "판단", "en": "Judgment", "pole1": {"ko": "분석", "en": "Analysis"}, "pole0": {"ko": "통합", "en": "Integration"}},
-    "relationship": {"ko": "관계", "en": "Relationships", "pole1": {"ko": "공감", "en": "Empathy"}, "pole0": {"ko": "명료", "en": "Clarity"}},
-    "operation": {"ko": "운영", "en": "Organization", "pole1": {"ko": "원칙", "en": "Structure"}, "pole0": {"ko": "유연", "en": "Flexibility"}}
+    "action": {
+      "ko": "행동",
+      "en": "Action",
+      "pole1": {
+        "ko": "추진",
+        "en": "Initiative"
+      },
+      "pole0": {
+        "ko": "숙고",
+        "en": "Deliberation"
+      }
+    },
+    "collaboration": {
+      "ko": "협업",
+      "en": "Collaboration",
+      "pole1": {
+        "ko": "조율",
+        "en": "Coordination"
+      },
+      "pole0": {
+        "ko": "자율",
+        "en": "Autonomy"
+      }
+    },
+    "ideation": {
+      "ko": "사고",
+      "en": "Thinking",
+      "pole1": {
+        "ko": "창의",
+        "en": "Creativity"
+      },
+      "pole0": {
+        "ko": "구체",
+        "en": "Practicality"
+      }
+    },
+    "judgment": {
+      "ko": "판단",
+      "en": "Judgment",
+      "pole1": {
+        "ko": "분석",
+        "en": "Analysis"
+      },
+      "pole0": {
+        "ko": "통합",
+        "en": "Integration"
+      }
+    },
+    "relationship": {
+      "ko": "관계",
+      "en": "Relationships",
+      "pole1": {
+        "ko": "공감",
+        "en": "Empathy"
+      },
+      "pole0": {
+        "ko": "명료",
+        "en": "Clarity"
+      }
+    },
+    "operation": {
+      "ko": "운영",
+      "en": "Organization",
+      "pole1": {
+        "ko": "원칙",
+        "en": "Structure"
+      },
+      "pole0": {
+        "ko": "유연",
+        "en": "Flexibility"
+      }
+    }
   },
   "contexts": {
     "개인 일상": "Personal Life",
@@ -22,9 +88,9 @@
   },
   "assessment": {
     "prompt": "I usually...",
-    "somewhat": "Somewhat true for me",
-    "very": "Very true for me",
-    "neutral": "Both are about the same",
+    "somewhat": "A little more",
+    "very": "Much more",
+    "neutral": "About the same",
     "previous": "Previous",
     "next": "Next",
     "viewResults": "View Results"

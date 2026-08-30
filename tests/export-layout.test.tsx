@@ -416,3 +416,219 @@ describe("12에너지 라벨 안전 영역", () => {
     expect(check(468, 166, 16), "EnergyMap").toBeGreaterThan(0);
   });
 });
+
+/**
+ * 진행 중인 검사가 있을 때의 시작 화면.
+ * 이어서 진행 / 새로 시작 두 갈래를 모두 제공한다.
+ */
+describe("진행 중 검사와 새로 시작하기", () => {
+  const startAssessment = (container: HTMLElement) => {
+    fireEvent.click(screen.getByRole("button", { name: "검사 시작" }));
+    fireEvent.click(
+      container.querySelectorAll(".v-scale .v-opt, .scale-h [role=radio]")[1]
+    );
+  };
+
+  it("진행 중이면 이어서 진행 / 새로 시작 버튼이 함께 보인다", () => {
+    const first = renderAt("/");
+    startAssessment(first.container);
+    cleanup();
+
+    renderAt("/");
+    expect(screen.getByRole("button", { name: "이어서 진행하기" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "새로 시작하기" })).toBeTruthy();
+    // 검사 방식 안내 링크도 계속 접근 가능하다
+    expect(screen.getByRole("link", { name: /검사 방식 알아보기/ })).toBeTruthy();
+  });
+
+  it("진행 중이 아니면 새로 시작 버튼을 보여주지 않는다", () => {
+    renderAt("/");
+    expect(screen.queryByRole("button", { name: "새로 시작하기" })).toBeNull();
+    expect(screen.getByRole("button", { name: "검사 시작" })).toBeTruthy();
+  });
+
+  it("확인을 취소하면 기존 세션이 그대로 유지된다", () => {
+    const first = renderAt("/");
+    startAssessment(first.container);
+    const before = storage.getActiveSession()!;
+    cleanup();
+
+    const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(false);
+    renderAt("/");
+    fireEvent.click(screen.getByRole("button", { name: "새로 시작하기" }));
+
+    const after = storage.getActiveSession()!;
+    expect(after.sessionId).toBe(before.sessionId);
+    expect(after.questionIds).toEqual(before.questionIds);
+    expect(after.answers).toEqual(before.answers);
+    confirmSpy.mockRestore();
+  });
+
+  it("확인하면 기존 세션이 사라지고 새 검사가 시작된다", () => {
+    const first = renderAt("/");
+    startAssessment(first.container);
+    const before = storage.getActiveSession()!;
+    expect(Object.keys(before.answers)).toHaveLength(1);
+    cleanup();
+
+    const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(true);
+    renderAt("/");
+    fireEvent.click(screen.getByRole("button", { name: "새로 시작하기" }));
+
+    const after = storage.getActiveSession()!;
+    expect(after.sessionId).not.toBe(before.sessionId);
+    expect(after.answers).toEqual({});
+    expect(after.assessmentLength).toBe(36);
+    confirmSpy.mockRestore();
+  });
+
+  it("완료된 결과 기록은 지우지 않는다", () => {
+    const stored = buildResult(2);
+    const firstHome = renderAt("/");
+    startAssessment(firstHome.container);
+    cleanup();
+
+    const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(true);
+    renderAt("/");
+    fireEvent.click(screen.getByRole("button", { name: "새로 시작하기" }));
+
+    const results = storage.getResults();
+    expect(results).toHaveLength(1);
+    expect(results[0].sessionId).toBe(stored.sessionId);
+    confirmSpy.mockRestore();
+  });
+
+  it("English 화면에서도 두 버튼이 영문으로 나온다", () => {
+    store.set("mycore12.locale.v1", "en");
+    const first = renderAt("/");
+    fireEvent.click(screen.getByRole("button", { name: "Start Assessment" }));
+    fireEvent.click(
+      first.container.querySelectorAll(".v-scale .v-opt, .scale-h [role=radio]")[1]
+    );
+    cleanup();
+
+    renderAt("/");
+    expect(screen.getByRole("button", { name: "Resume Assessment" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Start Over" })).toBeTruthy();
+  });
+});
+
+/**
+ * 응답 버튼의 문구와 색.
+ * 값(1~5)·side·tone 구조는 그대로 두고 표시만 다룬다.
+ */
+describe("응답 버튼 문구와 톤 색상", () => {
+  /** 이 파일 기본은 넓은 화면이라 모바일 UI 검사에서만 좁은 화면으로 바꾼다 */
+  const setNarrow = (narrow: boolean) => {
+    Object.defineProperty(globalThis, "matchMedia", {
+      configurable: true,
+      writable: true,
+      value: (q: string) => ({
+        matches: q.includes("min-width: 700px") ? !narrow : narrow,
+        media: q,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        addListener: () => {},
+        removeListener: () => {}
+      })
+    });
+  };
+  beforeEach(() => setNarrow(true));
+  afterEach(() => setNarrow(false));
+
+  const A_STRONG = "var(--choice-a)";
+  const B_STRONG = "var(--choice-b)";
+  const A_SOFT = "color-mix(in srgb, var(--choice-a) 68%, var(--color-text-secondary))";
+  const B_SOFT = "color-mix(in srgb, var(--choice-b) 68%, var(--color-text-secondary))";
+  const NEUTRAL = "var(--color-text-secondary)";
+
+  it("영어 모바일 문구가 Much more / A little more / About the same 이다", () => {
+    store.set("mycore12.locale.v1", "en");
+    const { container } = renderAt("/assessment");
+    expect(
+      [...container.querySelectorAll(".v-opt-label")].map(e => e.textContent)
+    ).toEqual([
+      "Much more",
+      "A little more",
+      "About the same",
+      "A little more",
+      "Much more"
+    ]);
+  });
+
+  it("한국어 문구는 그대로 유지된다", () => {
+    const { container } = renderAt("/assessment");
+    expect(
+      [...container.querySelectorAll(".v-opt-label")].map(e => e.textContent)
+    ).toEqual([
+      "매우 그렇다",
+      "약간 그렇다",
+      "둘 다 비슷하다",
+      "약간 그렇다",
+      "매우 그렇다"
+    ]);
+  });
+
+  it("모바일 5개 버튼 글자색이 indicator 톤 순서를 따른다 (ko/en 동일)", () => {
+    for (const loc of ["ko", "en"]) {
+      store.clear();
+      store.set("mycore12.locale.v1", loc);
+      const { container, unmount } = renderAt("/assessment");
+      const opts = [...container.querySelectorAll(".v-opt")] as HTMLElement[];
+      expect(opts, loc).toHaveLength(5);
+      expect(opts.map(o => o.style.color), loc).toEqual([
+        A_STRONG,
+        A_SOFT,
+        NEUTRAL,
+        B_SOFT,
+        B_STRONG
+      ]);
+      // indicator 자체의 대칭 구조는 그대로다
+      const dots = [...container.querySelectorAll(".v-dot")] as HTMLElement[];
+      expect(dots.map(d => d.className.replace("v-dot ", "")), loc).toEqual([
+        "strong",
+        "soft",
+        "neutral",
+        "soft",
+        "strong"
+      ]);
+      unmount();
+    }
+  });
+
+  it("데스크톱 척도 문구 색도 같은 톤 순서를 따른다", () => {
+    setNarrow(false);
+    const { container } = renderAt("/assessment");
+    const buttons = [...container.querySelectorAll('.scale-h [role="radio"]')] as HTMLElement[];
+    expect(buttons).toHaveLength(5);
+    expect(buttons.map(b => b.style.color)).toEqual([
+      A_STRONG,
+      A_SOFT,
+      NEUTRAL,
+      B_SOFT,
+      B_STRONG
+    ]);
+  });
+
+  it("응답값 1~5 의미는 문구·색 변경과 무관하게 그대로다", () => {
+    for (const loc of ["ko", "en"]) {
+      for (let i = 0; i < 5; i++) {
+        store.clear();
+        store.set("mycore12.locale.v1", loc);
+        const { container, unmount } = renderAt("/assessment");
+        const id = storage.getActiveSession()!.questionIds[0];
+        fireEvent.click(container.querySelectorAll(".v-scale .v-opt")[i]);
+        expect(storage.getActiveSession()!.answers[id], `${loc} ${i}`).toBe(i + 1);
+        unmount();
+      }
+    }
+  });
+
+  it("선택 상태에서도 글자색이 톤 색을 유지한다 (CSS 가 덮지 않는다)", () => {
+    const css = readFileSync(join(__dirname, "../src/styles/global.css"), "utf8");
+    const on = css.match(/^\.v-opt\.on \{[^}]*\}/m)![0];
+    expect(/(^|[\s;])color:/m.test(on), on).toBe(false);
+    const base = css.match(/^\.v-opt \{[^}]*\}/m)![0];
+    expect(/(^|[\s;])color:\s*var\(--color-slate\)/m.test(base)).toBe(false);
+  });
+});
