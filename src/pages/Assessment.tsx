@@ -210,6 +210,26 @@ export default function Assessment() {
     };
   };
 
+  /**
+   * 방향 기호 — value 는 절대 바뀌지 않고 화면 표시만 바뀐다.
+   *   위(모바일)/왼쪽(데스크톱) = optionA 쪽 → ▲ / ◀
+   *   아래(모바일)/오른쪽(데스크톱) = optionB 쪽 → ▼ / ▶
+   *   중립 = ●
+   * 강도(strong/soft)는 같은 글자를 CSS 크기·색 농도로만 구분하고,
+   * 글자 자체를 다른 문자로 바꾸지 않는다.
+   */
+  const verticalGlyph = (side: "a" | "b" | null) =>
+    side === "a" ? "▲" : side === "b" ? "▼" : "●";
+  const horizontalGlyph = (side: "a" | "b" | null) =>
+    side === "a" ? "◀" : side === "b" ? "▶" : "●";
+
+  /** 선택한 방향의 보기 문장 박스에 아주 은은한 강조를 준다 (가운데 선택 시 둘 다 기본) */
+  const leanClass = (side: "a" | "b") =>
+    (side === "a" && current !== undefined && current <= 2) ||
+    (side === "b" && current !== undefined && current >= 4)
+      ? `lean-${side}`
+      : "";
+
   if (processing) {
     return (
       <>
@@ -259,6 +279,10 @@ export default function Assessment() {
       </div>
 
       <div className="shell assess-body">
+        {/* 문항마다 반복되지 않는 상단 안내 — q-card 는 문항마다 다시 그려지지만
+            이 문단은 그 바깥에 있어 화면에 한 번만 나타난다 */}
+        <p className="assess-instruction">{t.assessment.instruction}</p>
+
         <div className="q-card page-enter" key={q.id}>
           <h1 className="q-scenario">{q.scenario}</h1>
           <p className="q-prompt">{q.prompt}</p>
@@ -267,11 +291,11 @@ export default function Assessment() {
             /* ── 가로폭이 넉넉할 때: 보기 좌우 + 척도 좌우 ── */
             <div className="choice-h">
               <div className="choice-pair">
-                <div className={`choice-card ${current && current <= 2 ? "lean" : ""}`}>
+                <div className={`choice-card ${leanClass("a")}`}>
                   <Check className="check" size={20} />
                   <span style={{ color: textColor("a") }}>{q.optionA}</span>
                 </div>
-                <div className={`choice-card ${current && current >= 4 ? "lean" : ""}`}>
+                <div className={`choice-card ${leanClass("b")}`}>
                   <Check className="check" size={20} />
                   <span style={{ color: textColor("b") }}>{q.optionB}</span>
                 </div>
@@ -294,8 +318,9 @@ export default function Assessment() {
                       className={`dot ${s.tone}`}
                       style={dotStyle(s)}
                       aria-hidden="true"
-                    />
-                    <span className="cap">{t.assessment[s.labelKey]}</span>
+                    >
+                      {horizontalGlyph(s.side)}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -304,7 +329,7 @@ export default function Assessment() {
             /* ── 좁을 때: 보기 문장을 위아래 끝에 두고 5단 응답을 한 열로 ──
                화면 위→아래 순서가 응답값 1,2,3,4,5 와 그대로 대응한다. */
             <div className="choice-v" role="radiogroup" aria-label={groupLabel}>
-              <p className="v-text" style={{ color: textColor("a") }}>
+              <p className={`v-text ${leanClass("a")}`} style={{ color: textColor("a") }}>
                 {q.optionA}
               </p>
 
@@ -320,17 +345,18 @@ export default function Assessment() {
                     className={`v-opt ${current === s.value ? "on" : ""}`}
                     style={toneTextStyle(s)}
                   >
-                    <span className="v-opt-label">{t.assessment[s.labelKey]}</span>
                     <span
                       className={`v-dot ${s.tone}`}
                       style={dotStyle(s)}
                       aria-hidden="true"
-                    />
+                    >
+                      {verticalGlyph(s.side)}
+                    </span>
                   </button>
                 ))}
               </div>
 
-              <p className="v-text" style={{ color: textColor("b") }}>
+              <p className={`v-text ${leanClass("b")}`} style={{ color: textColor("b") }}>
                 {q.optionB}
               </p>
             </div>

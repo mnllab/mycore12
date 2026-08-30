@@ -345,15 +345,10 @@ describe("Assessment UI 는 locale 과 무관하게 유지된다", () => {
       "var(--choice-b)",
       "var(--choice-b)"
     ]);
+    // 강도 설명 텍스트는 화면에 없다 — 방향 기호(▲/▼/●)만 표시한다
     expect(
-      [...container.querySelectorAll(".v-opt-label")].map(e => e.textContent)
-    ).toEqual([
-      "Much more",
-      "A little more",
-      "About the same",
-      "A little more",
-      "Much more"
-    ]);
+      [...container.querySelectorAll(".v-dot")].map(e => e.textContent)
+    ).toEqual(["▲", "▲", "●", "▼", "▼"]);
     setViewport(1024);
   });
 

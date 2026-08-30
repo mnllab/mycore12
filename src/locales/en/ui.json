@@ -116,7 +116,8 @@
     "ariaVeryB": "{option} — much closer to me",
     "scaleMuch": "Much more",
     "scaleLittle": "A little more",
-    "scaleSame": "About the same"
+    "scaleSame": "About the same",
+    "instruction": "Choose the option that feels closer to your usual self."
   },
   "result": {
     "resultLabel": "MYCORE12 Result",

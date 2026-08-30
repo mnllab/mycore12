@@ -116,7 +116,8 @@
     "ariaVeryB": "{option} — 많이 더 가깝다",
     "scaleMuch": "많이",
     "scaleLittle": "조금",
-    "scaleSame": "비슷"
+    "scaleSame": "비슷",
+    "instruction": "평소의 나와 가까운 쪽을 선택해 주세요."
   },
   "result": {
     "resultLabel": "마이코어12 결과",

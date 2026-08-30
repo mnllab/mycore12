@@ -542,31 +542,35 @@ describe("응답 버튼 문구와 톤 색상", () => {
   const B_SOFT = "color-mix(in srgb, var(--choice-b) 68%, var(--color-text-secondary))";
   const NEUTRAL = "var(--color-text-secondary)";
 
-  it("영어 모바일 문구가 Much more / A little more / About the same 이다", () => {
-    store.set("mycore12.locale.v1", "en");
-    const { container } = renderAt("/assessment");
-    expect(
-      [...container.querySelectorAll(".v-opt-label")].map(e => e.textContent)
-    ).toEqual([
-      "Much more",
-      "A little more",
-      "About the same",
-      "A little more",
-      "Much more"
-    ]);
+  it("화면에는 언어와 무관하게 방향 기호만 표시되고, 접근성 설명은 언어별로 다르다", () => {
+    for (const loc of ["ko", "en"]) {
+      store.clear();
+      store.set("mycore12.locale.v1", loc);
+      const { container, unmount } = renderAt("/assessment");
+      const opts = [...container.querySelectorAll(".v-scale .v-opt")];
+      // 기호(▲▲●▼▼)는 번역되지 않는다 — ko/en 어느 쪽이든 동일하다
+      expect(opts.map(o => o.querySelector(".v-dot")!.textContent), loc).toEqual([
+        "▲", "▲", "●", "▼", "▼"
+      ]);
+      // 화면 텍스트에 강도 설명 문구가 없다 (ko/en 어느 쪽 문구도)
+      for (const w of ["Much more", "A little more", "About the same", "매우 그렇다", "약간 그렇다", "둘 다 비슷하다"]) {
+        expect(container.textContent!.includes(w), `${loc}: ${w}`).toBe(false);
+      }
+      unmount();
+    }
   });
 
-  it("한국어 문구는 그대로 유지된다", () => {
-    const { container } = renderAt("/assessment");
-    expect(
-      [...container.querySelectorAll(".v-opt-label")].map(e => e.textContent)
-    ).toEqual([
-      "매우 그렇다",
-      "약간 그렇다",
-      "둘 다 비슷하다",
-      "약간 그렇다",
-      "매우 그렇다"
-    ]);
+  it("스크린리더용 aria-label 은 언어별로 다르게 유지된다", () => {
+    store.set("mycore12.locale.v1", "en");
+    const en = renderAt("/assessment");
+    const enLabel = en.container.querySelectorAll(".v-scale .v-opt")[2].getAttribute("aria-label");
+    expect(enLabel).toBe("Both are about the same");
+    cleanup();
+
+    store.set("mycore12.locale.v1", "ko");
+    const ko = renderAt("/assessment");
+    const koLabel = ko.container.querySelectorAll(".v-scale .v-opt")[2].getAttribute("aria-label");
+    expect(koLabel).toBe("둘 다 비슷하다");
   });
 
   it("모바일 5개 버튼 글자색이 indicator 톤 순서를 따른다 (ko/en 동일)", () => {

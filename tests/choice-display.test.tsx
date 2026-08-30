@@ -97,12 +97,14 @@ describe("검사 화면 표시 규칙", () => {
     setViewport(1024);
   });
 
-  it("2) 중립 문구가 '둘 다 비슷하다'이다", () => {
+  it("2) 중립은 화면에 ● 기호로 표시되고 접근성 설명은 '둘 다 비슷하다'이다", () => {
     setViewport(375);
     const { container } = renderAt("/assessment");
-    const labels = [...container.querySelectorAll(".v-opt-label")].map(e => e.textContent);
-    expect(labels[2]).toBe("둘 다 비슷하다");
+    const opts = [...container.querySelectorAll(".v-scale .v-opt")];
+    expect(opts[2].querySelector(".v-dot")!.textContent).toBe("●");
+    expect(opts[2].getAttribute("aria-label")).toBe("둘 다 비슷하다");
     expect(container.textContent).not.toContain("둘 다 비슷해요");
+    expect(container.textContent).not.toContain("둘 다 비슷하다");
     setViewport(1024);
   });
 

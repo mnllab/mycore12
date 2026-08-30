@@ -1,7 +1,7 @@
 {
   "name": "mycore12-webapp",
   "private": true,
-  "version": "7.3.0",
+  "version": "7.4.0",
   "description": "마이코어12(MYCORE12) — 나를 이루는 12가지 에너지 · 6축 기반 성향 프로파일",
   "type": "module",
   "scripts": {

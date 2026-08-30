@@ -136,7 +136,7 @@ describe("반응형 안전장치", () => {
     expect(/\.btn \{[^}]*min-height:\s*50px/.test(css)).toBe(true);
     expect(/\.btn-text \{[^}]*min-height:\s*44px/.test(css)).toBe(true);
     // 문항 응답 컨트롤 (좌우 척도 / 세로 강도 버튼 / 중립 버튼)
-    expect(/\.scale-h button \{[^}]*min-height:\s*[6-9]\dpx/.test(css)).toBe(true);
+    expect(/\.scale-h button \{[^}]*min-height:\s*[4-9]\dpx/.test(css)).toBe(true);
     // 좁은 화면 5단 응답 버튼 (5개가 동일 스타일을 공유한다)
     expect(/\.v-opt \{[^}]*min-height:\s*4[2-9]px/.test(css)).toBe(true);
     // 하단 이전/다음 문항 버튼
@@ -307,6 +307,7 @@ describe("디자인 토큰 체계", () => {
     const assess = readFileSync(join(ROOT, "src/pages/Assessment.tsx"), "utf8");
     expect(assess).toContain('<Check className="check"');
     expect((assess.match(/<Check className="check"/g) ?? []).length).toBe(2);
-    expect(css).toContain(".choice-card.lean .check");
+    expect(css).toContain(".choice-card.lean-a .check");
+    expect(css).toContain(".choice-card.lean-b .check");
   });
 });

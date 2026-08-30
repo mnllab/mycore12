@@ -225,10 +225,15 @@ describe("검사 화면", () => {
     const scale = container.querySelector(".scale-h")!;
     expect(scale.querySelectorAll('[role="radio"]')).toHaveLength(5);
     expect(pair.compareDocumentPosition(scale) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    expect([...scale.querySelectorAll(".cap")].map(c => c.textContent)).toEqual([
-      // 좁은 화면과 동일한 문구를 쓴다
-      "매우 그렇다", "약간 그렇다", "둘 다 비슷하다", "약간 그렇다", "매우 그렇다"
+    // 강도 설명 텍스트 대신 방향 기호(◀/▶/●)만 표시한다. 큰/작은은 같은 글자를
+    // CSS 크기로만 구분하므로 textContent 는 5개 모두 같은 문자 집합이다.
+    expect([...scale.querySelectorAll(".dot")].map(d => d.textContent)).toEqual([
+      "◀", "◀", "●", "▶", "▶"
     ]);
+    // 화면에 강도 설명 문구를 새로 노출하지 않는다
+    for (const w of ["매우 그렇다", "약간 그렇다", "Much more", "A little more"]) {
+      expect(scale.textContent!.includes(w), w).toBe(false);
+    }
   });
 
   it("좁은 화면: 보기 문장이 위아래 끝이고 그 사이에 5단 응답이 한 열로 놓인다", () => {
@@ -253,13 +258,13 @@ describe("검사 화면", () => {
     // 두 문장 사이에 응답 버튼 5개가 한 열로 들어간다
     const opts = wrap.querySelectorAll(".v-scale .v-opt");
     expect(opts).toHaveLength(5);
-    expect([...opts].map(b => b.querySelector(".v-opt-label")!.textContent)).toEqual([
-      "매우 그렇다",
-      "약간 그렇다",
-      "둘 다 비슷하다",
-      "약간 그렇다",
-      "매우 그렇다"
+    // 강도 설명 텍스트 대신 방향 기호(▲/▼/●)만 표시한다
+    expect([...opts].map(b => b.querySelector(".v-dot")!.textContent)).toEqual([
+      "▲", "▲", "●", "▼", "▼"
     ]);
+    for (const w of ["매우 그렇다", "약간 그렇다", "Much more", "A little more"]) {
+      expect(wrap.textContent!.includes(w), w).toBe(false);
+    }
     // 중립만 다른 컴포넌트를 쓰지 않는다
     expect(container.querySelector(".v-mid")).toBeNull();
     expect(container.querySelectorAll(".v-card")).toHaveLength(0);
