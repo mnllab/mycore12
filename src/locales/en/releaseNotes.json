@@ -1,5 +1,15 @@
 [
   {
+    "version": "7.7",
+    "date": "2026-08-31",
+    "text": "Moved the visitor counter to a more durable hosting service (Cloudflare)."
+  },
+  {
+    "version": "7.6",
+    "date": "2026-08-30",
+    "text": "Started showing total visitor and assessment-completion counts at the bottom of the page, and prepared a move to a more durable counting service for the long run."
+  },
+  {
     "version": "7.5",
     "date": "2026-08-30",
     "text": "Added a data reset button to the start screen, letting you choose to delete everything or just the assessment in progress."

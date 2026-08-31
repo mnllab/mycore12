@@ -23,7 +23,9 @@
     "infoMenuAria": "안내 메뉴",
     "principle": "검사 원리",
     "localeAria": "언어 선택",
-    "updates": "업데이트 내역"
+    "updates": "업데이트 내역",
+    "visitorsLabel": "누적 방문자 {count}명",
+    "assessmentsLabel": "검사 완료 {count}건"
   },
   "home": {
     "lede": "일상에서 마주하는 상황에 답하면, 여섯 개의 상대선호 축 위에서 내가 자연스럽게 쓰는 12가지 에너지의 균형을 하나의 프로파일로 읽을 수 있습니다.",
@@ -104,7 +106,9 @@
     "p5": "이때에도 마이코어12의 검사 응답과 결과 데이터는 광고 타기팅 정보로 제공하지 않습니다.",
     "p6": "광고 관련 동의와 설정은 Google의 동의 메시지와 브라우저 설정, 아래 Google 광고 설정에서 관리할 수 있습니다.",
     "linkPartnerSites": "Google의 파트너 사이트 데이터 사용 안내",
-    "linkAdCenter": "Google 광고 설정"
+    "linkAdCenter": "Google 광고 설정",
+    "countingTitle": "방문자 수 집계",
+    "countingBody": "이 사이트는 방문자 수와 검사 완료 건수를 화면에 보여주기 위해 외부 카운터 서비스에 짧은 요청을 보냅니다. 이 요청에는 페이지가 열렸다는 신호와 숫자를 세기 위한 값만 포함되며, 이름·검사 응답·결과 내용 같은 개인 식별 정보는 전송되지 않습니다."
   },
   "assessment": {
     "prompt": "나는 보통...",
